@@ -67,9 +67,9 @@ main {
 
 .enviar {
     padding: 10px;
-    transform: scale(1);
+    transition: all 0.3s ease;
 }
 
 .enviar:hover {
-    
+    transform: translateX(-9px); 
 }
