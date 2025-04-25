@@ -5,15 +5,16 @@
 }
 
 #navbar {
-    height: 7vh;
+    height: 10vh;
     background-color: #f1edaa;
+    display: flex;
 }
 
 #navbar input {
     background-color: white;
     border-radius: 10px;
     color: black;
-    width: 40%;
+    width: 80%;
 }
 
 #rodape {
@@ -39,10 +40,10 @@
     transform: scale(1.1); 
 }
 
-.cabeca {
+.pesquisa {
+    padding: 20px;
+}
+.bairro {
     padding: 20px;
 }
 
-.cabeca a {
-    /* falta fazer */
-}
