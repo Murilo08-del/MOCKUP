@@ -35,7 +35,7 @@ main {
  
 #navbar {
     padding: 5vh;
-    background-color: #35a8a8;
+    background-color: #f1edaa;
 }
 
 #rodape {
@@ -43,7 +43,7 @@ main {
     bottom: 0;
     position: fixed;
     padding: 5vh;
-    background-color: #35a8a8;
+    background-color: #f1edaa;
 }
 
 .entrar {   
@@ -67,4 +67,9 @@ main {
 
 .enviar {
     padding: 10px;
+    transform: scale(1);
+}
+
+.enviar:hover {
+    
 }
