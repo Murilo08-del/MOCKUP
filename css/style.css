@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+main {
+    padding: 100px;
+}
+.textlogin {
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.imagem img {
+    display: block;
+    margin: auto;
+    justify-content: center;
+    height: 100px;
+}
+
+#conta {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#conta input {
+    height: 30px;
+    border-radius: 10px; 
+    margin: 10px;
+}
+ 
+#navbar {
+    padding: 5vh;
+    background-color: #35a8a8;
+}
+
+#rodape {
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    padding: 5vh;
+    background-color: #35a8a8;
+}
+
+.entrar {   
+    color: white;
+    border-radius: 10px;
+    width: 100px;
+    background-color: blue;
+    border: none;
+    padding: 6px;
+}
+
+.user {
+    margin-left: 10px;
+    display: flex;
+}
+
+.password {
+    margin-left: 10px;
+    display: flex;
+}
+
+.enviar {
+    padding: 10px;
+}
