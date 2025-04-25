@@ -5,7 +5,7 @@
 }
 
 #navbar {
-    padding: 3vh;
+    height: 7vh;
     background-color: #f1edaa;
 }
 
@@ -13,13 +13,36 @@
     background-color: white;
     border-radius: 10px;
     color: black;
-    width: 70%;
+    width: 40%;
 }
 
 #rodape {
     width: 100%;
     bottom: 0;
     position: fixed;
-    padding: 3vh;
+    height: 7vh;
     background-color: #f1edaa;
+    align-items: center;
+    justify-content: center;
+}
+
+#icones {
+    margin: 20px;
+    font-size: 33px;
+    display: flex;
+    gap: 70px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+#icones:hover {
+    transform: scale(1.1); 
+}
+
+.cabeca {
+    padding: 20px;
+}
+
+.cabeca a {
+    /* falta fazer */
 }

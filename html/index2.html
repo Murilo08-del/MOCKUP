@@ -12,19 +12,39 @@
 <body>
     <header>
         <nav id="navbar">
-            <i class="bi bi-search"></i> <input type="text" required>
-            <a href="../html/index.html">
-                <i class="bi bi-house-door"></i>
-            </a>
+            <section class="cabeca">
+                <i class="bi bi-search"></i> <input type="text" required>
+                <a href="../html/index.html">
+                    <i class="bi bi-house-door"></i>
+                </a>
+                <div class="form-group">
+                    <label for="tipo">Tipo:*</label>
+                    <select id="tipo" required>
+                        <option value="">Selecione...</option>
+                        <option value="notebook">Notebook</option>
+                        <option value="desktop">Desktop</option>
+                    </select>
+                </div>
+            </section>
         </nav>
     </header>
 
     <main>
-
+        
     </main>
 
     <footer>
-        <section id="rodape"></section>
+        <div class="flexivel">
+            <section id="rodape">
+                <section id="icones">
+                    <i class="bi bi-geo-alt"></i>
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <i class="bi bi-bar-chart-line"></i>
+                    <i class="bi bi-bell"></i>
+
+                </section>
+            </section>
+        </div>
     </footer>
 
 </body>
