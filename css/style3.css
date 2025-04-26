@@ -6,14 +6,37 @@
     box-sizing: border-box;
 }
 
+#navbar {
+    height: 10vh;
+    background-color: #f1edaa;
+    display: flex;
+}
+
 #rodape {
     width: 100%;
     bottom: 0;
     position: fixed;
-    height: 7vh;
+    height: 10vh;
     background-color: #f1edaa;
     align-items: center;
     justify-content: center;
+}
+
+.flexivel {
+    display: flex;
+}
+
+#icones {
+    margin: 20px;
+    font-size: 33px;
+    display: flex;
+    gap: 70px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+#icones:hover {
+    transform: scale(1.1); 
 }
 
 }
