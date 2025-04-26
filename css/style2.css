@@ -47,4 +47,21 @@
     .bairro {
         padding: 20px;
     }
+
+    .flexivel {
+        display: flex;
+    }
+
+    .block1 {
+        margin-top: 100px;
+        background-color: rgb(151, 148, 148);
+        width: 50vw;
+        height: 15vh;
+        box-shadow: 0 4px 8px rgba(0,0,0, 0.2) ;
+    }
+
+    .block1 i {
+        font-size: 30px;
+    }
 }
+

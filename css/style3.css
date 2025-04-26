@@ -1,0 +1,19 @@
+@media(max-width: 400px) {
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#rodape {
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    height: 7vh;
+    background-color: #f1edaa;
+    align-items: center;
+    justify-content: center;
+}
+
+}
