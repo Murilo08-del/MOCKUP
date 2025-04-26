@@ -73,3 +73,82 @@ main {
 .enviar:hover {
     transform: scale(1.1); 
 }
+
+@media(max-width:400) {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    main {
+        padding: 100px;
+    }
+    .textlogin {
+        padding: 50px;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .imagem img {
+        display: block;
+        margin: auto;
+        justify-content: center;
+        height: 100px;
+    }
+    
+    #conta {
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    
+    #conta input {
+        height: 30px;
+        border-radius: 10px; 
+        margin: 10px;
+    }
+     
+    #navbar {
+        height: 7vh;
+        background-color: #f1edaa;
+    }
+    
+    #rodape {
+        width: 100%;
+        bottom: 0;
+        position: fixed;
+        height: 7vh;
+        background-color: #f1edaa;
+    }
+    
+    .entrar {   
+        color: white;
+        border-radius: 10px;
+        width: 100px;
+        background-color: blue;
+        border: none;
+        padding: 6px;
+    }
+    
+    .user {
+        margin-left: 10px;
+        display: flex;
+    }
+    
+    .password {
+        margin-left: 10px;
+        display: flex;
+    }
+    
+    .enviar {
+        padding: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .enviar:hover {
+        transform: scale(1.1); 
+    }
+    
+}
