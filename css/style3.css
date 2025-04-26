@@ -10,7 +10,9 @@
     height: 10vh;
     background-color: #f1edaa;
     display: flex;
+    gap: 100px;
 }
+
 
 #rodape {
     width: 100%;
@@ -39,4 +41,31 @@
     transform: scale(1.1); 
 }
 
+#ajustar { /*Ajustar lá para baixo, ou outros */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    height: 10vh;
+    width: 60vw;
+    border-radius: 100px;
+    box-shadow: 0 4px 8px rgba(0,0,0, 0.2) ;
+    transition: all 0.3s ease;
+}
+
+#ajustar:hover {
+    transform: scale(1.1); 
+}
+
+.navegacao {
+    margin-left: 10px;
+    padding-top: 30px;
+}
+
+.nomeR {    
+    gap: 100px;
+    display: flex;
+    padding-top: 30px;
+}
 }
