@@ -33,12 +33,6 @@
     font-size: 7vw;
     display: flex;
     gap: 20vw;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-#icones:hover {
-    transform: scale(1.1); 
 }
 
 #ajustar { /*Ajustar lá para baixo, ou outros */

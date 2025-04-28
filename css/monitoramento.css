@@ -13,7 +13,7 @@
         gap: 40vw;
     } 
 
-    .navegação {
+    .navegacao {
         margin-left: 3vw;
         padding-top: 4vh;
     }
@@ -26,7 +26,7 @@
     
     
     #rodape {
-    width: 100vw;
+    width: 200vw;
     bottom: 0;
     position: fixed;
     height: 10vh;
@@ -40,14 +40,7 @@
         font-size: 7vw;
         display: flex;
         gap: 20vw;
-        transition: all 0.3s ease;
-        cursor: pointer;
     }
-    
-    #icones:hover {
-        transform: scale(1.1); 
-    }
-
     
     i {
         color: black; 
