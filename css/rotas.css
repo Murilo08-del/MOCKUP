@@ -10,7 +10,7 @@
     height: 10vh;
     background-color: #f1edaa;
     display: flex;
-    gap: 100px;
+    gap: 160px;
 }
 
 
@@ -68,4 +68,9 @@
     display: flex;
     padding-top: 30px;
 }
+
+    i {
+    color: black; 
+    }
+
 }

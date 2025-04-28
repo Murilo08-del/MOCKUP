@@ -63,5 +63,12 @@
     .block1 i {
         font-size: 30px;
     }
+
+    i {
+       color: black; 
+    }
 }
+
+
+
 
