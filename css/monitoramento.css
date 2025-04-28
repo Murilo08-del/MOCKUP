@@ -24,4 +24,32 @@
         padding-top: 4vh;
     }
     
+    
+    #rodape {
+    width: 100vw;
+    bottom: 0;
+    position: fixed;
+    height: 10vh;
+    background-color: #f1edaa;
+    align-items: center;
+    justify-content: center;
+    }
+
+    #icones {
+        margin: 2vh;
+        font-size: 7vw;
+        display: flex;
+        gap: 20vw;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    #icones:hover {
+        transform: scale(1.1); 
+    }
+
+    
+    i {
+        color: black; 
+        }
     }
