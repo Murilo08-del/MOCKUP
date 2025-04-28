@@ -1,5 +1,4 @@
 
-
 @media(max-width:480px) {
     * {
         margin: 0;
@@ -7,10 +6,10 @@
         box-sizing: border-box;
     }
     main {
-        padding: 100px;
+        padding: 10vh;
     }
     .textlogin {
-        padding: 50px;
+        padding: 5vh;
         display: flex;
         justify-content: center;
     }
@@ -19,11 +18,11 @@
         display: block;
         margin: auto;
         justify-content: center;
-        height: 100px;
+        height: 15vh;
     }
     
     #conta {
-        padding: 50px;
+        padding: 5vh;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -31,9 +30,9 @@
     
     
     #conta input {
-        height: 30px;
-        border-radius: 10px; 
-        margin: 10px;
+        height: 4vh;
+        border-radius: 10vw; 
+        margin: 2ch;
     }
      
     #navbar {
@@ -42,7 +41,7 @@
     }
     
     #rodape {
-        width: 100%;
+        width: 100vw;
         bottom: 0;
         position: fixed;
         height: 7vh;
@@ -51,25 +50,25 @@
     
     .entrar {   
         color: white;
-        border-radius: 10px;
-        width: 100px;
+        border-radius: 10vw;
+        width: 18vw;
         background-color: blue;
         border: none;
-        padding: 6px;
+        padding: 0.9vh;
     }
     
     .user {
-        margin-left: 10px;
+        margin-left: 2vw;
         display: flex;
     }
     
     .password {
-        margin-left: 10px;
+        margin-left: 2vw;
         display: flex;
     }
     
     .enviar {
-        padding: 10px;
+        padding: 2.5vh;
         transition: all 0.3s ease;
     }
     

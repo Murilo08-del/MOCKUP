@@ -13,9 +13,8 @@
     
     #navbar input {
         background-color: white;
-        border-radius: 10px;
+        border-radius: 10vw;
         color: black;
-        width: 80%;
     }
     
     #rodape {
@@ -30,9 +29,9 @@
     
     #icones {
         margin: 2vh;
-        font-size: 33px;
+        font-size: 7vw;
         display: flex;
-        gap: 100px;
+        gap: 20vw;
         transition: all 0.3s ease;
         cursor: pointer;
     }
@@ -42,10 +41,10 @@
     }
     
     .pesquisa {
-        padding: 20px;
+        padding: 3vh;
     }
     .bairro {
-        padding: 20px;
+        padding: 2vh;
     }
 
     .flexivel {

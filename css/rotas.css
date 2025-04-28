@@ -10,7 +10,7 @@
     height: 10vh;
     background-color: #f1edaa;
     display: flex;
-    gap: 160px;
+    gap: 40vw;
 }
 
 
@@ -30,9 +30,9 @@
 
 #icones {
     margin: 2vh;
-    font-size: 33px;
+    font-size: 7vw;
     display: flex;
-    gap: 100px;
+    gap: 20vw;
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -49,7 +49,7 @@
     background-color: whitesmoke;
     height: 10vh;
     width: 60vw;
-    border-radius: 100px;
+    border-radius: 100vw;
     box-shadow: 0 4px 8px rgba(0,0,0, 0.2) ;
     transition: all 0.3s ease;
 }
@@ -59,14 +59,14 @@
 }
 
 .navegacao {
-    margin-left: 10px;
-    padding-top: 30px;
+    margin-left: 1vw;
+    padding-top: 4vh;
 }
 
 .nomeR {    
-    gap: 100px;
+    gap: 30vw;
     display: flex;
-    padding-top: 30px;
+    padding-top: 4vh;
 }
 
     i {
