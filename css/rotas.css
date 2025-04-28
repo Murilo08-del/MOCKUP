@@ -15,7 +15,7 @@
 
 
 #rodape {
-    width: 100%;
+    width: 100vw;
     bottom: 0;
     position: fixed;
     height: 10vh;
@@ -29,10 +29,10 @@
 }
 
 #icones {
-    margin: 20px;
+    margin: 2vh;
     font-size: 33px;
     display: flex;
-    gap: 90px;
+    gap: 100px;
     transition: all 0.3s ease;
     cursor: pointer;
 }

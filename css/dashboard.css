@@ -19,7 +19,7 @@
     }
     
     #rodape {
-        width: 100%;
+        width: 100vw;
         bottom: 0;
         position: fixed;
         height: 10vh;
@@ -29,10 +29,10 @@
     }
     
     #icones {
-        margin: 20px;
+        margin: 2vh;
         font-size: 33px;
         display: flex;
-        gap: 90px;
+        gap: 100px;
         transition: all 0.3s ease;
         cursor: pointer;
     }
@@ -50,18 +50,6 @@
 
     .flexivel {
         display: flex;
-    }
-
-    .block1 {
-        margin-top: 100px;
-        background-color: rgb(151, 148, 148);
-        width: 50vw;
-        height: 15vh;
-        box-shadow: 0 4px 8px rgba(0,0,0, 0.2) ;
-    }
-
-    .block1 i {
-        font-size: 30px;
     }
 
     i {
