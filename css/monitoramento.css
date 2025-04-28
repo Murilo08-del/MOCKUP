@@ -11,66 +11,17 @@
         background-color: #f1edaa;
         display: flex;
         gap: 40vw;
-    }
-    
-    
-    #rodape {
-        width: 100vw;
-        bottom: 0;
-        position: fixed;
-        height: 10vh;
-        background-color: #f1edaa;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .flexivel {
-        display: flex;
-    }
-    
-    #icones {
-        margin: 2vh;
-        font-size: 7vw;
-        display: flex;
-        gap: 20vw;
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-    
-    #icones:hover {
-        transform: scale(1.1); 
-    }
-    
-    #ajustar { /*Ajustar lá para baixo, ou outros */
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: whitesmoke;
-        height: 10vh;
-        width: 60vw;
-        border-radius: 100vw;
-        box-shadow: 0 4px 8px rgba(0,0,0, 0.2) ;
-        transition: all 0.3s ease;
-    }
-    
-    #ajustar:hover {
-        transform: scale(1.1); 
-    }
-    
-    .navegacao {
-        margin-left: 1vw;
+    } 
+
+    .navegação {
+        margin-left: 3vw;
         padding-top: 4vh;
     }
-    
+
     .nomeR {    
         gap: 30vw;
         display: flex;
         padding-top: 4vh;
     }
-    
-        i {
-        color: black; 
-        }
     
     }
