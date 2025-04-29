@@ -11,6 +11,7 @@
         background-color: #f1edaa;
         display: flex;
         gap: 40vw;
+        width: 100%;
     } 
 
     .navegacao {
@@ -51,6 +52,11 @@
         margin: 3vw;
     }
 
+    #alertas {
+        padding-top: 4vh;
+        margin: 3vw;
+    }
+
     .caixa1 {
         padding: 6vw;
         background-color: antiquewhite;
@@ -82,5 +88,25 @@
         gap: 2vw;
     }
 
+    #enviar {
+        padding: 2.5vh;
+        transition: all 0.3s ease;
+    }
+    
+    #enviar:hover {
+        transform: scale(1.1); 
+    }
+    .entrar {   
+        margin: 0 auto;
+        color: white;
+        border-radius: 10vw;
+        width: 22vw;
+        background-color: blue;
+        border: none;
+        padding: 1vh;
+        display: flex;
+        align-items: center;
+    }
+    
     
     }
