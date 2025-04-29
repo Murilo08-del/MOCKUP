@@ -14,16 +14,15 @@
     } 
 
     .navegacao {
-        margin-left: 3vw;
+        margin: 2vw;
         padding-top: 4vh;
     }
 
     .nomeR {    
-        gap: 30vw;
-        display: flex;
+        /*arrumar errado de mais*/  
         padding-top: 4vh;
     }
-    
+
     
     #rodape {
     width: 200vw;
@@ -45,4 +44,43 @@
     i {
         color: black; 
         }
+
+
+    #inspecoes {
+        padding-top: 4vh;
+        margin: 3vw;
+    }
+
+    .caixa1 {
+        padding: 6vw;
+        background-color: antiquewhite;
+        width: 95vw;
+        margin: 2vw;
+        border-radius: 4vw;
+        box-shadow: 0 4px 8px rgba(0,0,0, 0.2) ;
+        display: flex;
+        gap: 2vw;
+    }
+    .caixa2 {
+        padding: 6vw;
+        background-color: antiquewhite;
+        width: 95vw;
+        margin: 2vw;
+        border-radius: 4vw;
+        box-shadow: 0 4px 8px rgba(0,0,0, 0.2) ;
+        display: flex;
+        gap: 2vw;
+    }
+    .caixa3 {
+        padding: 6vw;
+        background-color: antiquewhite;
+        width: 95vw;
+        margin: 2vw;
+        border-radius: 4vw;
+        box-shadow: 0 4px 8px rgba(0,0,0, 0.2) ;
+        display: flex;
+        gap: 2vw;
+    }
+
+    
     }
