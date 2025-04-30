@@ -97,16 +97,18 @@
     #enviar:hover {
         transform: scale(1.1); 
     }
+
     .entrar {   
         margin: 0 auto;
         color: white;
         border-radius: 10vw;
-        width: 22vw;
+        width: 34vw;
         background-color: blue;
         border: none;
         padding: 1vh;
         display: flex;
         align-items: center;
+        font-size: 4vw;
     }
     
     
