@@ -9,22 +9,23 @@
     #navbar {
         height: 10vh;
         background-color: #f1edaa;
-        display: flex;
         gap: 40vw;
         width: 100%;
     } 
 
     .navegacao {
-        margin: 2vw;
-        padding-top: 4vh;
+        display: flex;
+        padding-top: 3vh;
     }
 
-    .nomeR {    
-        /*arrumar errado de mais*/  
-        padding-top: 4vh;
+    .inconenav{
+        height: 10vh;
+    }
+    .monitoramento {
+        margin-left: 4vw;
+        font-size: 2vh;
     }
 
-    
     #rodape {
     width: 200vw;
     bottom: 0;
