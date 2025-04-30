@@ -18,6 +18,10 @@
         padding-top: 3vh;
     }
 
+    .navegacao i {
+        margin: 1vw;
+    }
+
     .inconenav{
         height: 10vh;
     }
@@ -66,8 +70,13 @@
         border-radius: 4vw;
         box-shadow: 0 4px 8px rgba(0,0,0, 0.2) ;
         display: flex;
-        gap: 2vw;
+        gap: 1vw;
     }
+
+    .ajeitar {
+        margin-left: 40vw;
+    }
+
     .caixa2 {
         padding: 6vw;
         background-color: antiquewhite;
@@ -76,7 +85,7 @@
         border-radius: 4vw;
         box-shadow: 0 4px 8px rgba(0,0,0, 0.2) ;
         display: flex;
-        gap: 2vw;
+        gap: 1vw;
     }
     .caixa3 {
         padding: 6vw;
