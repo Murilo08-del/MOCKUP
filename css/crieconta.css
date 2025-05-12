@@ -6,9 +6,9 @@
         box-sizing: border-box;
     }
     main {
-        padding: 10vh;
+        padding: 12vh;
     }
-    
+
     .marcatitulo{
         display: flex;
         justify-content: center;
