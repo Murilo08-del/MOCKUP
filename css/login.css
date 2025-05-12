@@ -8,8 +8,20 @@
     main {
         padding: 10vh;
     }
+
+    .marcatitulo{
+        display: flex;
+        justify-content: center;
+        color: #e28c50;
+    }
+
+    .esqueceusenha{
+        color: gray;
+        margin-left: 10vw;
+    }
+
     .textlogin {
-        padding: 5vh;
+        padding: 3vh;
         display: flex;
         justify-content: center;
     }
@@ -18,7 +30,7 @@
         display: block;
         margin: auto;
         justify-content: center;
-        height: 15vh;
+        height: 13vh;
     }
     
     #conta {
@@ -76,4 +88,8 @@
         transform: scale(1.1); 
     }
     
+    .cor-link {
+        text-decoration: none;
+        color: blue ;
+    }
  }
