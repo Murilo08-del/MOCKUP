@@ -37,7 +37,7 @@
      
     #navbar {
         height: 7vh;
-        background-color: #f1edaa;
+        background-color: #6b6262;
     }
     
     #rodape {
@@ -45,7 +45,7 @@
         bottom: 0;
         position: fixed;
         height: 7vh;
-        background-color: #f1edaa;
+        background-color: #6b6262;
     }
     
     .entrar {   
