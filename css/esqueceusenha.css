@@ -9,7 +9,7 @@
         padding: 12vh;
     }
 
-    .marcatitulo{
+    #marcatitulo{
         display: flex;
         justify-content: center;
         color: #e28c50;
@@ -20,7 +20,7 @@
         display: flex;
         justify-content: center;
     }
-    
+        
     .imagem img {
         display: block;
         margin: auto;
