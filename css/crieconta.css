@@ -1,0 +1,79 @@
+
+@media(max-width:480px) {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    main {
+        padding: 10vh;
+    }
+    .textlogin {
+        padding: 5vh;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .imagem img {
+        display: block;
+        margin: auto;
+        justify-content: center;
+        height: 15vh;
+    }
+    
+    #conta {
+        padding: 5vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    
+    #conta input {
+        height: 4vh;
+        border-radius: 10vw; 
+        margin: 2ch;
+    }
+     
+    #navbar {
+        height: 7vh;
+        background-color: #6b6262;
+    }
+    
+    #rodape {
+        width: 100vw;
+        bottom: 0;
+        position: fixed;
+        height: 7vh;
+        background-color: #6b6262;
+    }
+    
+    .entrar {   
+        color: white;
+        border-radius: 10vw;
+        width: 18vw;
+        background-color: blue;
+        border: none;
+        padding: 0.9vh;
+    }
+    
+    .user {
+        margin-left: 2vw;
+        display: flex;
+    }
+    
+    .password {
+        margin-left: 2vw;
+        display: flex;
+    }
+    
+    .enviar {
+        padding: 2.5vh;
+        transition: all 0.3s ease;
+    }
+    
+    .enviar:hover {
+        transform: scale(1.1); 
+    }
+    
+ }
