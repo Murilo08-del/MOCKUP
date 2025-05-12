@@ -6,17 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Criarconta</title>
+    <title>Login</title>
 </head>
 
 <body>
     <header>
         <nav id="navbar"></nav>
     </header>
-
     <main>
+        <div class="marcatitulo">
+            <p>MiniTrilhos</p>
+        </div>
         <section class="textlogin">
-            <h1>Crie e sua conta</h1>
+            <h1>Criar Conta</h1>
         </section>
         <div class="imagem">
             <img src="../img/login-removebg-preview.png ">
@@ -24,26 +26,21 @@
         </section>
 
         <section id="conta">
-            <section>
-                <label for="nome">Usuário</label><br>
-            </section>
             <div class="user">
-                <input type="text" placeholder=" E-mail " required> <i class="bi bi-person-fill"></i>
+                <input type="text" placeholder=" Nome completo" required> 
             </div>
-            <section>
-                <label for="nome">Senha</label><br>
-            </section>
+            <div class="user">
+                <input type="text" placeholder=" E-mail " required> 
+            </div>
             <div class="password">
-                <input type="password" placeholder=" Senha" required><i class="bi bi-shield-lock"></i>
+                <input type="password" placeholder=" Senha" required>
             </div>
-
             <section class="enviar">
                 <a href="../html/dashboard.html">
-                    <button class="entrar" type="submit">Criar conta</button>
+                    <button class="entrar" type="submit">Criar Conta</button>
                 </a>
             </section>
         </section>
-        </div>
     </main>
 
     <footer>
