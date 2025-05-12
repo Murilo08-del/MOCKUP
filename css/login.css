@@ -30,6 +30,12 @@
     .esqueceusenha{
         color: gray;
         margin-left: 10vw;
+        text-decoration: none;
+    }
+    
+    .esqueceusenha a{
+        color: gray;
+        text-decoration: none;
     }
 
     .textlogin {
