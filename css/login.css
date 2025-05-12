@@ -9,6 +9,18 @@
         padding: 10vh;
     }
 
+
+    .crieconta {
+        font-size: 2vh;
+    }
+
+    .usuario{
+        margin-right: 22vw;
+    }
+
+    .senha{
+        margin-right: 24vw;
+    }
     .marcatitulo{
         display: flex;
         justify-content: center;
