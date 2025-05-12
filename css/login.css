@@ -21,7 +21,8 @@
     .senha{
         margin-right: 24vw;
     }
-    .marcatitulo{
+    
+    #marcatitulo{
         display: flex;
         justify-content: center;
         color: #e28c50;
