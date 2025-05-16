@@ -4,14 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/esqueceusenha.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Login</title>
 </head>
 
 <body>
     <header>
-        <nav id="navbar"></nav>
+        <nav id="navbar">
+            <div class="voltar">
+                <b>
+                    <a href="../html/login.html"> << </a>
+                </b>
+            </div>
+        </nav>
     </header>
     <main>
         <div id="marcatitulo">
@@ -29,19 +35,19 @@
 
         <section id="conta">
             <div class="user">
-                <input type="text" placeholder=" Nome completo" required> 
+                <input type="text" placeholder=" E-mail" required> 
             </div>
             <div class="user">
-                <input type="text" placeholder=" E-mail " required> 
+                <input type="text" placeholder=" Nova senha " required> 
             </div>
             <div class="password">
-                <input type="password" placeholder=" Senha" required>
+                <input type="password" placeholder=" Confirmar senha" required>
             </div>
-            <section class="enviar">
+            <div class="enviar">
                 <a href="../html/dashboard.html">
-                    <button class="entrar" type=" submit">Redefinir Senha</button>
+                    <button class="entrar" type=" submit">Enviar</button>
                 </a>
-            </section>
+            </div>
         </section>
     </main>
 

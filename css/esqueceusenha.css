@@ -9,6 +9,15 @@
         padding: 12vh;
     }
 
+    .voltar {
+        padding: 3vw;
+    }
+
+    .voltar a {
+        text-decoration: none;
+        color: black;
+    }
+    
     #marcatitulo{
         display: flex;
         justify-content: center;
@@ -58,10 +67,10 @@
     .entrar {   
         color: white;
         border-radius: 10vw;
-        width: 20vw;
+        width: 25vw;
         background-color: blue;
         border: none;
-        padding: 0.9vh;
+        padding: 1vh;
     }
     
     .user {
@@ -83,8 +92,4 @@
         transform: scale(1.1); 
     }
     
-    .cor-link {
-        text-decoration: none;
-        color: blue ;
-    }
  }

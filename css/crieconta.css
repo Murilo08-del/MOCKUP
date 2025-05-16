@@ -8,6 +8,15 @@
     main {
         padding: 12vh;
     }
+    
+    .voltar {
+        padding: 3vw;
+    }
+
+    .voltar a {
+        text-decoration: none;
+        color: black;
+    }
 
     #marcatitulo{
         display: flex;
@@ -81,10 +90,5 @@
     
     .enviar:hover {
         transform: scale(1.1); 
-    }
-    
-    .cor-link {
-        text-decoration: none;
-        color: blue ;
     }
  }
