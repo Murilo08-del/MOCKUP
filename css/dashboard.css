@@ -5,49 +5,17 @@
         padding: 0;
         box-sizing: border-box;
     }
+
+
     #navbar {
         height: 10vh;
         background-color: #6b6262;
         display: flex;
     }
-    
-    #navbar input {
-        background-color: white;
-        border-radius: 10vw;
-        color: black;
-    }
-    
-    #rodape {
-        width: 200vw;
-        bottom: 0;
-        position: fixed;
-        height: 10vh;
-        background-color: #6b6262;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    #icones {
-        margin: 2vh;
-        font-size: 7vw;
-        display: flex;
-        gap: 20vw;
-    }
-    
-    .pesquisa {
-        padding: 3vh;
-    }
-    .bairro {
-        padding: 2vh;
-    }
 
-    .flexivel {
-        display: flex;
-    }
 
-    i {
-       color: black; 
-    }
+     
+   
 }
 
 
