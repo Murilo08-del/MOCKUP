@@ -15,7 +15,7 @@
         color: #e28c50;
     }
 
-    .textlogin {
+    .textlogin{
         padding: 3vh;
         display: flex;
         justify-content: center;
@@ -58,7 +58,7 @@
     .entrar {   
         color: white;
         border-radius: 10vw;
-        width: 18vw;
+        width: 20vw;
         background-color: blue;
         border: none;
         padding: 0.9vh;
