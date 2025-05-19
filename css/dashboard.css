@@ -10,22 +10,47 @@
         height: 10vh;
         background-color: #6b6262;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        gap: 5vw;
     }
 
     .icone {
-        margin-left: 70vw;
-        margin-top: 1vh;
+        margin-left: 55vw;
+        margin-top: 2vh;
         font-size: 3vh;
+        color: white;
     }
 
     .icone p {
         font-size: 1vh;
     }
 
-    
+    .icone2 {
+        margin-top: 2vh;
+        font-size: 3vh;
+        color: white;
+    }
 
-}
+    .icone2 p {
+        font-size: 1vh;
+    }
+
+    .icone3 {
+        margin-top: 2vh;
+        font-size: 3vh;
+        color: white;
+    }
+
+    .icone3 p {
+        font-size: 1vh;
+    }
+
+    .abrir {
+        color: white;
+        margin-left: 2vw;
+        margin-top: 3vh;
+    }
+
+
+}   
 
 
