@@ -6,17 +6,25 @@
         box-sizing: border-box;
     }
 
-
     #navbar {
         height: 10vh;
         background-color: #6b6262;
         display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
+    .icone {
+        margin-left: 70vw;
+        margin-top: 1vh;
+        font-size: 3vh;
+    }
 
-     
+    .icone p {
+        font-size: 1vh;
+    }
    
-}
+
 
 
 
