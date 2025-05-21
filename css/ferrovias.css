@@ -1,0 +1,172 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f0f2f5;
+  }
+  
+  /* Topo */
+  .top-bar {
+    background-color: #5c4b3f;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+  }
+  
+  .menu-icon i {
+    font-size: 20px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffc107;
+    gap: 8px;
+  }
+  
+  .icons i {
+    margin-left: 15px;
+    font-size: 16px;
+    color: white;
+  }
+  
+  .icons .ativo {
+    background-color: #ffc107;
+    padding: 3px;
+    border-radius: 4px;
+  }
+  
+  
+  .content {
+    max-width: 480px;
+    margin: auto;
+    padding: 15px;
+    background: white;
+    min-height: 100vh;
+  }
+  
+  .search-box {
+    background: #fff;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    margin-bottom: 20px;
+  }
+  
+  .search-box i {
+    color: #888;
+    margin-right: 8px;
+  }
+  
+  .search-box input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+  }
+  
+  
+  .linha-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  
+  .linha-item {
+    background: white;
+    border-top: 1px solid #ccc;
+    padding: 15px;
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .linha-item span {
+    color: #003366;
+    font-weight: bold;
+  }
+  
+  
+  
+  .top-bar {
+    background-color: #302721;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+  }
+  
+  .menu-icon i {
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+  .logo i {
+    font-size: 22px;
+  }
+  
+  .icons i {
+    margin-left: 15px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  
+  .content {
+    background: white;
+    margin: 0 auto;
+    max-width: 400px;
+    min-height: 80vh;
+    border-top: 1px solid #ccc;
+    padding: 10px 15px;
+  }
+  
+  
+  .noticias .title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #3b3b3b;
+    margin-top: 10px;
+  }
+  
+  .noticias .title i {
+    font-size: 20px;
+    color: #1e88e5;
+  }
+  
+  .noticias h1 {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .news-box {
+    margin-top: 20px;
+    height: 400px;
+    background: white;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
