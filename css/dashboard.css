@@ -5,6 +5,113 @@
         box-sizing: border-box;
     }
 
+    .top-bar {
+        background-color: gray;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3vh 2vw;
+    }
+
+    .menu-icon i {
+        font-size: 20px;
+    }
 
 
+    .logo {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffc107;
+        gap: 8px;
+    }
+
+    .icons i {
+        margin-left: 15px;
+        font-size: 16px;
+        color: white;
+    }
+
+    .icons .ativo {
+        background-color: #ffc107;
+        padding: 3px;
+        border-radius: 4px;
+    }
+
+    .tempo-real {
+        padding: 4vh;
+        color: white;
+    }
+
+    #cor {
+        background-color:#e28c50;
+        height: 80vh;
+    }
+
+    #caixa-branca {
+        background-color: white;
+        border: 1px solid red;
+        padding: 10vh;
+    }
+
+    footer {
+        height: 10vh;
+        background-color: white;
+    }
+
+    
+    .como-chegar {
+        padding: 3vh;
+        font-family: sans-serif;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        margin-left: 10vw;
+        margin-right: 10vw;
+      }
+      
+      .como-chegar h3 {
+        color: #003366;
+        margin-bottom: 2vh;
+        font-weight: bold;
+      }
+      
+      .como-chegar label {
+        display: block;
+        margin-bottom: 15px;
+      }
+      
+      .como-chegar label span {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      
+      .como-chegar input,
+
+      .como-chegar select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+      
+      .como-chegar button {
+        width: 100%;
+        background-color: #FFA500;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      
+      .como-chegar button:hover {
+        background-color: #e69500;
+      }
 }
