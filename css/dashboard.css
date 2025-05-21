@@ -29,9 +29,16 @@
     }
 
     .icons i {
+        background-color: gray;
         margin-left: 15px;
         font-size: 16px;
         color: white;
+        padding:10px;
+    }
+
+    
+    .icons i:hover {
+        background-color: red;
     }
 
     .icons .ativo {
