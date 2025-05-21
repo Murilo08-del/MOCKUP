@@ -1,3 +1,4 @@
+@media(max-width:480px) {
 * {
     margin: 0;
     padding: 0;
@@ -9,9 +10,9 @@
     background: #f0f2f5;
   }
   
-  /* Topo */
+
   .top-bar {
-    background-color: #5c4b3f;
+    background-color: gray;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -99,7 +100,7 @@
   }
   
   
-  
+
   .top-bar {
     background-color: #302721;
     color: white;
@@ -170,3 +171,4 @@
     border-radius: 5px;
     border: 1px solid #ccc;
   }
+}
