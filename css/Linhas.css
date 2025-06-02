@@ -115,14 +115,14 @@
     height: 5vh;
     gap: 2vw;
   }
-.lupa {
-  margin-top:;
-}
-/* linha */
+
+  .lupa {
+    margin-top: 6px;
+  }
+
+  /* linha */
   hr {
     z-index: 0;
   }
-
-
 
 }
