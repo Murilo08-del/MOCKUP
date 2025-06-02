@@ -70,7 +70,7 @@
     border-radius: 5px;
   }
 
-  /* Sidebar */
+  /* aba lateral */
   .sidebar {
     height: 100%;
     width: 0;
@@ -97,7 +97,7 @@
     background-color: gray;
   }
 
-  /* Botão de fechar */
+  /*fechar */
   .close-btn {
     position: absolute;
     top: 20px;
@@ -109,28 +109,53 @@
 
   .caixa {
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     margin-top: 2vh;
-    width: 70vw;
-    height: 20vh;
-    border: 1px solid black;  
+    width: 72vw;
+    height: 40vh;
+    border: 1px solid black;
     margin-left: 14vw;
   }
 
   .inserir input {
+    padding: 1.5vh;
     border-radius: 10vw;
     margin-top: 4vh;
   }
-    
+
   .inserir2 input {
+    padding: 1.5vh;
     margin-top: 4vh;
     border-radius: 10vw;
   }
 
   .caixa h1 {
     position: relative;
-    font-size: 3vh;
+    font-size: 4vh;
+  }
+
+  .botao {
+    margin-left: 30vw;
+    padding: 3vh;
+  }
+
+  .enviar {
+    border: none;
+    color: white;
+    background-color: #ffc107;
+    border-radius: 10vh;
+    width: 20vw;
+  }
+
+  .linha {
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
+  }
+
+.flexivel {
+  margin-left: 14vw;
   }
 }
