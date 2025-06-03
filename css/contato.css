@@ -47,18 +47,17 @@
         border-radius: 4px;
     }
 
-    .open-btn {
-        font-size: 20px;
-        cursor: pointer;
-        background-color: gray;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        position: fixed;
-        top: 10px;
-        left: 20px;
-        border-radius: 5px;
-    }
+  .open-btn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: gray;
+    color: white;
+    padding: 1px 15px;
+    border: none;
+    top: 10px;
+    left: 20px;
+    border-radius: 5px;
+  }
 
     /* aba lateral */
     .sidebar {

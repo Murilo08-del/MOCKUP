@@ -62,9 +62,8 @@
     cursor: pointer;
     background-color: gray;
     color: white;
-    padding: 10px 15px;
+    padding: 1px 15px;
     border: none;
-    position: fixed;
     top: 10px;
     left: 20px;
     border-radius: 5px;
@@ -155,7 +154,19 @@
     justify-content: center;
   }
 
-.flexivel {
-  margin-left: 14vw;
+  .flexivel {
+    margin-left: 14vw;
   }
+
+  .mapa {
+    display: flex;
+    justify-content: center;
+    border-radius: 20vw;
+  }
+
+  iframe {
+    height: 30vh;
+    max-width: 85vw;
+  }
+
 }

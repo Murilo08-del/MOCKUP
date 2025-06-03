@@ -62,9 +62,8 @@
     cursor: pointer;
     background-color: gray;
     color: white;
-    padding: 10px 15px;
+    padding: 1px 15px;
     border: none;
-    position: fixed;
     top: 10px;
     left: 20px;
     border-radius: 5px;
