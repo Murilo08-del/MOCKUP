@@ -47,17 +47,17 @@
         border-radius: 4px;
     }
 
-  .open-btn {
-    font-size: 20px;
-    cursor: pointer;
-    background-color: gray;
-    color: white;
-    padding: 1px 15px;
-    border: none;
-    top: 10px;
-    left: 20px;
-    border-radius: 5px;
-  }
+    .open-btn {
+        font-size: 20px;
+        cursor: pointer;
+        background-color: gray;
+        color: white;
+        padding: 1px 15px;
+        border: none;
+        top: 10px;
+        left: 20px;
+        border-radius: 5px;
+    }
 
     /* aba lateral */
     .sidebar {
@@ -99,8 +99,8 @@
     .titulo h1 {
         display: flex;
         justify-content: center;
-        font-size: 2.5vh;
-        margin-top: 3vh;
+        font-size: 3vh;
+        margin-top: 6vh;
         color: #6b6262;
     }
 
@@ -108,5 +108,47 @@
         display: flex;
         flex-direction: column;
         margin-left: 20vw;
-    }  
+    }
+
+
+    .caixa {
+        display: block;
+        margin-top: 2vh;
+        width: 72vw;
+        height: 40vh;
+        border: 1px solid black;
+        margin-left: 14vw;
+        margin-top: 10vh;
+    }
+
+    .caixa h2 {
+        display: flex;
+        justify-content: center;
+    }
+
+
+    input {
+        border: none;
+    }
+
+    .info {
+        margin-left: 6vw;
+        margin-top: 3vh;
+    }
+
+    p {
+        margin: 8vw;
+    }
+
+    .botao {
+        margin-left: 40vw;
+    }
+
+    .enviar {
+        border: none;
+        color: white;
+        background-color: #ffc107;
+        border-radius: 10vh;
+        width: 22vw;
+    }
 }
