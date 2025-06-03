@@ -104,4 +104,9 @@
         color: #6b6262;
     }
 
+    .flexivel {
+        display: flex;
+        flex-direction: column;
+        margin-left: 20vw;
+    }  
 }
