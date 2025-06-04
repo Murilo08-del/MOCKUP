@@ -106,10 +106,11 @@
         color: white;
     }
 
-    .aviso h1 {
+    .aviso{
+        margin-top: 3vh;
         display: flex;
         justify-content: center;
-
+        font-size: 4vh;
     }
 
 }
