@@ -48,12 +48,7 @@
     border-radius: 4px;
   }
 
-  #cor {
-    background-color: white;
-    height: 100vh;
-  }
-
-  #cor input {
+ input {
     border-radius: 10vw;
   }
 

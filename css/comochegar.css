@@ -48,15 +48,6 @@
     border-radius: 4px;
   }
 
-  #cor {
-    background-color: white;
-    height: 100vh;
-  }
-
-  #cor input {
-    border-radius: 10vw;
-  }
-
   .open-btn {
     font-size: 20px;
     cursor: pointer;
