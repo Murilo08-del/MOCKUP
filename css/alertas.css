@@ -152,4 +152,10 @@
         font: 20vh;
     }
 
+    .botao button {
+        background-color: aqua;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+    }
 }
