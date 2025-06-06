@@ -161,7 +161,7 @@
     .enviar{
         border: none;
         color: black;
-        background-color: aqua;
+        background: linear-gradient(to right, #b3e5fc 0%, #90caf9 100% );
         border-radius: 10vh;
         width: 40vw;
         height: 6vh;
