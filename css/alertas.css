@@ -166,4 +166,16 @@
         width: 40vw;
         height: 6vh;
     }   
+
+    .como-chegar {
+        display: flex;
+        justify-content: center;
+    } 
+    
+    .como-chegar input {
+        width: 80vw;
+        border-radius: 20vw;
+        padding: 1.5vh;
+        margin-top: 3vh;
+    }
 }
