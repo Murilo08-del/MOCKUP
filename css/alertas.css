@@ -152,10 +152,18 @@
         font: 20vh;
     }
 
-    .botao button {
-        background-color: aqua;
-        padding: 20px;
+    .botao {
         display: flex;
         justify-content: center;
-    }
+        margin-top: 10vh;
+      }
+
+    .enviar{
+        border: none;
+        color: black;
+        background-color: aqua;
+        border-radius: 10vh;
+        width: 40vw;
+        height: 6vh;
+    }   
 }
