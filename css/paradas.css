@@ -163,24 +163,12 @@
     .linhas p {
         font: 20vh;
     }
+
     /* Linhas A e B */
-    .numero button {
-        margin-left: 5vw;
-        padding: 1vh;
-    }
-
-    .enviar {
-        border: none;
-        color: white;
-        background-color: #ffc107;
-        border-radius: 10vh;
-        width: 20vw;
-    }
-
     .numero h1 {
         color: black;
         font-size: 2.5vh;
-        margin-left: 4vw;
+        margin-left: 5vw;
     }
 
     .numero a {
@@ -193,7 +181,7 @@
 
     .numero2 {
         display: flex;
-        margin-left: 30vw;
+        margin-left: 20vw;
         gap: 2vw;
     }
 
@@ -206,5 +194,10 @@
     .tempo i {
         font-size: 3vh;
         color: #ffc107;
+    }
+
+    .trem {
+        margin-left: 8vw;
+        font-size:3vh;
     }
 }
