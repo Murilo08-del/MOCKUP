@@ -188,7 +188,7 @@
     }
 
     .numero p {
-        margin-left: 20vw;
+        margin-left: 12vw;
     }
 
     .numero2 {
@@ -199,7 +199,12 @@
 
     .tempo {
         display: flex;
-        gap: 4vw;
+        gap: 1vw;
         margin-left: 60vw;
+    }
+
+    .tempo i {
+        font-size: 3vh;
+        color: #ffc107;
     }
 }
