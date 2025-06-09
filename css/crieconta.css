@@ -28,6 +28,7 @@
         padding: 3vh;
         display: flex;
         justify-content: center;
+        font-family: "Playfair Display", serif;
     }
     
     .imagem img {
