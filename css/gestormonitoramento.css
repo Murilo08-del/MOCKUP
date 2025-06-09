@@ -1,0 +1,65 @@
+@media(max-width:480px) {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .top-bar {
+        background-color: gray;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3vh 2vw;
+    }
+
+    /* sidebar */
+    .open-btn {
+        font-size: 20px;
+        cursor: pointer;
+        background-color: gray;
+        color: white;
+        padding: 1px 15px;
+        border: none;
+        top: 10px;
+        left: 20px;
+        border-radius: 5px;
+      }
+    
+
+    .sidebar {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: white;
+        overflow-x: hidden;
+        transition: 0.3s;
+        padding-top: 60px;
+    }
+
+    .sidebar a {
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 18px;
+        color: black;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+        background-color: gray;
+    }
+
+    /* Botão de fechar */
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        font-size: 30px;
+        cursor: pointer;
+        color: white;
+    }
+}
