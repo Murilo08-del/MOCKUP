@@ -151,4 +151,9 @@
         border-radius: 10vh;
         width: 22vw;
     }
+
+    /* Mudar de tela */
+    .icons a {
+        text-decoration: none;
+    }
 }

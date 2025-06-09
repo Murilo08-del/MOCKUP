@@ -163,6 +163,7 @@
     .linhas p {
         font: 20vh;
     }
+
     /* Linhas A e B */
     .numero button {
         margin-left: 5vw;
@@ -201,5 +202,10 @@
         display: flex;
         gap: 4vw;
         margin-left: 60vw;
+    }
+
+    /* Mudar de tela */
+    .icons a {
+        text-decoration: none;
     }
 }

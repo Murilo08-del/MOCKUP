@@ -160,4 +160,8 @@
     max-width: 85vw;
   }
 
+  /* Mudar de tela */
+  .icons a {
+    text-decoration: none;
+  }
 }

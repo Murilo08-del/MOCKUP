@@ -1,5 +1,5 @@
-@media(max-width:480px) { 
-    * {
+@media(max-width:480px) {
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -48,7 +48,7 @@
     border-radius: 4px;
   }
 
- input {
+  input {
     border-radius: 10vw;
   }
 
@@ -101,24 +101,25 @@
     color: white;
   }
 
- .pesquisa {
+  .pesquisa {
     display: flex;
     justify-content: center;
     margin-top: 2vh;
     border-radius: 20vh;
     height: 5vh;
     gap: 2vw;
-    
+
   }
 
-   .pesquisa input{
+  .pesquisa input {
     width: 70vw;
-   }
-   .lupa {
+  }
+
+  .lupa {
     margin-top: 6px;
   }
 
-  
+
   /* linha */
   hr {
     z-index: 1;
@@ -130,14 +131,19 @@
     justify-content: center;
   }
 
-    .sugestão h1 {
-      font-size: 3vh;
-      color: #2f5f98;
-    }
+  .sugestão h1 {
+    font-size: 3vh;
+    color: #2f5f98;
+  }
 
-    p {
-      font-size: 3vh;
-      margin-left: 4vw;
-    }
+  p {
+    font-size: 3vh;
+    margin-left: 4vw;
+  }
+
+  /* Mudar de tela */
+  .icons a {
+    text-decoration: none;
+  }
 
 }

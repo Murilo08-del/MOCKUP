@@ -106,11 +106,15 @@
         color: white;
     }
 
-    .aviso{
+    .aviso {
         margin-top: 3vh;
         display: flex;
         justify-content: center;
         font-size: 4vh;
     }
 
+    /* Mudar de tela */
+    .icons a {
+        text-decoration: none;
+    }
 }
