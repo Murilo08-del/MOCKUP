@@ -103,6 +103,18 @@
         height: 80vh;
     }
 
+    .caixa {
+        padding: 3vh;
+        font-family: sans-serif;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        margin-left: 10vw;
+        margin-right: 10vw;
+        margin-top: 10px;
+        height: 33rem;
+    }
+
     .texto {
         display: flex;
         justify-content: center;
@@ -123,20 +135,105 @@
     }
 
     .inspe b {
-        font-size: 3vh;
+        font-size: 2.51vh;
     }
 
+    /* Moto principal*/
     .motor {
         max-width: auto;
         background-color: rgb(207, 207, 207);
-        height: 6vh;
+        height: 8vh;
         border-radius: 2vw;
-        margin-top: 2vh;
+        margin-top: 3vh;
         display: flex;
     }
 
-    .motor p {
-        margin-top: 0.4vh;
+    .motor b {
+        margin-top: 1vh;
         margin-left: 4vw;
+        font-size: 1.8vh;
     }
+
+    /*Fim Moto principal*/
+
+    .manute {
+        margin-top: 3vh;
+    }
+
+    .manute b {
+        font-size: 2.5vh;
+    }
+
+    .conclui {
+        color: rgb(64, 201, 0);
+        font-size: 1.3vh;
+    }
+
+
+    .data {
+        margin-top: 3vh;
+        margin-left: 20vw;
+        font-size: 1.5vh;
+        position: relative;
+    }
+
+     .data1 {
+        margin-top: 3vh;
+        margin-left: 25vw;
+        font-size: 1.5vh;
+    }
+
+     .data2 {
+        margin-top: 3vh;
+        margin-left: 25vw;
+        font-size: 1.5vh;
+
+    }
+
+    /* Sistema Hidráulico*/
+    .motor1 {
+        max-width: auto;
+        background-color: rgb(207, 207, 207);
+        height: 8vh;
+        border-radius: 2vw;
+        margin-top: 3vh;
+        display: flex;
+    }
+
+    .motor1 b {
+        margin-top: 1vh;
+        margin-left: 4vw;
+        font-size: 1.8vh;
+    }
+
+    .pendente {
+        color: yellow;
+        font-size: 1.3vh;
+    }
+
+    /* fim*/
+
+    /* Sistema Elétrico*/
+    .motor2 {
+        max-width: auto;
+        background-color: rgb(207, 207, 207);
+        height: 8vh;
+        border-radius: 2vw;
+        margin-top: 3vh;
+        display: flex;
+    }
+
+    .motor2 b {
+        margin-top: 1vh;
+        margin-left: 4vw;
+        font-size: 1.8vh;
+    }
+
+    .urgente {
+        color: red;
+        font-size: 1.3vh;
+    }
+
+    /* fim*/
+
 }
