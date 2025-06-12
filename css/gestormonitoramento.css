@@ -120,6 +120,16 @@
         justify-content: center;
         padding-top: 3vh;
         color: white;
+        align-items: center;
+        max-width: 100%;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+
+
+    .texto h1 {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);       /* Tamanho adaptável */
+        margin: 0;
     }
 
     .caixa {
@@ -177,13 +187,13 @@
         position: relative;
     }
 
-     .data1 {
+    .data1 {
         margin-top: 3vh;
         margin-left: 25vw;
         font-size: 1.5vh;
     }
 
-     .data2 {
+    .data2 {
         margin-top: 3vh;
         margin-left: 25vw;
         font-size: 1.5vh;
