@@ -1,0 +1,52 @@
+
+@media(max-width:480px) {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+
+    #marcatitulo{
+        display: flex;
+        justify-content: center;
+        color: #e28c50;
+    }
+
+    #navbar {
+        height: 7vh;
+        background-color: #6b6262;
+    }
+    
+    #rodape {
+        width: 100vw;
+        bottom: 0;
+        position: fixed;
+        height: 7vh;
+        background-color: #6b6262;
+    }
+    
+    .entrar {   
+        color: white;
+        border-radius: 10vw;
+        width: 18vw;
+        background-color: blue;
+        border: none;
+        padding: 0.9vh;
+    }
+    
+    .password {
+        margin-left: 2vw;
+        display: flex;
+    }
+    
+    .enviar {
+        padding: 2.5vh;
+        transition: all 0.3s ease;
+    }
+    
+    .enviar:hover {
+        transform: scale(1.1); 
+    }
+    
+}
