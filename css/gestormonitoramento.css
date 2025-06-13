@@ -240,4 +240,20 @@
 
     /* fim*/
 
+    .flexivel {
+        margin-top: 10vh;
+        display: flex;
+        justify-content: center;
+    }
+
+    .adicionar button {
+        gap: 2vw;
+    }
+
+    .cor2 {
+        background-color: white;
+        height: 10vh;
+    }
+
+
 }
