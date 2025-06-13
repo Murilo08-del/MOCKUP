@@ -123,10 +123,12 @@
 
     .ver {
         margin-top: 5vh;
-        background: linear-gradient(to top, blue, purple);
+        background: linear-gradient(to left, white, gray);
         height: 8vh;
         width: 55vw;
         margin-left: 20vw;
+        border: none;
         border-radius: 20vw;
+        cursor: pointer;
     }
 }
