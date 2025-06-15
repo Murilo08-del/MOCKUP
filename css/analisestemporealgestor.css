@@ -1,4 +1,136 @@
-@media(max-width:480px) { 
+@media(max-width:480px) {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .top-bar {
+        background-color: gray;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3vh 2vw;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        font-weight: bold;
+        gap: 8px;
+        margin-left: 15vw;
+    }
+
+    /* icones da top bar */
+    .icons a {
+        text-decoration: none;
+    }
+
+    .icons i:hover {
+        background-color: orange;
+    }
+
+    .icons i {
+        background-color: gray;
+        margin-left: 15px;
+        font-size: 16px;
+        color: white;
+        padding: 10px;
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+    }
+
+    /* icones da top bar */
+
+    /* sidebar */
+    .open-btn {
+        font-size: 20px;
+        cursor: pointer;
+        background-color: gray;
+        color: white;
+        padding: 1px 15px;
+        border: none;
+        top: 10px;
+        left: 20px;
+        border-radius: 5px;
+    }
 
 
+    .sidebar {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: white;
+        overflow-x: hidden;
+        transition: 0.3s;
+        padding-top: 60px;
+    }
+
+    .sidebar a {
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 18px;
+        color: black;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+        background-color: gray;
+    }
+
+    /* Botão de fechar */
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        font-size: 30px;
+        cursor: pointer;
+        color: white;
+    }
+
+    #cor {
+        background-color: #e28c50;
+        height: 80vh;
+    }
+
+
+    .texto {
+        margin-left: 4vh;
+        padding-top: 3vh;
+        color: white;
+        align-items: center;
+        max-width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .texto h1 {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+        /* Tamanho adaptável */
+    }
+
+    .desempenho {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2vh;
+        border: none;
+        border-radius: 20vh;
+        height: 4vh;
+        width: 30vw;
+        padding: 2vh;
+    }
+
+    .informações {
+        margin-left: 4vh;
+        padding-top: 3vh;
+        color: white;
+        align-items: center;
+        max-width: 100%;
+        flex-wrap: wrap;
+    }
 }
