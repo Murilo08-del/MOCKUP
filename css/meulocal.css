@@ -143,9 +143,10 @@
         display: flex;
         gap: 12px;
         margin-top: 2vh;
-        margin-left: 16vw;
+        margin-left: 12vw;
         color: #ffc107;
         font-size: 4vh;
+        max-width: 100%;
     }
 
     .partir-daqui p {
@@ -163,8 +164,8 @@
 
     .linhas {
         font-size: 2.5vh;
-        margin-left: 9vw;
         display: flex;
+        justify-content: center;
         gap: 20vw;
     }
 
@@ -217,4 +218,13 @@
         margin-left: 60vw;
     }
 
+    .numero h1,
+    .numero p,
+    .numero2 p,
+    .tempo p,
+    .linhas p,
+    .partir-daqui p,
+    .aqui a {
+        font-size: clamp(14px, 3vw, 18px);
+    }
 }
