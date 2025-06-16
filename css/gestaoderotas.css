@@ -10,57 +10,45 @@
         background-color: gray;
         color: white;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         padding: 3vh 2vw;
+        position: relative;
     }
+
 
     .menu-icon i {
         font-size: 20px;
     }
 
-
     .logo {
         display: flex;
         align-items: center;
-        font-size: 18px;
+        justify-content: center;
+        font-size: clamp(1rem, 4vw, 2rem);
         font-weight: bold;
         gap: 8px;
-        margin-left: 15vw;
-    }
-
-    .icons i {
-        background-color: gray;
-        margin-left: 15px;
-        font-size: 16px;
+        margin: 0 auto;
         color: white;
-        padding: 10px;
     }
 
-
-    .icons i:hover {
-        background-color: orange;
-    }
-
-    .icons .ativo {
-        background-color: #ffc107;
-        padding: 3px;
-        border-radius: 4px;
-    }
 
     input {
         border-radius: 10vw;
     }
 
+    /* sidebar */
     .open-btn {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: 20px;
         cursor: pointer;
         background-color: gray;
         color: white;
         padding: 1px 15px;
         border: none;
-        top: 10px;
-        left: 20px;
         border-radius: 5px;
     }
 
@@ -156,7 +144,7 @@
         margin-left: 2vw;
     }
 
- /* fiz isso para deixar os buttons do lado das linhas */
+    /* fiz isso para deixar os buttons do lado das linhas */
     .central {
         display: flex;
     }
