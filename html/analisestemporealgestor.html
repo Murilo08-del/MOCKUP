@@ -23,7 +23,7 @@
 
             <div id="mySidebar" class="sidebar">
                 <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">×</a>
-            <a href="/html/gestormonitoramento.html">Manutenção</a>
+                <a href="/html/gestormonitoramento.html">Manutenção</a>
                 <a href="/html/analisestemporealgestor.html">Análises em Tempo Real</a>
                 <a href="/html/gestaoderotas.html">Rotas</a>
                 <a href="/html/editarlinhasgestor.html">Editar Linhas</a>
@@ -44,6 +44,11 @@
                     </h1>
                     <button class="desempenho"><b>Desempenho</b></button>
                 </div>
+                
+                <section class="grafico-pizza">
+                    <h2 style="text-align: center; margin-top: 2vh;">Distribuição Operacional</h2>
+                    <canvas id="pizzaChart" width="300" height="300"></canvas>
+                </section>
 
                 <div class="informações">
                     <h2>Informações breves</h2>
