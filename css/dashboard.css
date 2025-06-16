@@ -14,11 +14,6 @@
     padding: 3vh 2vw;
   }
 
-  .menu-icon i {
-    font-size: 20px;
-  }
-
-
   .logo {
     display: flex;
     align-items: center;
@@ -28,23 +23,42 @@
     margin-left: 15vw;
   }
 
+  .icons {
+    display: flex;
+    gap: 2vw;
+    align-items: center;
+    justify-content: center;
+    padding: 1vh 0;
+    flex-wrap: wrap;
+  }
+
+  /* Mudar de tela */
+  .icons a {
+    text-decoration: none;
+  }
+
   .icons i {
     background-color: gray;
-    margin-left: 15px;
-    font-size: 16px;
     color: white;
-    padding: 10px;
+    padding: 1.5vh;
+    font-size: 2vh;
+    border-radius: 50%;
+    transition: background-color 0.3s, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 5vh;
+    height: 2vh;
   }
 
 
   .icons i:hover {
     background-color: orange;
+    transform: scale(1.1);
   }
 
-  .icons .ativo {
+  .icons i.ativo {
     background-color: #ffc107;
-    padding: 3px;
-    border-radius: 4px;
   }
 
   .tempo-real {
@@ -67,7 +81,7 @@
     padding: 3vh;
     font-family: sans-serif;
     background-color: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
     margin-left: 10vw;
     margin-right: 10vw;
@@ -164,8 +178,5 @@
     color: white;
   }
 
-  /* Mudar de tela */
-  .icons a {
-    text-decoration: none;
-  }
+
 }
