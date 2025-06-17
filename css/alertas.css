@@ -192,4 +192,14 @@
         padding: 1.5vh;
         margin-top: 3vh;
     }
+
+    .numero h1,
+    .numero p,
+    .numero2 p,
+    .tempo p,
+    .linhas p,
+    .partir-daqui p,
+    .aqui a {
+        font-size: clamp(14px, 3vw, 18px);
+    }
 }
