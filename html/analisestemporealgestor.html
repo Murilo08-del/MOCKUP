@@ -9,11 +9,7 @@
     <link rel="stylesheet" href="../css/analisestemporealgestor.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-    <!-- Chart.js - necessário para o gráfico -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-
-    <!-- Seu JS (com defer agora) -->
     <script src="../js/analisesdetempogestor.js" defer></script>
 </head>
 
@@ -40,7 +36,7 @@
                 <button class="desempenho"><b>Desempenho</b></button>
             </div>
 
-          
+
             <div class="informações">
                 <h2>Informações breves</h2>
                 <ul>
@@ -52,12 +48,20 @@
                 </ul>
             </div>
 
-            <div style="display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 30vh;">
-                <canvas id="graficoRosca"></canvas>
-            </div>
+            <section id="graficos">
+                <div class="grafico">
+                    <canvas id="linhasOperando"></canvas>
+                    <p style="color: white">Linhas operando</p>
+                </div>
+                <div class="grafico">
+                    <canvas id="operacao"></canvas>
+                    <p style="color: white">Operação</p>
+                </div>
+                <div class="grafico">
+                    <canvas id="atrasos"></canvas>
+                    <p style="color: white">Atrasos</p>
+                </div>
+            </section>
         </section>
     </main>
 
