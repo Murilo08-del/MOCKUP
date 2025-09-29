@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION["conectado"]) || $_SESSION["conectado"] !== true) {
+    header("Location: login.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -27,7 +34,8 @@
 
         <section class="caixa">
             <div class="bemvindo">
-                <h1> Bem vindo à <br> MiniTrilhos Logística <br> Ferroviária</h1>
+                <h1> <?php echo htmlspecialchars($_SESSION['nome']); ?>
+                    , Bem vindo à <br> MiniTrilhos Logística <br> Ferroviária</h1>
             </div>
 
             <div class="flexivel">

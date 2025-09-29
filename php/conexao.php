@@ -4,7 +4,7 @@ $user = "root";
 $password = "";
 $banco = "SA";
 
-$conecta = mysqli_connect($localhost, $user, $password);
+$conexao = mysqli_connect($localhost, $user, $password, $banco);
 
 if ($conexao->connect_error) {
     die("Falha na conexão: " . $conexao->connect_error);
