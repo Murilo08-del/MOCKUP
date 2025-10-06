@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-/* Mobile First - Base styles */
 main {
     padding: 5vh 5vw;
     min-height: 100vh;
@@ -15,11 +14,19 @@ main {
 }
 
 .usuario {
-    margin-right: 22vw;
+    width: 100%;
+    max-width: 350px;
+    text-align: left;
+    margin: 0;
+    padding-left: 10px;
 }
 
 .senha {
-    margin-right: 24vw;
+    width: 100%;
+    max-width: 350px;
+    text-align: left;
+    margin: 0;
+    padding-left: 10px;
 }
 
 #marcatitulo {
@@ -30,8 +37,11 @@ main {
 
 .esqueceusenha {
     color: gray;
-    margin-left: 10vw;
     text-decoration: none;
+    width: 100%;
+    max-width: 350px;
+    text-align: right;
+    margin-top: 1vh;
 }
 
 .esqueceusenha a {
@@ -59,7 +69,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5vh;
+    gap: 1vh;
 }
 
 #conta input {
@@ -68,11 +78,20 @@ main {
     height: clamp(4vh, 5vh, 6vh);
     border-radius: 25px;
     padding: 1vh 2vh;
+    padding-right: 40px;
     border: 1px solid #ccc;
     font-size: clamp(0.9rem, 2vw, 1.1rem);
 }
 
 #navbar {
+    height: 7vh;
+    background-color: #6b6262;
+}
+
+#rodape {
+    width: 100%;
+    bottom: 0;
+    position: fixed;
     height: 7vh;
     background-color: #6b6262;
 }
@@ -95,17 +114,27 @@ main {
 }
 
 .user {
-    margin-left: 2vw;
-    display: flex;
     width: 100%;
     max-width: 350px;
+    justify-content: center;
+    position: relative;
 }
 
 .password {
-    margin-left: 2vw;
-    display: flex;
     width: 100%;
     max-width: 350px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.user i,
+.password i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
 }
 
 .enviar {
@@ -132,8 +161,13 @@ main {
         max-width: 450px;
     }
 
-    .usuario, .senha {
-        margin-right: 15vw;
+    .usuario,
+    .senha {
+        max-width: 450px;
+    }
+
+    .esqueceusenha {
+        max-width: 450px;
     }
 }
 
@@ -151,8 +185,13 @@ main {
         max-width: 500px;
     }
 
-    .usuario, .senha {
-        margin-right: 10vw;
+    .usuario,
+    .senha {
+        max-width: 500px;
+    }
+
+    .esqueceusenha {
+        max-width: 500px;
     }
 }
 
@@ -175,7 +214,12 @@ main {
         height: 20vh;
     }
 
-    .usuario, .senha {
-        margin-right: 5vw;
+    .usuario,
+    .senha {
+        max-width: 600px;
+    }
+
+    .esqueceusenha {
+        max-width: 600px;
     }
 }
