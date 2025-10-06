@@ -163,7 +163,7 @@ main {
 
     .usuario,
     .senha {
-        max-width: 450px;
+        max-width: 300px;
     }
 
     .esqueceusenha {
@@ -185,8 +185,8 @@ main {
         max-width: 500px;
     }
 
-    .usuario,
-    .senha {
+    .usuario p,
+    .senha p {
         max-width: 500px;
     }
 
