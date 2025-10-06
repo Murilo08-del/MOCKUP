@@ -1,115 +1,181 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-@media(max-width:480px) {
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+/* Mobile First - Base styles */
+main {
+    padding: 5vh 5vw;
+    min-height: 100vh;
+}
+
+.crieconta {
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+}
+
+.usuario {
+    margin-right: 22vw;
+}
+
+.senha {
+    margin-right: 24vw;
+}
+
+#marcatitulo {
+    display: flex;
+    justify-content: center;
+    color: #e28c50;
+}
+
+.esqueceusenha {
+    color: gray;
+    margin-left: 10vw;
+    text-decoration: none;
+}
+
+.esqueceusenha a {
+    color: gray;
+    text-decoration: none;
+}
+
+.textlogin {
+    padding: 3vh;
+    display: flex;
+    justify-content: center;
+    font-family: "Playfair Display", serif;
+}
+
+.imagem img {
+    display: block;
+    margin: auto;
+    justify-content: center;
+    height: clamp(10vh, 15vh, 20vh);
+    width: auto;
+}
+
+#conta {
+    padding: 3vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5vh;
+}
+
+#conta input {
+    width: 100%;
+    max-width: 350px;
+    height: clamp(4vh, 5vh, 6vh);
+    border-radius: 25px;
+    padding: 1vh 2vh;
+    border: 1px solid #ccc;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+}
+
+#navbar {
+    height: 7vh;
+    background-color: #6b6262;
+}
+
+.entrar {
+    color: white;
+    border-radius: 25px;
+    padding: 1.2vh 3vw;
+    min-width: 100px;
+    background-color: blue;
+    border: none;
+    cursor: pointer;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    transition: all 0.3s ease;
+}
+
+.entrar:hover {
+    background-color: #0000cc;
+    transform: scale(1.05);
+}
+
+.user {
+    margin-left: 2vw;
+    display: flex;
+    width: 100%;
+    max-width: 350px;
+}
+
+.password {
+    margin-left: 2vw;
+    display: flex;
+    width: 100%;
+    max-width: 350px;
+}
+
+.enviar {
+    padding: 2.5vh;
+    transition: all 0.3s ease;
+}
+
+.enviar:hover {
+    transform: scale(1.1);
+}
+
+.cor-link {
+    text-decoration: none;
+    color: blue;
+}
+
+/* Tablet */
+@media (min-width: 481px) and (max-width: 768px) {
     main {
-        padding: 10vh;
+        padding: 8vh 10vw;
     }
 
-    .crieconta {
-        font-size: 2vh;
-    }
-
-    .usuario{
-        margin-right: 22vw;
-    }
-
-    .senha{
-        margin-right: 24vw;
-    }
-    
-    #marcatitulo{
-        display: flex;
-        justify-content: center;
-        color: #e28c50;
-    }
-
-    .esqueceusenha{
-        color: gray;
-        margin-left: 10vw;
-        text-decoration: none;
-    }
-    
-    .esqueceusenha a{
-        color: gray;
-        text-decoration: none;
-    }
-
-    .textlogin {
-        padding: 3vh;
-        display: flex;
-        justify-content: center;
-        font-family: "Playfair Display", serif;
-    }
-    
-    .imagem img {
-        display: block;
-        margin: auto;
-        justify-content: center;
-        height: 13vh;
-    }
-    
-    #conta {
-        padding: 3vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    
     #conta input {
-        height: 4vh;
-        border-radius: 10vw; 
-        margin: 2ch;
-        padding: 1vh;
+        max-width: 450px;
     }
-     
-    #navbar {
-        height: 7vh;
-        background-color: #6b6262;
+
+    .usuario, .senha {
+        margin-right: 15vw;
     }
-    
-    #rodape {
-        width: 100vw;
-        bottom: 0;
-        position: fixed;
-        height: 7vh;
-        background-color: #6b6262;
+}
+
+/* Desktop */
+@media (min-width: 769px) and (max-width: 1024px) {
+    main {
+        padding: 10vh 15vw;
     }
-    
-    .entrar {   
-        color: white;
-        border-radius: 10vw;
-        width: 18vw;
-        background-color: blue;
-        border: none;
-        padding: 0.9vh;
+
+    #conta {
+        padding: 4vh;
     }
-    
-    .user {
-        margin-left: 2vw;
-        display: flex;
+
+    #conta input {
+        max-width: 500px;
     }
-    
-    .password {
-        margin-left: 2vw;
-        display: flex;
+
+    .usuario, .senha {
+        margin-right: 10vw;
     }
-    
-    .enviar {
-        padding: 2.5vh;
-        transition: all 0.3s ease;
+}
+
+/* Large Desktop */
+@media (min-width: 1025px) {
+    main {
+        padding: 10vh 20vw;
     }
-    
-    .enviar:hover {
-        transform: scale(1.1); 
+
+    #conta {
+        padding: 5vh;
     }
-    
-    .cor-link {
-        text-decoration: none;
-        color: blue ;
+
+    #conta input {
+        max-width: 600px;
+        height: 6vh;
     }
- }
+
+    .imagem img {
+        height: 20vh;
+    }
+
+    .usuario, .senha {
+        margin-right: 5vw;
+    }
+}
