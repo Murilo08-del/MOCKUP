@@ -79,7 +79,8 @@ main {
     box-shadow: 0 0 5px rgba(226, 140, 80, 0.3);
 }
 
-.user, .password {
+.user,
+.password {
     width: 100%;
     max-width: 350px;
     display: flex;
@@ -110,7 +111,7 @@ main {
 }
 
 /* Mensagem de erro */
-main > form ~ * {
+main>form~* {
     color: red;
     text-align: center;
     padding: 2vh 5vw;
@@ -127,7 +128,8 @@ main > form ~ * {
         max-width: 450px;
     }
 
-    .user, .password {
+    .user,
+    .password {
         max-width: 450px;
     }
 
@@ -160,7 +162,8 @@ main > form ~ * {
         height: 5.5vh;
     }
 
-    .user, .password {
+    .user,
+    .password {
         max-width: 500px;
     }
 
@@ -198,7 +201,8 @@ main > form ~ * {
         height: 6vh;
     }
 
-    .user, .password {
+    .user,
+    .password {
         max-width: 600px;
     }
 
@@ -230,7 +234,8 @@ main > form ~ * {
         max-width: 700px;
     }
 
-    .user, .password {
+    .user,
+    .password {
         max-width: 700px;
     }
 }

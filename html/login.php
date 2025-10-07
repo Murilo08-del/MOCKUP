@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $senha = trim($_POST["Senha"] ?? "");
 
         // Verifica se o nome de usuário e senha estão corretos
-        $stmt = $conexao->prepare("SELECT * FROM usuarios WHERE email = ? ");   
+        $stmt = $conexao->prepare("SELECT * FROM usuarios WHERE email = ? ");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $resultado = $stmt->get_result();
@@ -77,7 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
             <div class="user">
                 <form method="post" action="">
-                    <input name="E-mail" class="usuario-input" type="text" placeholder=" E-mail " required> <i class="bi bi-person-fill"></i>
+                    <input name="E-mail" class="usuario-input" type="text" placeholder=" E-mail " required> <i
+                        class="bi bi-person-fill"></i>
             </div>
             <div class="senha">
                 <p>Senha</p>
@@ -90,21 +91,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <p>Esqueceu senha?</p>
                 </a>
             </div>
-
             <div class="enviar">
                 <button class="entrar" type="submit" name="login">Entrar</button>
             </div>
             </form>
+
+            <?php if ($erro): ?>
+                <p class="mensagem-erro"><?= htmlspecialchars($erro) ?></p>
+            <?php endif; ?>
+
             <div class="crieconta">
                 <p>Não tem conta ainda? <a class="cor-link" href="../html/crieconta.php">Crie agora!</a></p>
             </div>
         </section>
         </div>
-        <?php
-        if ($erro) {
-            echo "$erro";
-        }
-        ?>
     </main>
 
 </body>
