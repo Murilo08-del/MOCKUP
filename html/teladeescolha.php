@@ -39,7 +39,7 @@ if (!isset($_SESSION["conectado"]) || $_SESSION["conectado"] !== true) {
             </div>
 
             <div class="flexivel">
-                <a href="./login.html" style="text-decoration: none; color: black;">
+                <a href="./login.php" style="text-decoration: none; color: black;">
                     <div class="caixamenor">
                         <div class="icon">
                             <i class="bi bi-gear-wide-connected"></i>
