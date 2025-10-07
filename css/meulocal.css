@@ -32,9 +32,6 @@ body {
     transform: translateX(-50%);
 }
 
-.logo i {
-    color: #ffc107;
-}
 
 .icons {
     display: flex;

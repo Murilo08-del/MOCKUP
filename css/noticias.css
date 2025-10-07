@@ -32,10 +32,6 @@ body {
     transform: translateX(-50%);
 }
 
-.logo i {
-    color: #ffc107;
-}
-
 .icons {
     display: flex;
     gap: clamp(1vw, 2vw, 3vw);
