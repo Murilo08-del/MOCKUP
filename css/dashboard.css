@@ -68,11 +68,6 @@
   padding-bottom: 5vh;
 }
 
-footer {
-  min-height: 10vh;
-  background-color: white;
-}
-
 .como-chegar {
   padding: 3vh 5vw;
   font-family: sans-serif;
@@ -265,7 +260,7 @@ footer {
   }
 
   .tempo-real {
-    padding: 6vh 15vw;
+    padding: 6vh 20vw;
   }
 
   #cor {
