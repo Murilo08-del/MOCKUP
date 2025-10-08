@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $resultado = $stmt->get_result();
 
             if ($resultado->num_rows > 0) {
-                $erro = "E-mail ou telefone já registrados. Tente outros.";
+                $erro = "E-mail já registrados. Tente outros.";
             } else {
                 // Criptografa a senha
                 $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
