@@ -1,242 +1,279 @@
-@media(max-width:480px) {
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Mobile First - Base styles */
+.top-bar {
+    background-color: gray;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2vh 4vw;
+    position: relative;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1rem, 4vw, 2rem);
+    font-weight: bold;
+    gap: 8px;
+    margin: 0 auto;
+    color: white;
+}
+
+.open-btn {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: clamp(18px, 4vw, 20px);
+    cursor: pointer;
+    background-color: gray;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.open-btn:hover {
+    background-color: #555;
+}
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar a {
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: clamp(16px, 3vw, 18px);
+    color: black;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #f0f0f0;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #ff0000;
+}
+
+#cor {
+    background-color: #e28c50;
+    min-height: 80vh;
+    padding-bottom: 5vh;
+}
+
+.texto {
+    display: flex;
+    justify-content: center;
+    padding: 3vh 5vw;
+    color: white;
+    align-items: center;
+    text-align: center;
+}
+
+.texto h1 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+}
+
+.caixa {
+    padding: 3vh 5vw;
+    font-family: sans-serif;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    margin: 2vh 5vw;
+    width: auto;
+    max-width: 90vw;
+    height: auto;
+    min-height: 30vh;
+}
+
+.inspe b {
+    font-size: clamp(16px, 3vw, 20px);
+}
+
+/* Motor principal */
+.motor,
+.motor1,
+.motor2 {
+    width: 100%;
+    background-color: rgb(207, 207, 207);
+    min-height: 8vh;
+    border-radius: 12px;
+    margin-top: 3vh;
+    display: flex;
+    align-items: center;
+    padding: 1.5vh 4vw;
+    flex-wrap: wrap;
+    gap: 2vw;
+}
+
+.motor b,
+.motor1 b,
+.motor2 b {
+    font-size: clamp(14px, 2.5vw, 18px);
+}
+
+.manute {
+    margin-top: 3vh;
+}
+
+.manute b {
+    font-size: clamp(16px, 3vw, 20px);
+}
+
+.conclui {
+    color: rgb(64, 201, 0);
+    font-size: clamp(12px, 2vw, 16px);
+    font-weight: 600;
+}
+
+.pendente {
+    color: #ffaa00;
+    font-size: clamp(12px, 2vw, 16px);
+    font-weight: 600;
+}
+
+.urgente {
+    color: red;
+    font-size: clamp(12px, 2vw, 16px);
+    font-weight: 600;
+}
+
+.data,
+.data1,
+.data2 {
+    margin-top: 2vh;
+    font-size: clamp(11px, 2vw, 14px);
+    color: #555;
+}
+
+.flexivel {
+    margin-top: 2vh;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cor2 {
+    background-color: white;
+    min-height: 10vh;
+    padding: 2vh 0;
+}
+
+/* Tablet */
+@media (min-width: 481px) and (max-width: 768px) {
+    .top-bar {
+        padding: 2.5vh 5vw;
     }
 
+    .caixa {
+        margin: 3vh 8vw;
+        padding: 4vh 6vw;
+        max-width: 85vw;
+    }
+
+    .motor,
+    .motor1,
+    .motor2 {
+        padding: 2vh 5vw;
+    }
+}
+
+/* Desktop */
+@media (min-width: 769px) and (max-width: 1024px) {
     .top-bar {
-        background-color: gray;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 3vh 2vw;
-        position: relative;
+        padding: 2.5vh 8vw;
     }
 
     .logo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: clamp(1rem, 4vw, 2rem);
-        font-weight: bold;
-        gap: 8px;
-        margin: 0 auto;
-        color: white;
-    }
-
-    /* sidebar */
-    .open-btn {
-        position: absolute;
-        left: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 20px;
-        cursor: pointer;
-        background-color: gray;
-        color: white;
-        padding: 1px 15px;
-        border: none;
-        border-radius: 5px;
-    }
-
-    .sidebar {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background-color: white;
-        overflow-x: hidden;
-        transition: 0.3s;
-        padding-top: 60px;
-    }
-
-    .sidebar a {
-        padding: 10px 20px;
-        text-decoration: none;
-        font-size: 18px;
-        color: black;
-        display: block;
-        transition: 0.3s;
-    }
-
-    .sidebar a:hover {
-        background-color: gray;
-    }
-
-    /* Botão de fechar */
-    .close-btn {
-        position: absolute;
-        top: 20px;
-        right: 25px;
-        font-size: 30px;
-        cursor: pointer;
-        color: white;
+        font-size: 1.8rem;
     }
 
     #cor {
-        background-color: #e28c50;
-        height: 80vh;
+        min-height: 85vh;
     }
 
     .caixa {
-        padding: 3vh;
-        font-family: sans-serif;
-        background-color: white;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 12px;
-        margin-left: 10vw;
-        margin-right: 10vw;
-        margin-top: 10px;
-        height: 33rem;
+        margin: 3vh auto;
+        padding: 5vh 7vw;
+        max-width: 700px;
+    }
+
+    .motor,
+    .motor1,
+    .motor2 {
+        padding: 2.5vh 6vw;
+        border-radius: 15px;
     }
 
     .texto {
-        display: flex;
-        justify-content: center;
-        padding-top: 3vh;
-        color: white;
-        align-items: center;
-        max-width: 100%;
-        flex-wrap: wrap;
-        text-align: center;
+        padding: 4vh 10vw;
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1025px) {
+    .top-bar {
+        padding: 2.5vh 10vw;
     }
 
+    .logo {
+        font-size: 2rem;
+    }
 
-    .texto h1 {
-        font-size: clamp(1.5rem, 4vw, 2.5rem);
-        /* Tamanho adaptável */
+    #cor {
+        min-height: 90vh;
     }
 
     .caixa {
-        padding: 3vh 4vw;
-        font-family: sans-serif;
-        background: #fff;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
-        border-radius: 12px;
-        margin: 10px auto;
-        width: 90vw;
-        max-width: 600px;
-        height: auto;
-        box-sizing: border-box;
-
+        margin: 4vh auto;
+        padding: 6vh 8vw;
+        max-width: 900px;
     }
 
-    .inspe b {
-        font-size: 2.51vh;
-    }
-
-    /* Moto principal*/
-    .motor {
-        max-width: 100%;
-        background-color: rgb(207, 207, 207);
-        height: 8vh;
-        border-radius: 2vw;
-        margin-top: 3vh;
-        display: flex;
-    }
-
-    .motor b {
-        margin-top: 1vh;
-        margin-left: 4vw;
-        font-size: 1.8vh;
-    }
-
-    /*Fim Moto principal*/
-
-    .manute {
-        margin-top: 3vh;
-    }
-
-    .manute b {
-        font-size: 2.5vh;
-    }
-
-    .conclui {
-        color: rgb(64, 201, 0);
-        font-size: 1.3vh;
-    }
-
-
-    .data {
-        margin-top: 3vh;
-        margin-left: 20vw;
-        font-size: 1.5vh;
-        position: relative;
-    }
-
-    .data1 {
-        margin-top: 3vh;
-        margin-left: 25vw;
-        font-size: 1.5vh;
-    }
-
-    .data2 {
-        margin-top: 3vh;
-        margin-left: 25vw;
-        font-size: 1.5vh;
-
-    }
-
-    /* Sistema Hidráulico*/
-    .motor1 {
-        max-width: auto;
-        background-color: rgb(207, 207, 207);
-        height: 8vh;
-        border-radius: 2vw;
-        margin-top: 3vh;
-        display: flex;
-    }
-
-    .motor1 b {
-        margin-top: 1vh;
-        margin-left: 4vw;
-        font-size: 1.8vh;
-    }
-
-    .pendente {
-        color: yellow;
-        font-size: 1.3vh;
-    }
-
-    /* fim*/
-
-    /* Sistema Elétrico*/
+    .motor,
+    .motor1,
     .motor2 {
-        max-width: auto;
-        background-color: rgb(207, 207, 207);
-        height: 8vh;
-        border-radius: 2vw;
-        margin-top: 3vh;
-        display: flex;
+        padding: 3vh 7vw;
+        border-radius: 18px;
     }
 
-    .motor2 b {
-        margin-top: 1vh;
-        margin-left: 4vw;
-        font-size: 1.8vh;
+    .texto {
+        padding: 5vh 15vw;
     }
-
-    .urgente {
-        color: red;
-        font-size: 1.3vh;
-    }
-
-    /* fim*/
-
-    .flexivel {
-        margin-top: 2vh;
-        display: flex;
-        justify-content: center;
-    }
-
 
     .cor2 {
-        background-color: white;
-        height: 10vh;
+        min-height: 12vh;
     }
-
-
 }
