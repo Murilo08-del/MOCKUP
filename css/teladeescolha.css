@@ -10,15 +10,6 @@
         background-color: #6b6262;
     }
 
-    #rodape {
-        width: 100vw;
-        bottom: 0;
-        position: fixed;
-        height: 7vh;
-        background-color: #6b6262;
-    }
-
-
     .password {
         margin-left: 2vw;
         display: flex;
