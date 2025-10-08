@@ -140,6 +140,8 @@
     border-radius: 12px;
     padding: 3vh 5vw;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .caixa h2 {
@@ -206,6 +208,8 @@ p {
         width: 80vw;
         max-width: 650px;
         padding: 4vh 6vw;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .titulo h1 {
@@ -238,6 +242,8 @@ p {
         max-width: 700px;
         padding: 5vh 7vw;
         margin-top: 6vh;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .flexivel {
@@ -274,6 +280,8 @@ p {
         max-width: 800px;
         padding: 6vh 8vw;
         margin-top: 7vh;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .flexivel {
