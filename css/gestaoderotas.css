@@ -139,6 +139,12 @@ select {
 }
 
 /* Botões para desativar e editar linhas */
+.editar,
+.desativar {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .editar button,
 .desativar button {
     height: clamp(35px, 5vh, 45px);
@@ -147,7 +153,8 @@ select {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 2vh;
+    margin-top: 0;
+    margin-left: 0.5vw;
     border: none;
     cursor: pointer;
     font-size: clamp(0.85rem, 2vw, 1rem);
@@ -167,12 +174,18 @@ select {
 .desativar button {
     background-color: rgb(255, 187, 0);
     color: white;
-    margin-left: 2vw;
 }
 
 .desativar button:hover {
     background-color: #e6aa00;
     transform: translateY(-2px);
+}
+
+/* Container para alinhamento horizontal dos botões */
+.botoes-linha {
+    display: flex;
+    gap: 1vw;
+    align-items: center;
 }
 
 /* Containers das linhas */
