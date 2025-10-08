@@ -1,167 +1,316 @@
-@media(max-width:480px) {
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    /* navbar */
+/* Mobile First - Base styles */
+.top-bar {
+    background-color: gray;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2vh 4vw;
+    position: relative;
+}
+
+.menu-icon i {
+    font-size: clamp(18px, 4vw, 24px);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1rem, 4vw, 2rem);
+    font-weight: bold;
+    gap: 8px;
+    margin: 0 auto;
+    color: white;
+}
+
+input {
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+}
+
+/* Sidebar */
+.open-btn {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: clamp(18px, 4vw, 20px);
+    cursor: pointer;
+    background-color: gray;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.open-btn:hover {
+    background-color: #555;
+}
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar a {
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: clamp(16px, 3vw, 18px);
+    color: black;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #f0f0f0;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #ff0000;
+}
+
+.pesquisa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2vh auto;
+    max-width: 90%;
+    gap: 2vw;
+}
+
+.pesquisa input {
+    width: 100%;
+    max-width: 500px;
+}
+
+.lupa {
+    font-size: clamp(18px, 4vw, 24px);
+    color: #666;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 2vh 5vw;
+}
+
+select {
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #ccc;
+    padding: clamp(10px, 2vh, 14px);
+    border-radius: 8px;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    background-color: white;
+    margin: 1vh auto;
+    display: block;
+}
+
+.icons a {
+    text-decoration: none;
+}
+
+/* Botões para desativar e editar linhas */
+.editar button,
+.desativar button {
+    height: clamp(35px, 5vh, 45px);
+    padding: 0 clamp(15px, 4vw, 25px);
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+    border: none;
+    cursor: pointer;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.editar button {
+    background-color: orange;
+    color: white;
+}
+
+.editar button:hover {
+    background-color: #ff8c00;
+    transform: translateY(-2px);
+}
+
+.desativar button {
+    background-color: rgb(255, 187, 0);
+    color: white;
+    margin-left: 2vw;
+}
+
+.desativar button:hover {
+    background-color: #e6aa00;
+    transform: translateY(-2px);
+}
+
+/* Containers das linhas */
+.central,
+.norte,
+.sul,
+.leste,
+.oeste {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2vh 5vw;
+    flex-wrap: wrap;
+    gap: 2vw;
+}
+
+.central>div,
+.norte>div,
+.sul>div,
+.leste>div,
+.oeste>div {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Tablet */
+@media (min-width: 481px) and (max-width: 768px) {
     .top-bar {
-        background-color: gray;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 3vh 2vw;
-        position: relative;
-    }
-
-
-    .menu-icon i {
-        font-size: 20px;
-    }
-
-    .logo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: clamp(1rem, 4vw, 2rem);
-        font-weight: bold;
-        gap: 8px;
-        margin: 0 auto;
-        color: white;
-    }
-
-
-    input {
-        border-radius: 10vw;
-    }
-
-    /* sidebar */
-    .open-btn {
-        position: absolute;
-        left: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 20px;
-        cursor: pointer;
-        background-color: gray;
-        color: white;
-        padding: 1px 15px;
-        border: none;
-        border-radius: 5px;
-    }
-
-    /* Sidebar */
-    .sidebar {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background-color: white;
-        overflow-x: hidden;
-        transition: 0.3s;
-        padding-top: 60px;
-        z-index: 1;
-    }
-
-    .sidebar a {
-        padding: 10px 20px;
-        text-decoration: none;
-        font-size: 18px;
-        color: black;
-        display: block;
-        transition: 0.3s;
-    }
-
-    .sidebar a:hover {
-        background-color: gray;
-    }
-
-    /* Botão de fechar */
-    .close-btn {
-        position: absolute;
-        top: 20px;
-        right: 25px;
-        font-size: 30px;
-        cursor: pointer;
-        color: white;
+        padding: 2.5vh 5vw;
     }
 
     .pesquisa {
-        display: flex;
-        justify-content: center;
-        margin-top: 2vh;
-        border-radius: 20vh;
-        height: 5vh;
-        gap: 2vw;
+        max-width: 80%;
     }
 
-    .lupa {
-        margin-top: 6px;
-    }
-
-    /* linha */
-    hr {
-        z-index: 0;
+    .pesquisa input {
+        max-width: 600px;
     }
 
     select {
-        width: 50%;
-        border: none;
-        padding: 2vh;
+        max-width: 600px;
     }
 
-    /* Mudar de tela */
-    .icons a {
-        text-decoration: none;
-    }
-
-    /* botões para desativar e editar linhas */
-    .editar button {
-        height: 4vh;
-        width: 20vw;
-        background-color: orange;
-        border-radius: 20vw;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 2vh;
-        border: none;
-    }
-
-    .desativar button {
-        height: 4vh;
-        width: 20vw;
-        background-color: rgb(255, 187, 0);
-        border-radius: 20vw;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 2vh;
-        border: none;
-        margin-left: 2vw;
-    }
-
-    /* fiz isso para deixar os buttons do lado das linhas */
-    .central {
-        display: flex;
-    }
-
-    .norte {
-        display: flex;
-    }
-
-    .sul {
-        display: flex;
-    }
-
-    .leste {
-        display: flex;
-    }
-
+    .central,
+    .norte,
+    .sul,
+    .leste,
     .oeste {
-        display: flex;
+        padding: 2vh 8vw;
+    }
+
+    .editar button,
+    .desativar button {
+        min-width: 100px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .top-bar {
+        padding: 2.5vh 8vw;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+    }
+
+    .pesquisa {
+        max-width: 70%;
+    }
+
+    .pesquisa input {
+        max-width: 700px;
+    }
+
+    select {
+        max-width: 700px;
+    }
+
+    .central,
+    .norte,
+    .sul,
+    .leste,
+    .oeste {
+        padding: 2vh 10vw;
+        gap: 3vw;
+    }
+
+    .editar button,
+    .desativar button {
+        min-width: 120px;
+        height: 45px;
+    }
+
+    hr {
+        margin: 2vh 10vw;
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1025px) {
+    .top-bar {
+        padding: 2.5vh 10vw;
+    }
+
+    .logo {
+        font-size: 2rem;
+    }
+
+    .pesquisa {
+        max-width: 60%;
+    }
+
+    .pesquisa input {
+        max-width: 800px;
+    }
+
+    select {
+        max-width: 800px;
+    }
+
+    .central,
+    .norte,
+    .sul,
+    .leste,
+    .oeste {
+        padding: 3vh 15vw;
+        gap: 4vw;
+    }
+
+    .editar button,
+    .desativar button {
+        min-width: 140px;
+        height: 50px;
+        font-size: 1rem;
+    }
+
+    hr {
+        margin: 3vh 15vw;
     }
 }
