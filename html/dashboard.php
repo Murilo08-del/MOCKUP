@@ -6,13 +6,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST["buscar_rotas"])) {
         $origem = trim($_POST["origem"] ?? "");
         $destino = trim($_POST["destino"] ?? "");
+        /*
+                if (empty($origem) || empty($destino)) {
+                    $erro = "Por favor, preencha todos os campos!";
+                } else {
+                    $sucesso = "Formulário enviado com sucesso!";
 
-        if (empty($origem) || empty($destino)) {
-            $erro = "Por favor, preencha todos os campos!";
-        } else {
-            $sucesso = "Formulário enviado com sucesso!";
-
-        }
+                }
+                    */ // Usado para frente em testes
     }
 }
 ?>
@@ -68,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <section class="como-chegar">
                 <h3>🚩 COMO CHEGAR</h3>
-                
+
                 <form method="POST" action="">
                     <label>
                         <span>📍 De</span>
