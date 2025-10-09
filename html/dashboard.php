@@ -1,3 +1,21 @@
+<?php
+$erro = "";
+$sucesso = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST["buscar_rotas"])) {
+        $origem = trim($_POST["origem"] ?? "");
+        $destino = trim($_POST["destino"] ?? "");
+
+        if (empty($origem) || empty($destino)) {
+            $erro = "Por favor, preencha todos os campos!";
+        } else {
+            $sucesso = "Formulário enviado com sucesso!";
+
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -10,16 +28,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-
-    <script src="../js/dashboard.js"></script>
 </head>
-
 
 <body>
     <header class="top-bar">
-
         <button class="open-btn" onclick="openSidebar()">☰</button>
 
         <div id="mySidebar" class="sidebar">
@@ -33,9 +45,7 @@
             <a href="../html/comochegar.html">Contato</a>
         </div>
 
-
         <div class="logo"><i class="fas fa-train"></i> MiniTrilhos</div>
-
 
         <div class="icons">
             <a href="../html/meulocal.html">
@@ -58,40 +68,42 @@
 
             <section class="como-chegar">
                 <h3>🚩 COMO CHEGAR</h3>
+                
+                <form method="POST" action="">
+                    <label>
+                        <span>📍 De</span>
+                        <input name="origem" type="text" placeholder="Inserir origem" required>
+                    </label>
 
-                <label>
-                    <span>📍 De</span>
-                    <input type="text" placeholder="Inserir origem">
-                </label>
+                    <label>
+                        <span>📍 Para</span>
+                        <input name="destino" type="text" placeholder="Inserir destino" required>
+                    </label>
 
-                <label>
-                    <span>🏁 Para</span>
-                    <input type="text" placeholder="Inserir destino">
-                </label>
+                    <label>
+                        <span>📅 Data</span>
+                        <input name="data" type="date" value="2025-05-09">
+                    </label>
 
-                <label>
-                    <span>📅 Data</span>
-                    <input type="date" value="2025-05-09">
-                </label>
+                    <label>
+                        <span>Tipo</span>
+                        <select name="tipo">
+                            <option value="partida">Partida</option>
+                            <option value="chegada">Chegada</option>
+                        </select>
+                    </label>
 
-                <label>
-                    <span>Tipo</span>
-                    <select>
-                        <option value="partida">Partida</option>
-                        <option value="chegada">Chegada</option>
-                    </select>
-                </label>
+                    <label>
+                        <span>⏰ Horário</span>
+                        <input name="horario" type="time" value="10:58">
+                    </label>
 
-                <label>
-                    <span>⏰ Horário</span>
-                    <input type="time" value="10:58">
-                </label>
-
-                <button>Buscar rotas</button>
+                    <button type="submit" name="buscar_rotas">Buscar rotas</button>
+                </form>
             </section>
         </section>
     </main>
- 
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
