@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">×</a>
             <a href="dashboard.php">Início</a>
             <a href="noticias.html">Notícia</a>
-            <a href="Linhas.html">Linhas</a>
+            <a href="Linhas.php">Linhas</a>
             <a href="meulocal.html">Meu Local</a>
             <a href="comochegar.html">Como Chegar</a>
             <a href="buscar.html">Buscar</a>
