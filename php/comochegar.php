@@ -1,19 +1,17 @@
 <?php
 $erro = "";
 $sucesso = "";
+$como_achar = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST["como-achar"])) {
+    if (isset($_POST["como_achar"])) {
         $origem = trim($_POST["origem"] ?? "");
         $destino = trim($_POST["destino"] ?? "");
-        /*
-                if (empty($origem) || empty($destino)) {
-                    $erro = "Por favor, preencha todos os campos!";
-                } else {
-                    $sucesso = "Formulário enviado com sucesso!";
-
-                }
-                    */ // Usado para frente em testes
+        if (empty($origem) || empty($destino)) {
+            $erro = "Por favor, preencha todos os campos!";
+        } else {
+            $sucesso = "Busca realizada com sucesso!";
+        }
     }
 }
 ?>
@@ -34,6 +32,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 
     <script src="../js/comochegar.js"></script>
+    <style>
+        .alert-sucesso {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            text-align: center;
+            max-width: 600px;
+            font-weight: 500;
+        }
+
+        .alert-erro {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            border: 1px solid #f5c6cb;
+            text-align: center;
+            max-width: 600px;
+            font-weight: 500;
+        }
+    </style>
 </head>
 
 <body>
@@ -74,17 +97,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <h1>Como chegar</h1>
 
                 <div class="inserir">
-                    <input type="text" placeholder=" Inserir origem" name="origem" required>
+                    <input type="text" placeholder=" Inserir origem" name="origem">
                 </div>
                 <div class="inserir2">
-                    <input type="text" placeholder=" Inserir destino" name="destino" required>
+                    <input type="text" placeholder=" Inserir destino" name="destino">
                 </div>
 
                 <div class="botao">
                     <a href="#">
-                        <button name="como-achar" class="enviar" type="submit">Enviar</button>
+                        <button name="como_achar" class="enviar" type="submit">Enviar</button>
                     </a>
                 </div>
+
+                <?php if (!empty($erro)): ?>
+                    <div class="alert-erro">
+                        <strong> Erro:</strong> <?php echo htmlspecialchars($erro); ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!empty($sucesso)): ?>
+                    <div class="alert-sucesso">
+                        <strong> Sucesso:</strong> <?php echo htmlspecialchars($sucesso); ?>
+                    </div>
+                <?php endif; ?>
             </div>
         </form>
 
