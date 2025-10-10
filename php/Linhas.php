@@ -1,14 +1,18 @@
 <?php
 $pesquisar = "";
+$erro = "";
+$sucesso = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST["pesquisar"])) {
         $pesquisar = trim($_POST["pesquisar_linha"] ?? "");
-        /*
+
         if (empty($pesquisar)) {
-            $erro = "Por favor, preencha todos os campos!";
+            $erro = "Por favor, preencha o campo de busca!";
+        } else {
+            $sucesso = "Buscando por: " . htmlspecialchars($pesquisar);
+
         }
-        */ // se precisar futuramente 
     }
 }
 ?>
@@ -26,7 +30,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
-    
+        .alert-erro {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            border: 1px solid #f5c6cb;
+            text-align: center;
+            max-width: 600px;
+            font-weight: 500;
+        }
+
+        .alert-sucesso {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            text-align: center;
+            max-width: 600px;
+            font-weight: 500;
+        }
+
         .pesquisa input[type="text"] {
             flex: 1;
             padding: 12px 20px;
@@ -105,12 +132,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <section id="cor">
             <form method="post" action="">
                 <div class="pesquisa">
-                    <input type="text" placeholder="Pesquisar Linhas" name="pesquisar_linha" required>
+                    <input type="text" placeholder="Pesquisar Linhas" name="pesquisar_linha">
                     <button class="lupa" type="submit" name="pesquisar">
                         <i class="bi bi-search"></i>
                     </button>
+
+                    <?php if (!empty($erro)): ?>
+                        <div class="alert-erro">
+                            <strong>Erro:</strong> <?php echo htmlspecialchars($erro); ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($sucesso)): ?>
+                        <div class="alert-sucesso">
+                            <strong> Sucesso:</strong> <?php echo htmlspecialchars($sucesso); ?>
+                        </div>
+                    <?php endif; ?>
             </form>
-            </div>
             <br>
             <hr>
 
