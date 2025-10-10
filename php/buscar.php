@@ -1,14 +1,17 @@
 <?php
 $pesquisar = "";
+$erro = "";
+$sucesso = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST["pesquisar"])) {
         $pesquisar = trim($_POST["pesquisar_linha"] ?? "");
-        /*
+
         if (empty($pesquisar)) {
-            $erro = "Por favor, preencha todos os campos!";
+            $erro = "Por favor, preencha o campo de busca!";
+        } else {
+            $sucesso = "Buscando por: " . htmlspecialchars($pesquisar);
         }
-        */ // se precisar futuramente 
     }
 }
 ?>
@@ -28,6 +31,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <style>
+        .alert-erro {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            border: 1px solid #f5c6cb;
+            text-align: center;
+            max-width: 600px;
+            font-weight: 500;
+        }
+
+        .alert-sucesso {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            text-align: center;
+            max-width: 600px;
+            font-weight: 500;
+        }
+
         .pesquisa input[type="text"] {
             flex: 1;
             padding: 12px 20px;
@@ -104,13 +131,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </header>
 
     <main>
-        <form method="post" action="">
+        <form method="POST" action="">
             <div class="pesquisa">
-                <input name="pesquisar_linha" type="text" placeholder="Pesquisar" required>
+                <input name="pesquisar_linha" type="text" placeholder="Pesquisar">
                 <button class="lupa" type="submit" name="pesquisar">
                     <i class="bi bi-search"></i>
                 </button>
             </div>
+
+            <?php if (!empty($erro)): ?>
+                <div class="alert-erro">
+                    <strong> Erro:</strong> <?php echo htmlspecialchars($erro); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($sucesso)): ?>
+                <div class="alert-sucesso">
+                    <strong> Sucesso:</strong> <?php echo htmlspecialchars($sucesso); ?>
+                </div>
+            <?php endif; ?>
         </form>
         </div>
         <div class="sugestão">
