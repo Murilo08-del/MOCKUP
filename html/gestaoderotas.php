@@ -150,34 +150,34 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
     <title>Gestão de Rotas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
+    
     <style>
         body {
-           background-color: #e28c50;
+            background: #e28c50;
             min-height: 100vh;
             padding-bottom: 50px;
         }
-
+        
         .container-custom {
             max-width: 1200px;
             margin: 30px auto;
             padding: 0 20px;
         }
-
+        
         .ferrovia-card {
             background: white;
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             transition: transform 0.3s;
         }
-
+        
         .ferrovia-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
-
+        
         .ferrovia-header {
             display: flex;
             justify-content: space-between;
@@ -186,31 +186,31 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
             padding-bottom: 15px;
             border-bottom: 2px solid #f0f0f0;
         }
-
+        
         .ferrovia-title {
             font-size: 24px;
             font-weight: bold;
             color: #333;
             margin: 0;
         }
-
+        
         .status-badge {
             padding: 8px 20px;
             border-radius: 20px;
             font-weight: bold;
             font-size: 14px;
         }
-
+        
         .status-ativa {
             background: #28a745;
             color: white;
         }
-
+        
         .status-inativa {
             background: #dc3545;
             color: white;
         }
-
+        
         .linha-item {
             background: #f8f9fa;
             padding: 15px;
@@ -221,33 +221,33 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .linha-info {
             flex: 1;
         }
-
+        
         .linha-nome {
             font-weight: bold;
             font-size: 16px;
             color: #333;
             margin-bottom: 5px;
         }
-
+        
         .linha-detalhes {
             font-size: 13px;
             color: #666;
         }
-
+        
         .linha-actions {
             display: flex;
             gap: 8px;
         }
-
+        
         .btn-action {
             padding: 6px 12px;
             font-size: 13px;
         }
-
+        
         .cor-preview {
             width: 30px;
             height: 30px;
@@ -257,22 +257,22 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
             margin-right: 10px;
             vertical-align: middle;
         }
-
+        
         .empty-state {
             text-align: center;
             padding: 40px;
             color: #999;
         }
-
+        
         .page-title {
             color: white;
             text-align: center;
             margin-bottom: 30px;
             font-size: 32px;
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
-
+        
         .btn-add-main {
             position: fixed;
             bottom: 30px;
@@ -281,7 +281,7 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
             height: 60px;
             border-radius: 50%;
             font-size: 24px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             z-index: 1000;
         }
     </style>
@@ -314,25 +314,22 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
         <?php endif; ?>
 
         <?php while ($ferrovia = $ferrovias->fetch_assoc()): ?>
-        <?php
+            <?php
             // Buscar linhas desta ferrovia
             $stmt = $conexao->prepare("SELECT * FROM linhas WHERE ferrovia_id = ? ORDER BY codigo ASC");
             $stmt->bind_param("i", $ferrovia['id']);
             $stmt->execute();
             $linhas = $stmt->get_result();
             ?>
-
+            
         <div class="ferrovia-card">
             <div class="ferrovia-header">
                 <div>
                     <h2 class="ferrovia-title">
-                        <i class="fas fa-train"></i>
-                        <?= htmlspecialchars($ferrovia['nome']) ?>
+                        <i class="fas fa-train"></i> <?= htmlspecialchars($ferrovia['nome']) ?>
                     </h2>
                     <?php if ($ferrovia['descricao']): ?>
-                    <p class="text-muted mb-0">
-                        <?= htmlspecialchars($ferrovia['descricao']) ?>
-                    </p>
+                    <p class="text-muted mb-0"><?= htmlspecialchars($ferrovia['descricao']) ?></p>
                     <?php endif; ?>
                 </div>
                 <div>
@@ -341,76 +338,63 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
                     </span>
                 </div>
             </div>
-
+            
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5 class="mb-0"><i class="fas fa-subway"></i> Linhas</h5>
                 <div>
                     <button class="btn btn-sm btn-success" onclick="abrirModalAdicionarLinha(<?= $ferrovia['id'] ?>)">
                         <i class="fas fa-plus"></i> Adicionar Linha
                     </button>
-                    <button class="btn btn-sm btn-primary"
-                        onclick="editarFerrovia(<?= htmlspecialchars(json_encode($ferrovia)) ?>)">
+                    <button class="btn btn-sm btn-primary" onclick="editarFerrovia(<?= htmlspecialchars(json_encode($ferrovia)) ?>)">
                         <i class="fas fa-edit"></i> Editar Ferrovia
                     </button>
-                    <a href="?toggle_ferrovia=<?= $ferrovia['id'] ?>"
-                        class="btn btn-sm btn-<?= $ferrovia['ativa'] ? 'warning' : 'success' ?>">
-                        <i class="fas fa-power-off"></i>
-                        <?= $ferrovia['ativa'] ? 'Desativar' : 'Ativar' ?>
+                    <a href="?toggle_ferrovia=<?= $ferrovia['id'] ?>" class="btn btn-sm btn-<?= $ferrovia['ativa'] ? 'warning' : 'success' ?>">
+                        <i class="fas fa-power-off"></i> <?= $ferrovia['ativa'] ? 'Desativar' : 'Ativar' ?>
                     </a>
                 </div>
             </div>
 
             <?php if ($linhas->num_rows > 0): ?>
-            <?php while ($linha = $linhas->fetch_assoc()): ?>
-            <div class="linha-item" style="border-left-color: <?= htmlspecialchars($linha['cor']) ?>">
-                <div class="linha-info">
-                    <div class="linha-nome">
-                        <span class="cor-preview"
-                            style="background-color: <?= htmlspecialchars($linha['cor']) ?>"></span>
-                        <?= htmlspecialchars($linha['nome']) ?>
-                        <span class="badge bg-secondary">
-                            <?= htmlspecialchars($linha['codigo']) ?>
-                        </span>
-                        <?php if (!$linha['ativa']): ?>
-                        <span class="badge bg-danger">Inativa</span>
-                        <?php endif; ?>
+                <?php while ($linha = $linhas->fetch_assoc()): ?>
+                <div class="linha-item" style="border-left-color: <?= htmlspecialchars($linha['cor']) ?>">
+                    <div class="linha-info">
+                        <div class="linha-nome">
+                            <span class="cor-preview" style="background-color: <?= htmlspecialchars($linha['cor']) ?>"></span>
+                            <?= htmlspecialchars($linha['nome']) ?> 
+                            <span class="badge bg-secondary"><?= htmlspecialchars($linha['codigo']) ?></span>
+                            <?php if (!$linha['ativa']): ?>
+                            <span class="badge bg-danger">Inativa</span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="linha-detalhes">
+                            <i class="far fa-clock"></i> <?= date('H:i', strtotime($linha['horario_inicio'])) ?> - <?= date('H:i', strtotime($linha['horario_fim'])) ?> 
+                            | <i class="fas fa-stopwatch"></i> Intervalo: <?= $linha['intervalo_minutos'] ?> min
+                        </div>
                     </div>
-                    <div class="linha-detalhes">
-                        <i class="far fa-clock"></i>
-                        <?= date('H:i', strtotime($linha['horario_inicio'])) ?> -
-                        <?= date('H:i', strtotime($linha['horario_fim'])) ?>
-                        | <i class="fas fa-stopwatch"></i> Intervalo:
-                        <?= $linha['intervalo_minutos'] ?> min
+                    <div class="linha-actions">
+                        <button class="btn btn-sm btn-primary btn-action" onclick="editarLinha(<?= htmlspecialchars(json_encode($linha)) ?>)">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <a href="?toggle_linha=<?= $linha['id'] ?>" class="btn btn-sm btn-<?= $linha['ativa'] ? 'warning' : 'success' ?> btn-action" title="<?= $linha['ativa'] ? 'Desativar' : 'Ativar' ?>">
+                            <i class="fas fa-power-off"></i>
+                        </a>
+                        <a href="?remover_linha=<?= $linha['id'] ?>" class="btn btn-sm btn-danger btn-action" onclick="return confirm('Tem certeza que deseja remover esta linha?')" title="Remover">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="linha-actions">
-                    <button class="btn btn-sm btn-primary btn-action"
-                        onclick="editarLinha(<?= htmlspecialchars(json_encode($linha)) ?>)">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <a href="?toggle_linha=<?= $linha['id'] ?>"
-                        class="btn btn-sm btn-<?= $linha['ativa'] ? 'warning' : 'success' ?> btn-action"
-                        title="<?= $linha['ativa'] ? 'Desativar' : 'Ativar' ?>">
-                        <i class="fas fa-power-off"></i>
-                    </a>
-                    <a href="?remover_linha=<?= $linha['id'] ?>" class="btn btn-sm btn-danger btn-action"
-                        onclick="return confirm('Tem certeza que deseja remover esta linha?')" title="Remover">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </div>
-            </div>
-            <?php endwhile; ?>
+                <?php endwhile; ?>
             <?php else: ?>
-            <div class="empty-state">
-                <i class="fas fa-inbox" style="font-size: 48px;"></i>
-                <p>Nenhuma linha cadastrada para esta ferrovia</p>
-            </div>
+                <div class="empty-state">
+                    <i class="fas fa-inbox" style="font-size: 48px;"></i>
+                    <p>Nenhuma linha cadastrada para esta ferrovia</p>
+                </div>
             <?php endif; ?>
-
+            
             <?php $stmt->close(); ?>
         </div>
         <?php endwhile; ?>
-
+        
         <?php if ($ferrovias->num_rows == 0): ?>
         <div class="ferrovia-card">
             <div class="empty-state">
@@ -423,8 +407,7 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
     </main>
 
     <!-- Botão flutuante para adicionar ferrovia -->
-    <button class="btn btn-success btn-add-main" data-bs-toggle="modal" data-bs-target="#modalAdicionarFerrovia"
-        title="Adicionar Ferrovia">
+    <button class="btn btn-success btn-add-main" data-bs-toggle="modal" data-bs-target="#modalAdicionarFerrovia" title="Adicionar Ferrovia">
         <i class="fas fa-plus"></i>
     </button>
 
@@ -440,13 +423,11 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Nome da Ferrovia</label>
-                            <input type="text" class="form-control" name="nome" placeholder="Ex: Ferrovia Central"
-                                required>
+                            <input type="text" class="form-control" name="nome" placeholder="Ex: Ferrovia Central" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Descrição</label>
-                            <textarea class="form-control" name="descricao" rows="3"
-                                placeholder="Descreva a rota e principais características"></textarea>
+                            <textarea class="form-control" name="descricao" rows="3" placeholder="Descreva a rota e principais características"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -477,8 +458,7 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Descrição</label>
-                            <textarea class="form-control" name="descricao" id="edit_ferrovia_descricao"
-                                rows="3"></textarea>
+                            <textarea class="form-control" name="descricao" id="edit_ferrovia_descricao" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -507,15 +487,13 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
                             <div class="col-md-8">
                                 <div class="mb-3">
                                     <label class="form-label">Nome da Linha</label>
-                                    <input type="text" class="form-control" name="nome"
-                                        placeholder="Ex: Linha A - Expressa" required>
+                                    <input type="text" class="form-control" name="nome" placeholder="Ex: Linha A - Expressa" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label">Código</label>
-                                    <input type="text" class="form-control" name="codigo" placeholder="Ex: LA"
-                                        maxlength="10" required>
+                                    <input type="text" class="form-control" name="codigo" placeholder="Ex: LA" maxlength="10" required>
                                 </div>
                             </div>
                         </div>
@@ -523,8 +501,7 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label">Início</label>
-                                    <input type="time" class="form-control" name="horario_inicio" value="05:00"
-                                        required>
+                                    <input type="time" class="form-control" name="horario_inicio" value="05:00" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -536,15 +513,13 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label">Intervalo (min)</label>
-                                    <input type="number" class="form-control" name="intervalo_minutos" value="15"
-                                        min="1" max="120" required>
+                                    <input type="number" class="form-control" name="intervalo_minutos" value="15" min="1" max="120" required>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Cor da Linha</label>
-                            <input type="color" class="form-control form-control-color" name="cor" value="#667eea"
-                                required>
+                            <input type="color" class="form-control form-control-color" name="cor" value="#667eea" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -570,3 +545,105 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
                     <input type="hidden" name="id" id="edit_linha_id">
                     <div class="modal-body">
                         <div class="row">
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label class="form-label">Nome da Linha</label>
+                                    <input type="text" class="form-control" name="nome" id="edit_linha_nome" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Código</label>
+                                    <input type="text" class="form-control" name="codigo" id="edit_linha_codigo" maxlength="10" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Início</label>
+                                    <input type="time" class="form-control" name="horario_inicio" id="edit_linha_inicio" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Fim</label>
+                                    <input type="time" class="form-control" name="horario_fim" id="edit_linha_fim" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Intervalo (min)</label>
+                                    <input type="number" class="form-control" name="intervalo_minutos" id="edit_linha_intervalo" min="1" max="120" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Cor da Linha</label>
+                            <input type="color" class="form-control form-control-color" name="cor" id="edit_linha_cor" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="editar_linha" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Atualizar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/gestaoderotas.js"></script>
+    
+    <script>
+        function openSidebar() {
+            document.getElementById("mySidebar").style.width = "250px";
+        }
+
+        function closeSidebar() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+
+        function editarFerrovia(ferrovia) {
+            document.getElementById('edit_ferrovia_id').value = ferrovia.id;
+            document.getElementById('edit_ferrovia_nome').value = ferrovia.nome;
+            document.getElementById('edit_ferrovia_descricao').value = ferrovia.descricao || '';
+            
+            var modal = new bootstrap.Modal(document.getElementById('modalEditarFerrovia'));
+            modal.show();
+        }
+
+        function abrirModalAdicionarLinha(ferroviaId) {
+            document.getElementById('add_linha_ferrovia_id').value = ferroviaId;
+            
+            var modal = new bootstrap.Modal(document.getElementById('modalAdicionarLinha'));
+            modal.show();
+        }
+
+        function editarLinha(linha) {
+            document.getElementById('edit_linha_id').value = linha.id;
+            document.getElementById('edit_linha_nome').value = linha.nome;
+            document.getElementById('edit_linha_codigo').value = linha.codigo;
+            document.getElementById('edit_linha_inicio').value = linha.horario_inicio;
+            document.getElementById('edit_linha_fim').value = linha.horario_fim;
+            document.getElementById('edit_linha_intervalo').value = linha.intervalo_minutos;
+            document.getElementById('edit_linha_cor').value = linha.cor;
+            
+            var modal = new bootstrap.Modal(document.getElementById('modalEditarLinha'));
+            modal.show();
+        }
+
+        // Fechar alertas automaticamente após 5 segundos
+        setTimeout(function() {
+            var alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                var bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+    </script>
+</body>
+
+</html>
