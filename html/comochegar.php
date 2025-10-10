@@ -1,3 +1,23 @@
+<?php
+$erro = "";
+$sucesso = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST["como-achar"])) {
+        $origem = trim($_POST["origem"] ?? "");
+        $destino = trim($_POST["destino"] ?? "");
+        /*
+                if (empty($origem) || empty($destino)) {
+                    $erro = "Por favor, preencha todos os campos!";
+                } else {
+                    $sucesso = "Formulário enviado com sucesso!";
+
+                }
+                    */ // Usado para frente em testes
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -49,21 +69,24 @@
     </header>
 
     <main>
-        <div class="caixa">
-            <h1>Como chegar</h1>
-            <div class="inserir">
-                <input type="text" placeholder=" Inserir origem" required>
-            </div>
-            <div class="inserir2">
-                <input type="text" placeholder=" Inserir destino" required>
-            </div>
+        <form method="post" action="">
+            <div class="caixa">
+                <h1>Como chegar</h1>
 
-            <div class="botao">
-                <a href="#">
-                    <button class="enviar" type="submit">Enviar</button>
-                </a>
+                <div class="inserir">
+                    <input type="text" placeholder=" Inserir origem" name="origem" required>
+                </div>
+                <div class="inserir2">
+                    <input type="text" placeholder=" Inserir destino" name="destino" required>
+                </div>
+
+                <div class="botao">
+                    <a href="#">
+                        <button name="como-achar" class="enviar" type="submit">Enviar</button>
+                    </a>
+                </div>
             </div>
-        </div>
+        </form>
 
         <div class="linha">
             <p>____________________________________________________</p>

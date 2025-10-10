@@ -67,15 +67,14 @@
   min-height: 80vh;
   padding-bottom: 5vh;
 }
-
 .como-chegar {
   padding: 3vh 5vw;
   font-family: sans-serif;
   background-color: white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  margin: 0 5vw;
-  max-width: 100%;
+  margin: 0 auto;
+  max-width: 1000px;
 }
 
 .como-chegar h3 {
