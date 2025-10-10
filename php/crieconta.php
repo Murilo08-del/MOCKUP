@@ -58,6 +58,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="../css/crieconta.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>crieconta</title>
+    <style>
+        .alert-erro {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            border: 1px solid #f5c6cb;
+            text-align: center;
+            max-width: 600px;
+            font-weight: 500;
+        }
+    </style>
 </head>
 
 <body>
@@ -99,13 +112,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
                 <button name="registrar-se" class="entrar" type="submit">Criar Conta</button>
             </section>
-            </section>
         </form>
-        <?php
-        if ($erro) {
-            echo "$erro";
-        }
-        ?>
+        <?php if ($erro): ?>
+            <div class="alert-erro">
+                <?php echo htmlspecialchars($erro); ?>
+            </div>
+        <?php endif; ?>
     </main>
 </body>
 
