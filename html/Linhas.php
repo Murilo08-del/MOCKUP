@@ -8,7 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (empty($pesquisar)) {
             $erro = "Por favor, preencha todos os campos!";
         }
-    }
         */ // se precisar futuramente 
     }
 }
@@ -25,8 +24,60 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+
+    <style>
+        .pesquisa {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .pesquisa form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .pesquisa input[type="text"] {
+            flex: 1;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .pesquisa input[type="text"]:focus {
+            border-color: gray;
+            box-shadow: 0 0 5px rgba(128, 128, 128, 0.3);
+        }
+
+        .lupa {
+            background-color: gray;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            min-width: 45px;
+            height: 45px;
+        }
+
+        .lupa:hover {
+            background-color: #5a5a5a;
+            transform: scale(1.05);
+        }
+
+        .lupa i {
+            font-size: 18px;
+        }
+    </style>
 
     <script src="../js/Linhas.js"></script>
 </head>
@@ -40,37 +91,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">×</a>
             <a href="dashboard.php">Início</a>
             <a href="noticias.html">Notícia</a>
-            <a href="Linhas.html">Linhas</a>
+            <a href="Linhas.php">Linhas</a>
             <a href="meulocal.html">Meu Local</a>
             <a href="comochegar.html">Como Chegar</a>
             <a href="buscar.html">Buscar</a>
             <a href="contato.html">Contato</a>
         </div>
 
-
         <div class="logo"><i class="fas fa-train"></i> MiniTrilhos</div>
 
-
         <div class="icons">
-            <div class="icons">
-                <a href="../html/meulocal.html">
-                    <i class="fas fa-map-marker-alt"></i>
-                </a>
-                <a href="../html/Linhas.html">
-                    <i class="fas fa-train"></i>
-                </a>
-                <a href="../html/buscar.html">
-                    <i class="fas fa-search"></i>
-                </a>
-            </div>
+            <a href="../html/meulocal.html">
+                <i class="fas fa-map-marker-alt"></i>
+            </a>
+            <a href="../html/Linhas.html">
+                <i class="fas fa-train"></i>
+            </a>
+            <a href="../html/buscar.html">
+                <i class="fas fa-search"></i>
+            </a>
         </div>
     </header>
 
     <main>
         <section id="cor">
             <div class="pesquisa">
-                <form method="post" action="" style="display: flex; align-items: center; gap: 8px;">
-                    <input type="text" placeholder=" Pesquisar Linhas" name="pesquisar_linha" required>
+                <form method="post" action="">
+                    <input type="text" placeholder="Pesquisar Linhas" name="pesquisar_linha" required>
                     <button class="lupa" type="submit" name="pesquisar">
                         <i class="bi bi-search"></i>
                     </button>
@@ -80,8 +127,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <hr>
 
             <div>
-                <label for="marca"></label>
-                <select id="marca" required>
+                <label for="ferrovia-central"></label>
+                <select id="ferrovia-central" required>
                     <option value="#">Ferrovia Central</option>
                     <option value="#">Linha A</option>
                     <option value="#">Linha B</option>
@@ -92,11 +139,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <hr>
 
-
             <div>
-                <label for="marca"></label>
-                <select id="marca" required>
-                    <option value="#">Ferrovisa Norte</option>
+                <label for="ferrovia-norte"></label>
+                <select id="ferrovia-norte" required>
+                    <option value="#">Ferrovia Norte</option>
                     <option value="#">Linha A</option>
                     <option value="#">Linha B</option>
                     <option value="#">Linha C</option>
@@ -107,8 +153,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <hr>
 
             <div>
-                <label for="marca"></label>
-                <select id="marca" required>
+                <label for="ferrovia-sul"></label>
+                <select id="ferrovia-sul" required>
                     <option value="#">Ferrovia Sul</option>
                     <option value="#">Linha A</option>
                     <option value="#">Linha B</option>
@@ -120,8 +166,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <hr>
 
             <div>
-                <label for="marca"></label>
-                <select id="marca" required>
+                <label for="ferrovia-leste"></label>
+                <select id="ferrovia-leste" required>
                     <option value="#">Ferrovia Leste</option>
                     <option value="#">Linha A</option>
                     <option value="#">Linha B</option>
@@ -133,8 +179,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <hr>
 
             <div>
-                <label for="marca"></label>
-                <select id="marca" required>
+                <label for="ferrovia-oeste"></label>
+                <select id="ferrovia-oeste" required>
                     <option value="#">Ferrovia Oeste</option>
                     <option value="#">Linha A</option>
                     <option value="#">Linha B</option>
@@ -144,7 +190,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
 
             <hr>
-
 
         </section>
     </main>
