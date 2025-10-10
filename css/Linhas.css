@@ -140,8 +140,20 @@ input {
 
 .lupa {
     font-size: clamp(18px, 4vw, 24px);
-    color: #666;
 }
+
+.lupa button {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
 
 hr {
     border: none;
