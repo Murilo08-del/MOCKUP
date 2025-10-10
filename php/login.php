@@ -49,6 +49,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Login</title>
+
+    <style>
+        .mensagem-erro {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            margin: 20px auto;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            font-weight: 500;
+        }
+    </style>
 </head>
 
 <body>
