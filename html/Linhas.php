@@ -1,3 +1,18 @@
+<?php
+$pesquisar = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST["pesquisar"])) {
+        $pesquisar = trim($_POST["pesquisar_linha"] ?? "");
+        /*
+        if (empty($pesquisar)) {
+            $erro = "Por favor, preencha todos os campos!";
+        }
+    }
+        */ // se precisar futuramente 
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -54,12 +69,12 @@
     <main>
         <section id="cor">
             <div class="pesquisa">
-                <div class="lupa">
-                    <button type="submit" name="pesquisar">
+                <form method="post" action="" style="display: flex; align-items: center; gap: 8px;">
+                    <input type="text" placeholder=" Pesquisar Linhas" name="pesquisar_linha" required>
+                    <button class="lupa" type="submit" name="pesquisar">
                         <i class="bi bi-search"></i>
                     </button>
-                </div>
-                <input type="text" placeholder=" Pesquisar Linhas" required>
+                </form>
             </div>
             <br>
             <hr>

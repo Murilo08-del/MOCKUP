@@ -131,7 +131,7 @@ input {
 
 .pesquisa input {
     width: 100%;
-    max-width: 500px;
+    max-width: 1000px;
     padding: clamp(10px, 1.5vh, 14px);
     border-radius: 25px;
     border: 1px solid #ccc;
@@ -140,6 +140,15 @@ input {
 
 .lupa {
     font-size: clamp(18px, 4vw, 24px);
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .lupa button {
@@ -186,7 +195,7 @@ select {
     }
 
     .pesquisa input {
-        max-width: 600px;
+        max-width: 1000px;
     }
 
     select {
@@ -215,7 +224,7 @@ select {
     }
 
     .pesquisa input {
-        max-width: 700px;
+        max-width: 1000px;
     }
 
     select {
@@ -249,7 +258,7 @@ select {
     }
 
     .pesquisa input {
-        max-width: 800px;
+        max-width: 1000px;
     }
 
     select {
