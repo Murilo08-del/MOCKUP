@@ -40,10 +40,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <a href="dashboard.php">Início</a>
             <a href="noticias.html">Notícia</a>
             <a href="Linhas.php">Linhas</a>
-            <a href="meulocal.html">Meu Local</a>
-            <a href="comochegar.html">Como Chegar</a>
-            <a href="buscar.html">Buscar</a>
-            <a href="contato.html">Contato</a>
+            <a href="meulocal.php">Meu Local</a>
+            <a href="comochegar.php">Como Chegar</a>
+            <a href="buscar.php">Buscar</a>
+            <a href="contato.php">Contato</a>
         </div>
 
         <div class="logo"><i class="fas fa-train"></i> MiniTrilhos</div>
