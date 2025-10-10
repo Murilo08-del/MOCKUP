@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </label>
             <br>
             <label>
-                <input type="radio" name="pergunta" value="pergunta" reqyuired>
+                <input type="radio" name="pergunta" value="pergunta" required>
                 <span style="font-size: 2.5vh;">Pergunta</span>
             </label>
             </label>
@@ -101,8 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <label>
                 <input type="radio" name="reclamacao" value="reclamacao" required>
                 <span style="font-size: 2.5vh;">Reclamação</span>
-            </label>
-            </label>
         </div>
     </main>
 
