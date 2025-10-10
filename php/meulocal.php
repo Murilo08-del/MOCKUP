@@ -152,13 +152,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="logo"><i class="fas fa-train"></i> MiniTrilhos</div>
 
         <div class="icons">
-            <a href="../html/meulocal.html">
+            <a href="../php/meulocal.php">
                 <i class="fas fa-map-marker-alt"></i>
             </a>
-            <a href="../html/Linhas.html">
+            <a href="../php/Linhas.php">
                 <i class="fas fa-train"></i>
             </a>
-            <a href="../html/buscar.html">
+            <a href="../php/buscar.php">
                 <i class="fas fa-search"></i>
             </a>
         </div>
@@ -200,21 +200,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <p>Como <br>Chegar</p>
 
                 <div class="aqui">
-                    <a href="../html/comochegar.html"><span>A partir daqui</span></a>
+                    <a href="../php/comochegar.php"><span>A partir daqui</span></a>
                 </div>
 
                 <div class="aqui">
-                    <a href="../html/comochegar.html"><span>Até aqui</span></a>
+                    <a href="../php/comochegar.php"><span>Até aqui</span></a>
                 </div>
             </div>
         </div>
         <hr>
 
         <div class="linhas">
-            <a href="../html/meulocal.html">
+            <a href="../php/meulocal.php">
                 <p> Linhas </p>
             </a>
-            <a href="../html/paradas.html">
+            <a href="../php/paradas.php">
                 <p>Paradas</p>
             </a>
             <a href="../html/alertas.html">

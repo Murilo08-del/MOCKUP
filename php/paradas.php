@@ -126,13 +126,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="logo"><i class="fas fa-train"></i> MiniTrilhos</div>
 
         <div class="icons">
-            <a href="../html/meulocal.html">
+            <a href="../php/meulocal.php">
                 <i class="fas fa-map-marker-alt"></i>
             </a>
-            <a href="../html/Linhas.html">
+            <a href="../php/Linhas.php">
                 <i class="fas fa-train"></i>
             </a>
-            <a href="../html/buscar.html">
+            <a href="../php/buscar.php">
                 <i class="fas fa-search"></i>
             </a>
         </div>
@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <a href="../php/paradas.php">
                 <p>Paradas</p>
             </a>
-            <a href="../php/alertas.php">
+            <a href="../html/alertas.html">
                 <p> Alertas</p>
             </a>
         </div>

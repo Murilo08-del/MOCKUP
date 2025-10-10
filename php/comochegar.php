@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (empty($origem) || empty($destino)) {
             $erro = "Por favor, preencha todos os campos!";
         } else {
-            $sucesso = "Busca realizada com sucesso!";
+            $sucesso = "Buscando por: " . htmlspecialchars($como_achar);
         }
     }
 }
