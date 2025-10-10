@@ -1,4 +1,13 @@
 <?php
+// Inicia a sessão para verificar se o usuário está logado
+session_start();
+
+// Verifica se o usuário está conectado
+if (!isset($_SESSION['conectado']) || $_SESSION['conectado'] !== true) {
+    header("Location: login.php");
+    exit;
+}
+
 $erro = "";
 $sucesso = "";
 
@@ -62,8 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div id="mySidebar" class="sidebar">
             <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">×</a>
             <a href="dashboard.php">Início</a>
-            <a href="../html/noticias.html">Notícia</a>
-            <a href="Linhas.php">Linhas</a>
+            <a href="../noticias.html">Notícia</a>
+            <a href="linhas.php">Linhas</a>
             <a href="meulocal.php">Meu Local</a>
             <a href="comochegar.php">Como Chegar</a>
             <a href="buscar.php">Buscar</a>
@@ -73,13 +82,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="logo"><i class="fas fa-train"></i> MiniTrilhos</div>
 
         <div class="icons">
-            <a href="../html/meulocal.html">
+            <a href="meulocal.php">
                 <i class="fas fa-map-marker-alt"></i>
             </a>
-            <a href="../html/Linhas.html">
+            <a href="linhas.php">
                 <i class="fas fa-train"></i>
             </a>
-            <a href="../html/buscar.html">
+            <a href="buscar.php">
                 <i class="fas fa-search"></i>
             </a>
         </div>
@@ -92,13 +101,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
             <?php if (!empty($erro)): ?>
                 <div class="alert-erro">
-                    <strong> Erro:</strong> <?php echo htmlspecialchars($erro); ?>
+                    <strong>Erro:</strong> <?php echo htmlspecialchars($erro); ?>
                 </div>
             <?php endif; ?>
 
             <?php if (!empty($sucesso)): ?>
                 <div class="alert-sucesso">
-                    <strong> Sucesso:</strong> <?php echo htmlspecialchars($sucesso); ?>
+                    <strong>Sucesso:</strong> <?php echo htmlspecialchars($sucesso); ?>
                 </div>
             <?php endif; ?>
 
@@ -108,17 +117,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <form method="POST" action="">
                     <label>
                         <span>📍 De</span>
-                        <input name="origem" type="text" placeholder="Inserir origem">
+                        <input name="origem" type="text" placeholder="Inserir origem" required>
                     </label>
 
                     <label>
                         <span>📍 Para</span>
-                        <input name="destino" type="text" placeholder="Inserir destino">
+                        <input name="destino" type="text" placeholder="Inserir destino" required>
                     </label>
 
                     <label>
                         <span>📅 Data</span>
-                        <input name="data" type="date" value="2025-05-09">
+                        <input name="data" type="date" value="<?php echo date('Y-m-d'); ?>">
                     </label>
 
                     <label>
@@ -131,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     <label>
                         <span>⏰ Horário</span>
-                        <input name="horario" type="time" value="10:58">
+                        <input name="horario" type="time" value="<?php echo date('H:i'); ?>">
                     </label>
 
                     <button type="submit" name="buscar_rotas">Buscar rotas</button>

@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <nav id="navbar">
             <div class="voltar">
                 <b>
-                    <a href="../html/login.php">
+                    <a href="../php/login.php">
                         << </a>
                 </b>
             </div>
