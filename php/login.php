@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <?php endif; ?>
 
             <div class="crieconta">
-                <p>Não tem conta ainda? <a class="cor-link" href="../html/crieconta.php">Crie agora!</a></p>
+                <p>Não tem conta ainda? <a class="cor-link" href="crieconta.php">Crie agora!</a></p>
             </div>
         </section>
         </div>
