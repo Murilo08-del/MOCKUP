@@ -130,24 +130,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <main>
         <section id="cor">
-            <form method="post" action="">
+            <form method="POST" action="">
                 <div class="pesquisa">
                     <input type="text" placeholder="Pesquisar Linhas" name="pesquisar_linha">
                     <button class="lupa" type="submit" name="pesquisar">
                         <i class="bi bi-search"></i>
                     </button>
+                </div>
+                <?php if (!empty($erro)): ?>
+                    <div class="alert-erro">
+                        <strong> Erro:</strong> <?php echo htmlspecialchars($erro); ?>
+                    </div>
+                <?php endif; ?>
 
-                    <?php if (!empty($erro)): ?>
-                        <div class="alert-erro">
-                            <strong>Erro:</strong> <?php echo htmlspecialchars($erro); ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if (!empty($sucesso)): ?>
-                        <div class="alert-sucesso">
-                            <strong> Sucesso:</strong> <?php echo htmlspecialchars($sucesso); ?>
-                        </div>
-                    <?php endif; ?>
+                <?php if (!empty($sucesso)): ?>
+                    <div class="alert-sucesso">
+                        <strong> Sucesso:</strong> <?php echo htmlspecialchars($sucesso); ?>
+                    </div>
+                <?php endif; ?>
             </form>
             <br>
             <hr>
