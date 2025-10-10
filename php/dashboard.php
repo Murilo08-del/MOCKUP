@@ -117,12 +117,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <form method="POST" action="">
                     <label>
                         <span>📍 De</span>
-                        <input name="origem" type="text" placeholder="Inserir origem" required>
+                        <input name="origem" type="text" placeholder="Inserir origem">
                     </label>
 
                     <label>
                         <span>📍 Para</span>
-                        <input name="destino" type="text" placeholder="Inserir destino" required>
+                        <input name="destino" type="text" placeholder="Inserir destino">
                     </label>
 
                     <label>
