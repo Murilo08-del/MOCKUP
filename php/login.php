@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION['nome'] = $dados['nome'];
 
                 $_SESSION["conectado"] = true;
-                header("location: dashboard.php ");
+                header("location: ../html/gestormonitoramento.html");
                 exit;
             } else {
                 $erro = "Usuário ou senha inválidos";
