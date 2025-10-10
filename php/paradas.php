@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $erro = "Por favor, preencha o campo de busca!";
         } else {
             $sucesso = "Buscando por: " . htmlspecialchars($pesquisar);
-            // Aqui você pode adicionar código para processar a busca
+
         }
     }
 }
