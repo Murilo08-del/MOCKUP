@@ -3,6 +3,7 @@ $nome_completo = "";
 $telefone = "";
 $email = "";
 $mensagem = "";
+$enviar_info = "";
 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -11,14 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $telefone = trim($_POST["telefone"] ?? "");
         $email = trim($_POST["email"] ?? "");
         $mensagem = trim($_POST["mensagem"] ?? "");
-        /*
-                if (empty($origem) || empty($destino)) {
-                    $erro = "Por favor, preencha todos os campos!";
-                } else {
-                    $sucesso = "Formulário enviado com sucesso!";
-
-                }
-                    */ // Usado para frente em testes
+        if (empty($nome_completo) || empty($telefone) || empty($email) || empty($mensagem)) {
+            $erro = "Por favor, preencha todos os campos!";
+        } else {
+            $sucesso = "Informações enviadas com sucesso!";
+        }
     }
 }
 ?>
@@ -39,6 +37,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 
     <script src="../js/contato.js"></script>
+
+    <style>
+        .alert-erro {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            border: 1px solid #f5c6cb;
+            text-align: center;
+            max-width: 600px;
+            font-weight: 500;
+        }
+
+        .alert-sucesso {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            text-align: center;
+            max-width: 600px;
+            font-weight: 500;
+        }
+    </style>
 </head>
 
 <body>
@@ -114,19 +138,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
 
                 <div class="info">
-                    <input name="nome_completo" type="text" placeholder="  Nome completo" required>
+                    <input name="nome_completo" type="text" placeholder="  Nome completo">
                 </div>
                 <div class="info">
-                    <input name="telefone" type="text" placeholder="  Telefone" required>
+                    <input name="telefone" type="text" placeholder="  Telefone">
                 </div>
                 <div class="info">
-                    <input name="email" type="text" placeholder="  E-mail" required>
+                    <input name="email" type="text" placeholder="  E-mail">
                 </div>
                 <div class="info">
-                    <input name="mensagem" type="text" placeholder="  Mensagem" required>
+                    <input name="mensagem" type="text" placeholder="  Mensagem">
                 </div>
 
                 <br>
+                <?php if (!empty($erro)): ?>
+                    <div class="alert-erro">
+                        <strong> Erro:</strong> <?php echo htmlspecialchars($erro); ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!empty($sucesso)): ?>
+                    <div class="alert-sucesso">
+                        <strong> Sucesso:</strong> <?php echo htmlspecialchars($sucesso); ?>
+                    </div>
+                <?php endif; ?>
                 <div class="botao">
                     <a href="#">
                         <button name="enviar_info" class="enviar" type="submit">Enviar</button>
