@@ -11,7 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $erro = "Por favor, preencha o campo de busca!";
         } else {
             $sucesso = "Buscando por: " . htmlspecialchars($pesquisar);
-            // Aqui você pode adicionar código para processar a busca
         }
     }
 }
@@ -31,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
-        /* Estilos para mensagens de erro e sucesso */
         .alert-erro {
             background-color: #f8d7da;
             color: #721c24;
@@ -174,7 +172,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
 
-        <!-- EXIBIR MENSAGENS DE ERRO E SUCESSO -->
         <?php if (!empty($erro)): ?>
             <div class="alert-erro">
                 <strong> Erro:</strong> <?php echo htmlspecialchars($erro); ?>

@@ -6,14 +6,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST["buscar_rotas"])) {
         $origem = trim($_POST["origem"] ?? "");
         $destino = trim($_POST["destino"] ?? "");
-        /*
-                if (empty($origem) || empty($destino)) {
-                    $erro = "Por favor, preencha todos os campos!";
-                } else {
-                    $sucesso = "Formulário enviado com sucesso!";
-
-                }
-                    */ // Usado para frente em testes
+        if (empty($origem) || empty($destino)) {
+            $erro = "Por favor, preencha todos os campos!";
+        } else {
+            $sucesso = "Formulário enviado com sucesso!";
+        }
     }
 }
 ?>
@@ -29,6 +26,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        .alert-sucesso {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            text-align: center;
+            max-width: 600px;
+            font-weight: 500;
+        }
+
+        .alert-erro {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            border: 1px solid #f5c6cb;
+            text-align: center;
+            max-width: 600px;
+            font-weight: 500;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -66,6 +90,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="tempo-real">
                 <h1>Acompanhe seu trem <br> <b>em tempo real</b></h1>
             </div>
+            <?php if (!empty($erro)): ?>
+                <div class="alert-erro">
+                    <strong> Erro:</strong> <?php echo htmlspecialchars($erro); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($sucesso)): ?>
+                <div class="alert-sucesso">
+                    <strong> Sucesso:</strong> <?php echo htmlspecialchars($sucesso); ?>
+                </div>
+            <?php endif; ?>
 
             <section class="como-chegar">
                 <h3>🚩 COMO CHEGAR</h3>
@@ -73,12 +108,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <form method="POST" action="">
                     <label>
                         <span>📍 De</span>
-                        <input name="origem" type="text" placeholder="Inserir origem" required>
+                        <input name="origem" type="text" placeholder="Inserir origem">
                     </label>
 
                     <label>
                         <span>📍 Para</span>
-                        <input name="destino" type="text" placeholder="Inserir destino" required>
+                        <input name="destino" type="text" placeholder="Inserir destino">
                     </label>
 
                     <label>
