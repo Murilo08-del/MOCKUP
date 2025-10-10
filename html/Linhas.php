@@ -26,19 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
-        .pesquisa {
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .pesquisa form {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-        }
-
+    
         .pesquisa input[type="text"] {
             flex: 1;
             padding: 12px 20px;
@@ -115,13 +103,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <main>
         <section id="cor">
-            <div class="pesquisa">
-                <form method="post" action="">
+            <form method="post" action="">
+                <div class="pesquisa">
                     <input type="text" placeholder="Pesquisar Linhas" name="pesquisar_linha" required>
                     <button class="lupa" type="submit" name="pesquisar">
                         <i class="bi bi-search"></i>
                     </button>
-                </form>
+            </form>
             </div>
             <br>
             <hr>
