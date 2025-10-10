@@ -82,24 +82,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <div class="flexivel">
             <label>
-                <input type="radio" name="comentario" value="comentario" required>
+                <input type="radio" name="clicavel" value="comentario" required>
                 <span style="font-size: 2.5vh;">Comentário</span>
             </label>
             <br>
             <label>
-                <input type="radio" name="pergunta" value="pergunta" required>
+                <input type="radio" name="clicavel" value="pergunta" required>
                 <span style="font-size: 2.5vh;">Pergunta</span>
             </label>
             </label>
             <br>
             <label>
-                <input type="radio" name="sugestao" value="sugestao" required>
+                <input type="radio" name="clicavel" value="sugestao" required>
                 <span style="font-size: 2.5vh;">Sugestão</span>
             </label>
             </label>
             <br>
             <label>
-                <input type="radio" name="reclamacao" value="reclamacao" required>
+                <input type="radio" name="clicavel" value="reclamacao" required>
                 <span style="font-size: 2.5vh;">Reclamação</span>
         </div>
     </main>
