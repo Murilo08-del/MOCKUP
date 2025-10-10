@@ -1,3 +1,28 @@
+<?php
+$nome_completo = "";
+$telefone = "";
+$email = "";
+$mensagem = "";
+
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST["enviar_info"])) {
+        $nome_completo = trim($_POST["nome_completo"] ?? "");
+        $telefone = trim($_POST["telefone"] ?? "");
+        $email = trim($_POST["email"] ?? "");
+        $mensagem = trim($_POST["mensagem"] ?? "");
+        /*
+                if (empty($origem) || empty($destino)) {
+                    $erro = "Por favor, preencha todos os campos!";
+                } else {
+                    $sucesso = "Formulário enviado com sucesso!";
+
+                }
+                    */ // Usado para frente em testes
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -54,6 +79,7 @@
             <h1>Qual o motivo do seu contato?</h1>
         </div>
 
+
         <div class="flexivel">
             <label>
                 <input type="radio" name="comentario" value="comentario" required>
@@ -81,33 +107,35 @@
     </main>
 
     <footer>
-        <div class="caixa">
-            <div>
-                <h2>Informações</h2>
+        <form method="POST" action="">
+            <div class="caixa">
+                <div>
+                    <h2>Informações</h2>
 
-                <hr>
-            </div>
+                    <hr>
+                </div>
 
-            <div class="info">
-                <input type="text" placeholder="  Nome completo" required>
-            </div>
-            <div class="info">
-                <input type="text" placeholder="  Telefone" required>
-            </div>
-            <div class="info">
-                <input type="text" placeholder="  E-mail" required>
-            </div>
-            <div class="info">
-                <input type="text" placeholder="  Mensagem" required>
-            </div>
+                <div class="info">
+                    <input name="nome_completo" type="text" placeholder="  Nome completo" required>
+                </div>
+                <div class="info">
+                    <input name="telefone" type="text" placeholder="  Telefone" required>
+                </div>
+                <div class="info">
+                    <input name="email" type="text" placeholder="  E-mail" required>
+                </div>
+                <div class="info">
+                    <input name="mensagem" type="text" placeholder="  Mensagem" required>
+                </div>
 
-            <br>
-            <div class="botao">
-                <a href="#">
-                    <button class="enviar" type="submit">Enviar</button>
-                </a>
+                <br>
+                <div class="botao">
+                    <a href="#">
+                        <button name="enviar_info" class="enviar" type="submit">Enviar</button>
+                    </a>
+                </div>
             </div>
-        </div>
+        </form>
 
 
     </footer>
