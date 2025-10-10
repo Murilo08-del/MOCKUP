@@ -97,25 +97,6 @@ input {
     color: #ff0000;
 }
 
-.pesquisa {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2vh auto;
-    max-width: 90%;
-    gap: 2vw;
-}
-
-.pesquisa input {
-    width: 100%;
-    max-width: 500px;
-}
-
-.lupa {
-    font-size: clamp(18px, 4vw, 24px);
-    color: #666;
-}
-
 hr {
     border: none;
     border-top: 1px solid #ddd;
@@ -217,14 +198,6 @@ select {
         padding: 2.5vh 5vw;
     }
 
-    .pesquisa {
-        max-width: 80%;
-    }
-
-    .pesquisa input {
-        max-width: 600px;
-    }
-
     select {
         max-width: 600px;
     }
@@ -251,14 +224,6 @@ select {
 
     .logo {
         font-size: 1.8rem;
-    }
-
-    .pesquisa {
-        max-width: 70%;
-    }
-
-    .pesquisa input {
-        max-width: 700px;
     }
 
     select {
@@ -293,14 +258,6 @@ select {
 
     .logo {
         font-size: 2rem;
-    }
-
-    .pesquisa {
-        max-width: 60%;
-    }
-
-    .pesquisa input {
-        max-width: 800px;
     }
 
     select {
