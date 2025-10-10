@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <main>
         <form method="post" action="">
             <div class="pesquisa">
-                <input name="pesquisa" type="text" placeholder="Pesquisar" required>
+                <input name="pesquisar_linha" type="text" placeholder="Pesquisar" required>
                 <button class="lupa" type="submit" name="pesquisar">
                     <i class="bi bi-search"></i>
                 </button>
