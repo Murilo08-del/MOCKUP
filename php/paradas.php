@@ -116,11 +116,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">×</a>
             <a href="dashboard.php">Início</a>
             <a href="noticias.html">Notícia</a>
-            <a href="Linhas.html">Linhas</a>
-            <a href="meulocal.html">Meu Local</a>
-            <a href="comochegar.html">Como Chegar</a>
-            <a href="buscar.html">Buscar</a>
-            <a href="contato.html">Contato</a>
+            <a href="Linhas.php">Linhas</a>
+            <a href="meulocal.php">Meu Local</a>
+            <a href="comochegar.php">Como Chegar</a>
+            <a href="buscar.php">Buscar</a>
+            <a href="contato.php">Contato</a>
         </div>
 
         <div class="logo"><i class="fas fa-train"></i> MiniTrilhos</div>
@@ -174,24 +174,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <p>Como <br>Chegar</p>
 
                 <div class="aqui">
-                    <a href="../html/comochegar.html"><span>A partir daqui</span></a>
+                    <a href="../php/comochegar.php"><span>A partir daqui</span></a>
                 </div>
 
                 <div class="aqui">
-                    <a href="../html/comochegar.html"><span>Até aqui</span></a>
+                    <a href="../php/comochegar.php"><span>Até aqui</span></a>
                 </div>
             </div>
         </div>
         <hr>
 
         <div class="linhas">
-            <a href="../html/meulocal.html">
+            <a href="../php/meulocal.php">
                 <p> Linhas </p>
             </a>
-            <a href="../html/paradas.html">
+            <a href="../php/paradas.php">
                 <p>Paradas</p>
             </a>
-            <a href="../html/alertas.html">
+            <a href="../php/alertas.php">
                 <p> Alertas</p>
             </a>
         </div>
