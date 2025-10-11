@@ -138,7 +138,6 @@ if ($linha_selecionada) {
             z-index: 9999;
             top: 0;
             left: 0;
-            background-color: white; 
             overflow-x: hidden;
             transition: 0.3s;
             padding-top: 60px;
@@ -151,6 +150,7 @@ if ($linha_selecionada) {
             color: #818181;
             display: block;
             transition: 0.3s;
+            color: black;
         }
 
         .sidebar a:hover {
@@ -161,8 +161,8 @@ if ($linha_selecionada) {
             position: absolute;
             top: 10px;
             right: 25px;
-            font-size: 36px;
-            color: #fff;
+            font-size: 20px;
+            color: black
         }
 
         .top-bar {
@@ -556,7 +556,7 @@ if ($linha_selecionada) {
                 overlay.id = "sidebarOverlay";
                 overlay.className = "sidebar-overlay";
                 overlay.onclick = closeSidebar;
-                overlay.style.cssText = "display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 9998;";
+                overlay.style.cssText = "display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9998;";
                 document.body.appendChild(overlay);
             }
             overlay.style.display = "block";
