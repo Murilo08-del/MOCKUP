@@ -296,7 +296,7 @@ $ferrovias = $conexao->query("SELECT * FROM ferrovias ORDER BY nome ASC");
             <a href="gestormonitoramento.php">Manutenção</a>
             <a href="analisestemporealgestor.html">Análises em Tempo Real</a>
             <a href="gestaoderotas.php">Rotas</a>
-            <a href="editarlinhasgestor.html">Editar Linhas</a>
+            <a href="editarlinhasgestor.php">Editar Linhas</a>
             <a href="contatogestor.html">Contato</a>
         </div>
 

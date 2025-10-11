@@ -160,8 +160,8 @@ $alertas = $conexao->query("SELECT * FROM alertas_manutencao WHERE resolvido = F
             <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">×</a>
             <a href="gestormonitoramento.php">Manutenção</a>
             <a href="analisestemporealgestor.html">Análises em Tempo Real</a>
-            <a href="gestaoderotas.html">Rotas</a>
-            <a href="editarlinhasgestor.html">Editar Linhas</a>
+            <a href="gestaoderotas.php">Rotas</a>
+            <a href="editarlinhasgestor.php">Editar Linhas</a>
             <a href="contatogestor.html">Contato</a>
         </div>
 
