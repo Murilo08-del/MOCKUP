@@ -15,10 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["adicionar_ferrovia"])
     
     if ($stmt->execute()) {
         $mensagem = "Ferrovia adicionada com sucesso!";
-        $tipo_mensagem = "success";
+        $tipo_mensagem = "sucesso";
     } else {
         $mensagem = "Erro ao adicionar ferrovia!";
-        $tipo_mensagem = "danger";
+        $tipo_mensagem = "perigo";
     }
     $stmt->close();
 }
@@ -34,10 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editar_ferrovia"])) {
     
     if ($stmt->execute()) {
         $mensagem = "Ferrovia atualizada com sucesso!";
-        $tipo_mensagem = "success";
+        $tipo_mensagem = "sucesso";
     } else {
         $mensagem = "Erro ao atualizar ferrovia!";
-        $tipo_mensagem = "danger";
+        $tipo_mensagem = "perigo";
     }
     $stmt->close();
 }
@@ -50,10 +50,10 @@ if (isset($_GET["toggle_ferrovia"])) {
     
     if ($stmt->execute()) {
         $mensagem = "Status da ferrovia alterado!";
-        $tipo_mensagem = "success";
+        $tipo_mensagem = "sucesso";
     } else {
         $mensagem = "Erro ao alterar status!";
-        $tipo_mensagem = "danger";
+        $tipo_mensagem = "perigo";
     }
     $stmt->close();
 }
@@ -73,10 +73,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["adicionar_linha"])) {
     
     if ($stmt->execute()) {
         $mensagem = "Linha adicionada com sucesso!";
-        $tipo_mensagem = "success";
+        $tipo_mensagem = "sucesso";
     } else {
         $mensagem = "Erro ao adicionar linha!";
-        $tipo_mensagem = "danger";
+        $tipo_mensagem = "perigo";
     }
     $stmt->close();
 }
@@ -96,10 +96,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editar_linha"])) {
     
     if ($stmt->execute()) {
         $mensagem = "Linha atualizada com sucesso!";
-        $tipo_mensagem = "success";
+        $tipo_mensagem = "sucesso";
     } else {
         $mensagem = "Erro ao atualizar linha!";
-        $tipo_mensagem = "danger";
+        $tipo_mensagem = "perigo";
     }
     $stmt->close();
 }
@@ -112,10 +112,10 @@ if (isset($_GET["toggle_linha"])) {
     
     if ($stmt->execute()) {
         $mensagem = "Status da linha alterado!";
-        $tipo_mensagem = "success";
+        $tipo_mensagem = "sucesso";
     } else {
         $mensagem = "Erro ao alterar status!";
-        $tipo_mensagem = "danger";
+        $tipo_mensagem = "perigo";
     }
     $stmt->close();
 }
@@ -128,10 +128,10 @@ if (isset($_GET["remover_linha"])) {
     
     if ($stmt->execute()) {
         $mensagem = "Linha removida com sucesso!";
-        $tipo_mensagem = "success";
+        $tipo_mensagem = "sucesso";
     } else {
         $mensagem = "Erro ao remover linha!";
-        $tipo_mensagem = "danger";
+        $tipo_mensagem = "perigo";
     }
     $stmt->close();
 }
