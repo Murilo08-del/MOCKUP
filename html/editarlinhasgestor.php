@@ -162,7 +162,19 @@ if ($linha_selecionada) {
             top: 10px;
             right: 25px;
             font-size: 20px;
-            color: black
+            color: black;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9998;
+            pointer-events: auto;
+        }
         }
 
         .top-bar {
@@ -549,25 +561,24 @@ if ($linha_selecionada) {
     <script>
         function openSidebar() {
             document.getElementById("mySidebar").style.width = "280px";
-            
             let overlay = document.getElementById("sidebarOverlay");
             if (!overlay) {
                 overlay = document.createElement("div");
                 overlay.id = "sidebarOverlay";
                 overlay.className = "sidebar-overlay";
                 overlay.onclick = closeSidebar;
-                overlay.style.cssText = "display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9998;";
                 document.body.appendChild(overlay);
             }
             overlay.style.display = "block";
+            overlay.style.pointerEvents = "auto";
         }
 
         function closeSidebar() {
             document.getElementById("mySidebar").style.width = "0";
-            
             const overlay = document.getElementById("sidebarOverlay");
             if (overlay) {
                 overlay.style.display = "none";
+                overlay.style.pointerEvents = "none";
             }
         }
 
