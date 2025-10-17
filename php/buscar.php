@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div id="mySidebar" class="sidebar">
             <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">×</a>
             <a href="dashboard.php">Início</a>
-            <a href="noticias.html">Notícia</a>
+            <a href="../html/noticias.html">Notícia</a>
             <a href="Linhas.php">Linhas</a>
             <a href="meulocal.php">Meu Local</a>
             <a href="comochegar.php">Como Chegar</a>
