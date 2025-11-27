@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION['nome'] = $dados['nome'];
 
                 $_SESSION["conectado"] = true;
-                header("location: ../html/gestormonitoramento.html");
+                header("location: ../html/gestormonitoramento.php");
                 exit;
             } else {
                 $erro = "Usuário ou senha inválidos";
@@ -99,11 +99,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
             <div class="password">
                 <input name="Senha" type="password" placeholder=" Senha" required><i class="bi bi-shield-lock"></i>
-            </div>
-            <div class="esqueceusenha">
-                <a href="../html/esqueceusenha.html">
-                    <p>Esqueceu senha?</p>
-                </a>
             </div>
             <div class="enviar">
                 <button class="entrar" type="submit" name="login">Entrar</button>
