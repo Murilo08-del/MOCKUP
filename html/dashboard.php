@@ -9,7 +9,7 @@
     <style>
         .sidebar {
             width: 250px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #a79f9fff 0%, #332e2eff 100%);
             color: white;
             padding: 20px 0;
             position: fixed;
@@ -182,7 +182,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -201,7 +201,7 @@
         }
 
         h1 {
-            color: #667eea;
+            color: black;
             font-size: 2.5em;
             margin-bottom: 10px;
         }
@@ -232,7 +232,7 @@
         }
 
         .stat-card h3 {
-            color: #667eea;
+            color: black;
             font-size: 1em;
             margin-bottom: 10px;
             text-transform: uppercase;
@@ -278,7 +278,7 @@
         }
 
         .chart-card h2 {
-            color: #667eea;
+            color: black;
             margin-bottom: 20px;
             font-size: 1.3em;
         }
@@ -291,7 +291,7 @@
         }
 
         .alerts-section h2 {
-            color: #667eea;
+            color: ;
             margin-bottom: 20px;
             font-size: 1.3em;
         }
@@ -334,7 +334,7 @@
         }
 
         .sensor-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             color: white;
             padding: 20px;
             border-radius: 10px;
