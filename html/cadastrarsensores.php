@@ -1,9 +1,179 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Sensor - Sistema Ferroviário</title>
+    <!-- ==================== SIDEBAR - COPIAR EM TODAS AS PÁGINAS ==================== -->
+    <style>
+        /* SIDEBAR UNIVERSAL */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-header p {
+            font-size: 0.85em;
+            opacity: 0.8;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            gap: 12px;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-left: 4px solid white;
+        }
+
+        .sidebar-menu a .icon {
+            font-size: 1.3em;
+            width: 25px;
+            text-align: center;
+        }
+
+        /* MOBILE TOGGLE */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        /* AJUSTAR CONTEÚDO PRINCIPAL */
+        body {
+            display: flex;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-top: 70px;
+            }
+        }
+    </style>
+
+   <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>🚆 Sistema Ferroviário</h2>
+            <p>Painel Administrativo</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.php"><span class="icon">📊</span> Dashboard</a></li>
+            <li><a href="gerenciarsensores.php"><span class="icon">🚂</span> Gerenciar Sensores</a></li>
+            <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
+            <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
+            <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
+            <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
+            <li><a href="cadastraritinerários.php"><span class="icon">🔧</span> Cadastrar Itinerários</a></li>
+            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Geração de Relatórios</a></li>
+            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre o Sistema</a></li>
+            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas com Mapa Interativo</a></li>
+            <li><a href="login.html"><span class="icon">👤</span> Sair</a></li>
+        </ul>
+    </aside>
+
+
+    <!-- MOBILE MENU TOGGLE -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <!-- JAVASCRIPT DA SIDEBAR -->
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Fechar sidebar ao clicar fora (mobile)
+        document.addEventListener('click', function (event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.menu-toggle');
+
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                }
+            }
+        });
+
+        // Marcar link ativo automaticamente
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentPage = window.location.pathname.split('/').pop();
+            const links = document.querySelectorAll('.sidebar-menu a');
+
+            links.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+    <!-- ==================== FIM DA SIDEBAR ==================== -->
     <style>
         * {
             margin: 0;
@@ -58,7 +228,9 @@
             font-size: 0.95em;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
@@ -68,7 +240,9 @@
             font-family: inherit;
         }
 
-        input:focus, select:focus, textarea:focus {
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -155,6 +329,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="form-card">
@@ -162,7 +337,8 @@
             <p class="subtitle">Adicione um novo sensor ao sistema de monitoramento</p>
 
             <div class="info-box">
-                <p>💡 <strong>Dica:</strong> Certifique-se de que o sensor está fisicamente instalado e conectado antes de cadastrá-lo no sistema.</p>
+                <p>💡 <strong>Dica:</strong> Certifique-se de que o sensor está fisicamente instalado e conectado antes
+                    de cadastrá-lo no sistema.</p>
             </div>
 
             <form id="formCadastro">
@@ -199,7 +375,8 @@
 
                 <div class="form-group">
                     <label for="localizacao">Localização *</label>
-                    <input type="text" id="localizacao" name="localizacao" placeholder="Ex: Trem #007 - Motor Principal" required>
+                    <input type="text" id="localizacao" name="localizacao" placeholder="Ex: Trem #007 - Motor Principal"
+                        required>
                 </div>
 
                 <div class="form-row">
@@ -228,11 +405,13 @@
 
                 <div class="form-group">
                     <label for="descricao">Descrição/Observações</label>
-                    <textarea id="descricao" name="descricao" placeholder="Informações adicionais sobre o sensor..."></textarea>
+                    <textarea id="descricao" name="descricao"
+                        placeholder="Informações adicionais sobre o sensor..."></textarea>
                 </div>
 
                 <div class="btn-container">
-                    <button type="button" class="btn btn-cancelar" onclick="window.location.href='sensores.html'">✖️ Cancelar</button>
+                    <button type="button" class="btn btn-cancelar" onclick="window.location.href='sensores.html'">✖️
+                        Cancelar</button>
                     <button type="submit" class="btn btn-salvar">✔️ Cadastrar Sensor</button>
                 </div>
             </form>
@@ -240,7 +419,7 @@
     </div>
 
     <script>
-        document.getElementById('formCadastro').addEventListener('submit', function(e) {
+        document.getElementById('formCadastro').addEventListener('submit', function (e) {
             e.preventDefault();
 
             // Coletar dados do formulário
@@ -261,17 +440,17 @@
 
             // Simulação de salvamento
             alert('✅ Sensor cadastrado com sucesso!');
-            
+
             // Redirecionar para a lista de sensores
-            window.location.href = 'analisestemporealgestor.php';
+            window.location.href = 'gerenciarsensores.php';
         });
 
         // Auto-completar tópico MQTT baseado no tipo
-        document.getElementById('tipo').addEventListener('change', function(e) {
+        document.getElementById('tipo').addEventListener('change', function (e) {
             const tipo = e.target.value;
             const topicoInput = document.getElementById('topico');
             const unidadeInput = document.getElementById('unidade');
-            
+
             if (tipo === 'dht11' || tipo === 'dht22') {
                 topicoInput.value = 'sensores/temp/';
                 unidadeInput.value = '°C';
@@ -291,4 +470,5 @@
         });
     </script>
 </body>
+
 </html>

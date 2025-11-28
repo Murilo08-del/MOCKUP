@@ -13,6 +13,8 @@
             color: white;
             padding: 20px 0;
             position: fixed;
+            left: 0;
+            top: 0;
             height: 100vh;
             overflow-y: auto;
             box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
@@ -351,15 +353,15 @@
             <li><a href="dashboard.php"><span class="icon">📊</span> Dashboard</a></li>
             <li><a href="gerenciarsensores.php"><span class="icon">🚂</span> Gerenciar Sensores</a></li>
             <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
-            <li><a href="estacoes.html"><span class="icon">🚉</span> Estações</a></li>
-            <li><a href="itinerarios.html"><span class="icon">🗺️</span> Itinerários</a></li>
-            <li><a href="sensores.html"><span class="icon">📡</span> Sensores</a></li>
-            <li><a href="alertas.html"><span class="icon">🚨</span> Alertas</a></li>
-            <li><a href="manutencao.html"><span class="icon">🔧</span> Manutenção</a></li>
-            <li><a href="relatorios.html"><span class="icon">📄</span> Relatórios</a></li>
-            <li><a href="sobre.html"><span class="icon">ℹ️</span> Sobre</a></li>
-            <li><a href="perfil.html"><span class="icon">👤</span> Perfil</a></li>
-            <li><a href="login.html"><span class="icon">🚪</span> Sair</a></li>
+            <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
+            <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
+            <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
+            <li><a href="cadastraritinerários.php"><span class="icon">🔧</span> Cadastrar Itinerários</a></li>
+            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Geração de Relatórios</a></li>
+            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre o Sistema</a></li>
+            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas com Mapa Interativo</a></li>
+            <li><a href="login.html"><span class="icon">👤</span> Sair</a></li>
         </ul>
     </aside>
 
