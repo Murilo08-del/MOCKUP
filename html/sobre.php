@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -312,8 +313,9 @@
         }
     </style>
 </head>
+
 <body>
-    <!-- SIDEBAR -->
+    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2>🚆 Sistema Ferroviário</h2>
@@ -329,11 +331,12 @@
             <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
             <li><a href="cadastroitinerário.php"><span class="icon">🔧</span> Cadastrar Itinerários</a></li>
             <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Geração de Relatórios</a></li>
-            <li><a href="sobre.php" class="active"><span class="icon">ℹ️</span> Sobre</a></li>
+            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre o Sistema</a></li>
             <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas com Mapa Interativo</a></li>
             <li><a href="../login.php"><span class="icon">👤</span> Sair</a></li>
         </ul>
     </aside>
+
 
     <!-- celular -->
     <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
@@ -350,15 +353,16 @@
         <div class="content-card">
             <h2>📖 Sobre o Projeto</h2>
             <p>
-                O Sistema Ferroviário Inteligente é uma plataforma completa de gerenciamento e monitoramento 
-                de operações ferroviárias, desenvolvida como projeto integrador das disciplinas do curso técnico. 
-                O sistema integra tecnologias modernas de IoT (Internet das Coisas) com uma interface web intuitiva, 
-                permitindo o controle em tempo real de trens, rotas, estações e sensores distribuídos pela rede ferroviária.
+                O Sistema Ferroviário Inteligente é uma plataforma completa de gerenciamento e monitoramento
+                de operações ferroviárias, desenvolvida como projeto integrador das disciplinas do curso técnico.
+                O sistema integra tecnologias modernas de IoT (Internet das Coisas) com uma interface web intuitiva,
+                permitindo o controle em tempo real de trens, rotas, estações e sensores distribuídos pela rede
+                ferroviária.
             </p>
             <p>
-                Utilizando o protocolo MQTT para comunicação entre dispositivos, o sistema é capaz de receber 
-                dados de sensores ESP32 instalados nos trens e estações, processando informações de temperatura, 
-                umidade, luminosidade e presença. Esses dados são analisados em tempo real para gerar alertas 
+                Utilizando o protocolo MQTT para comunicação entre dispositivos, o sistema é capaz de receber
+                dados de sensores ESP32 instalados nos trens e estações, processando informações de temperatura,
+                umidade, luminosidade e presença. Esses dados são analisados em tempo real para gerar alertas
                 automáticos e subsidiar decisões operacionais.
             </p>
 
@@ -392,7 +396,8 @@
                 <div class="feature-card">
                     <div class="feature-icon">👥</div>
                     <h3>Multi-usuário</h3>
-                    <p>Perfis diferenciados para funcionários e usuários comuns</p>http://localhost:1010/SA/MOCKUP-5/html/manutencao.html
+                    <p>Perfis diferenciados para funcionários e usuários comuns</p>
+                    http://localhost:1010/SA/MOCKUP-5/html/manutencao.html
                 </div>
             </div>
 
@@ -465,7 +470,7 @@
 
             <h2>🎓 Contexto Acadêmico</h2>
             <p>
-                Este projeto foi desenvolvido como atividade integradora final do curso técnico, 
+                Este projeto foi desenvolvido como atividade integradora final do curso técnico,
                 reunindo conhecimentos adquiridos ao longo do semestre em disciplinas como:
             </p>
             <ul style="color: #666; line-height: 2; margin-left: 30px;">
@@ -488,7 +493,7 @@
 
             <h2>📜 Licença</h2>
             <p>
-                Este projeto é distribuído sob a licença MIT. Você é livre para usar, modificar e distribuir 
+                Este projeto é distribuído sob a licença MIT. Você é livre para usar, modificar e distribuir
                 o código, desde que mantenha os créditos aos autores originais.
             </p>
 
@@ -507,10 +512,10 @@
         }
 
         // Fechar sidebar ao clicar fora (mobile)
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             const sidebar = document.getElementById('sidebar');
             const toggle = document.querySelector('.menu-toggle');
-            
+
             if (window.innerWidth <= 768) {
                 if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
                     sidebar.classList.remove('active');
@@ -531,4 +536,5 @@
         });
     </script>
 </body>
+
 </html>

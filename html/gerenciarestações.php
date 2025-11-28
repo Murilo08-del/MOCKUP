@@ -117,8 +117,8 @@
         }
     </style>
 
-  
-   <!-- Sidebar -->
+
+    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2>🚆 Sistema Ferroviário</h2>
@@ -132,13 +132,14 @@
             <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
             <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
             <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
-            <li><a href="cadastraritinerários.php"><span class="icon">🔧</span> Cadastrar Itinerários</a></li>
+            <li><a href="cadastroitinerário.php"><span class="icon">🔧</span> Cadastrar Itinerários</a></li>
             <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Geração de Relatórios</a></li>
             <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre o Sistema</a></li>
             <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas com Mapa Interativo</a></li>
-            <li><a href="login.html"><span class="icon">👤</span> Sair</a></li>
+            <li><a href="../login.php"><span class="icon">👤</span> Sair</a></li>
         </ul>
     </aside>
+
 
 
     <!-- MOBILE MENU TOGGLE -->
