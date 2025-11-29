@@ -7,10 +7,9 @@
     <title>Gerenciar Alertas - Sistema Ferroviário</title>
     <!-- ==================== SIDEBAR - COPIAR EM TODAS AS PÁGINAS ==================== -->
     <style>
-        /* SIDEBAR UNIVERSAL */
         .sidebar {
             width: 250px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #a79f9fff 0%, #332e2eff 100%);
             color: white;
             padding: 20px 0;
             position: fixed;
@@ -116,7 +115,7 @@
             }
         }
     </style>
-    
+
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">

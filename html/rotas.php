@@ -23,13 +23,14 @@
             min-height: 100vh;
         }
 
-        /* SIDEBAR */
         .sidebar {
             width: 250px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #a79f9fff 0%, #332e2eff 100%);
             color: white;
             padding: 20px 0;
             position: fixed;
+            left: 0;
+            top: 0;
             height: 100vh;
             overflow-y: auto;
             box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
