@@ -122,12 +122,12 @@
         }
 
         h1 {
-            color: #667eea;
+            color: black;
             font-size: 2em;
         }
 
         .btn-novo {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             color: white;
             padding: 12px 25px;
             border: none;
@@ -166,7 +166,7 @@
         }
 
         .rotas-lista h2 {
-            color: #667eea;
+            color: black;
             margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 2px solid #f0f0f0;
@@ -220,7 +220,7 @@
         }
 
         .legenda h3 {
-            color: #667eea;
+            color: black;
             margin-bottom: 15px;
             font-size: 1.1em;
         }
@@ -247,7 +247,7 @@
         }
 
         .tools-panel h3 {
-            color: #667eea;
+            color: black;
             margin-bottom: 15px;
         }
 
@@ -259,9 +259,9 @@
 
         .tool-btn {
             padding: 10px 20px;
-            border: 2px solid #667eea;
+            border: 2px solid gray;
             background: white;
-            color: #667eea;
+            color: black;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;

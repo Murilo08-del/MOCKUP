@@ -76,7 +76,7 @@
             top: 20px;
             left: 20px;
             z-index: 1001;
-            background: #667eea;
+            background: black;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -184,7 +184,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             min-height: 100vh;
             padding: 20px;
             display: flex;
@@ -205,7 +205,7 @@
         }
 
         h1 {
-            color: #667eea;
+            color: black;
             font-size: 2.2em;
             margin-bottom: 10px;
             text-align: center;
@@ -228,7 +228,7 @@
         }
 
         .form-section h2 {
-            color: #667eea;
+            color: black;
             font-size: 1.3em;
             margin-bottom: 20px;
             display: flex;
@@ -297,7 +297,7 @@
         }
 
         .btn-salvar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: gray;
             color: white;
         }
 

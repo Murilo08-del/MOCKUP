@@ -76,7 +76,7 @@
             top: 20px;
             left: 20px;
             z-index: 1001;
-            background: #667eea;
+            background: black;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -117,7 +117,7 @@
         }
     </style>
 
-     <!-- Sidebar -->
+    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2>🚆 Sistema Ferroviário</h2>
@@ -185,7 +185,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -209,12 +209,12 @@
         }
 
         h1 {
-            color: #667eea;
+            color: black;
             font-size: 2em;
         }
 
         .btn-novo {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             color: white;
             padding: 12px 30px;
             border: none;
@@ -273,7 +273,7 @@
         }
 
         .itinerario-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: gray;
             color: white;
             padding: 20px;
         }
@@ -307,7 +307,7 @@
             top: 0;
             bottom: 0;
             width: 3px;
-            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            background: black;
         }
 
         .rota-item {
@@ -331,13 +331,13 @@
             width: 13px;
             height: 13px;
             background: white;
-            border: 3px solid #667eea;
+            border: 3px solid gray;
             border-radius: 50%;
         }
 
         .rota-numero {
             display: inline-block;
-            background: #667eea;
+            background: #494040ff;
             color: white;
             padding: 3px 10px;
             border-radius: 12px;
@@ -374,7 +374,7 @@
         .stat-item .value {
             font-size: 1.5em;
             font-weight: bold;
-            color: #667eea;
+            color: black;
         }
 
         .stat-item .label {

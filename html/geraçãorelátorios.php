@@ -75,7 +75,7 @@
             top: 20px;
             left: 20px;
             z-index: 1001;
-            background: #667eea;
+            background: black;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -185,7 +185,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -204,7 +204,7 @@
         }
 
         h1 {
-            color: #667eea;
+            color: black;
             font-size: 2em;
             margin-bottom: 10px;
         }
@@ -288,7 +288,7 @@
         }
 
         .btn-gerar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: gray;
             color: white;
             padding: 12px 20px;
             border: none;
@@ -314,9 +314,9 @@
         .btn-exportar button {
             flex: 1;
             padding: 10px;
-            border: 2px solid #667eea;
+            border: 2px solid gray;
             background: white;
-            color: #667eea;
+            color: black;
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.9em;

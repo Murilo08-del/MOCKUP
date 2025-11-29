@@ -75,7 +75,7 @@
             top: 20px;
             left: 20px;
             z-index: 1001;
-            background: #667eea;
+            background: black;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -185,7 +185,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -209,12 +209,12 @@
         }
 
         h1 {
-            color: #667eea;
+            color: black;
             font-size: 2em;
         }
 
         .btn-novo {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             color: white;
             padding: 12px 30px;
             border: none;
@@ -277,7 +277,7 @@
         }
 
         .estacao-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: gray;
             color: white;
             padding: 20px;
         }
@@ -309,7 +309,7 @@
         }
 
         .estacao-info strong {
-            color: #667eea;
+            color: black;
             min-width: 90px;
         }
 
@@ -330,7 +330,7 @@
         .stat-box .number {
             font-size: 2em;
             font-weight: bold;
-            color: #667eea;
+            color: black;
         }
 
         .stat-box .label {

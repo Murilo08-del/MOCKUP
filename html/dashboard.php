@@ -75,7 +75,7 @@
             top: 20px;
             left: 20px;
             z-index: 1001;
-            background: #667eea;
+            background: gray;
             color: white;
             border: none;
             padding: 10px 15px;

@@ -1,9 +1,180 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Itinerário - Sistema Ferroviário</title>
+
+    <style>
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #a79f9fff 0%, #332e2eff 100%);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-header p {
+            font-size: 0.85em;
+            opacity: 0.8;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            gap: 12px;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-left: 4px solid white;
+        }
+
+        .sidebar-menu a .icon {
+            font-size: 1.3em;
+            width: 25px;
+            text-align: center;
+        }
+
+        /* MOBILE TOGGLE */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: black;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        /* AJUSTAR CONTEÚDO PRINCIPAL */
+        body {
+            display: flex;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-top: 70px;
+            }
+        }
+    </style>
+
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>🚆 Sistema Ferroviário</h2>
+            <p>Painel Administrativo</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.php"><span class="icon">📊</span> Dashboard</a></li>
+            <li><a href="gerenciarsensores.php"><span class="icon">🚂</span> Gerenciar Sensores</a></li>
+            <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
+            <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
+            <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
+            <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
+            <li><a href="cadastroitinerário.php"><span class="icon">🔧</span> Cadastrar Itinerários</a></li>
+            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Geração de Relatórios</a></li>
+            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre o Sistema</a></li>
+            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas com Mapa Interativo</a></li>
+            <li><a href="../login.php"><span class="icon">👤</span> Sair</a></li>
+        </ul>
+    </aside>
+
+
+
+    <!-- MOBILE MENU TOGGLE -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <!-- JAVASCRIPT DA SIDEBAR -->
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Fechar sidebar ao clicar fora (mobile)
+        document.addEventListener('click', function (event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.menu-toggle');
+
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                }
+            }
+        });
+
+        // Marcar link ativo automaticamente
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentPage = window.location.pathname.split('/').pop();
+            const links = document.querySelectorAll('.sidebar-menu a');
+
+            links.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+    <!-- ==================== FIM DA SIDEBAR ==================== -->
     <style>
         * {
             margin: 0;
@@ -13,7 +184,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -31,7 +202,7 @@
         }
 
         h1 {
-            color: #667eea;
+            color: black;
             font-size: 2.2em;
             margin-bottom: 10px;
             text-align: center;
@@ -54,7 +225,7 @@
         }
 
         .form-section h2 {
-            color: #667eea;
+            color: black;
             font-size: 1.3em;
             margin-bottom: 20px;
         }
@@ -71,7 +242,9 @@
             font-size: 0.95em;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
@@ -81,7 +254,9 @@
             font-family: inherit;
         }
 
-        input:focus, select:focus, textarea:focus {
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -103,7 +278,7 @@
             border-radius: 10px;
             margin-bottom: 15px;
             position: relative;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid gray;
         }
 
         .rota-item-header {
@@ -114,7 +289,7 @@
         }
 
         .rota-numero {
-            background: #667eea;
+            background: black;
             color: white;
             padding: 5px 12px;
             border-radius: 15px;
@@ -142,7 +317,7 @@
         }
 
         .btn-adicionar-rota {
-            background: #38a169;
+            background: gray;
             color: white;
             padding: 12px 20px;
             border: none;
@@ -156,7 +331,7 @@
         }
 
         .btn-adicionar-rota:hover {
-            background: #2f855a;
+            background: black;
             transform: translateY(-2px);
         }
 
@@ -178,7 +353,7 @@
         }
 
         .btn-salvar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: gray;
             color: white;
         }
 
@@ -219,7 +394,7 @@
         }
 
         .resumo-box h3 {
-            color: #667eea;
+            color: black;
             margin-bottom: 15px;
         }
 
@@ -239,7 +414,7 @@
         .resumo-stat .value {
             font-size: 2em;
             font-weight: bold;
-            color: #667eea;
+            color: black;
         }
 
         .resumo-stat .label {
@@ -271,6 +446,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="form-card">
@@ -278,7 +454,8 @@
             <p class="subtitle">Crie uma viagem composta por múltiplas rotas</p>
 
             <div class="info-box">
-                <p>💡 <strong>Dica:</strong> Um itinerário é composto por várias rotas sequenciais. Adicione as rotas na ordem que serão percorridas.</p>
+                <p>💡 <strong>Dica:</strong> Um itinerário é composto por várias rotas sequenciais. Adicione as rotas na
+                    ordem que serão percorridas.</p>
             </div>
 
             <form id="formCadastro">
@@ -288,7 +465,8 @@
 
                     <div class="form-group">
                         <label for="nome">Nome do Itinerário *</label>
-                        <input type="text" id="nome" name="nome" placeholder="Ex: Expresso São Paulo - Campinas" required>
+                        <input type="text" id="nome" name="nome" placeholder="Ex: Expresso São Paulo - Campinas"
+                            required>
                     </div>
 
                     <div class="form-row">
@@ -316,7 +494,8 @@
 
                     <div class="form-group">
                         <label for="descricao">Descrição</label>
-                        <textarea id="descricao" name="descricao" placeholder="Descreva o itinerário..." rows="3"></textarea>
+                        <textarea id="descricao" name="descricao" placeholder="Descreva o itinerário..."
+                            rows="3"></textarea>
                     </div>
                 </div>
 
@@ -333,15 +512,24 @@
                             <label for="rotaSelect">Selecionar Rota</label>
                             <select id="rotaSelect">
                                 <option value="">Escolha uma rota...</option>
-                                <option value="1" data-origem="São Paulo" data-destino="Jundiaí" data-distancia="45" data-duracao="35">São Paulo → Jundiaí (45km, 35min)</option>
-                                <option value="2" data-origem="Jundiaí" data-destino="Várzea Paulista" data-distancia="30" data-duracao="25">Jundiaí → Várzea Paulista (30km, 25min)</option>
-                                <option value="3" data-origem="Várzea Paulista" data-destino="Campinas" data-distancia="40" data-duracao="30">Várzea Paulista → Campinas (40km, 30min)</option>
-                                <option value="4" data-origem="Santos" data-destino="Praia Grande" data-distancia="20" data-duracao="20">Santos → Praia Grande (20km, 20min)</option>
-                                <option value="5" data-origem="Praia Grande" data-destino="São Vicente" data-distancia="15" data-duracao="18">Praia Grande → São Vicente (15km, 18min)</option>
+                                <option value="1" data-origem="São Paulo" data-destino="Jundiaí" data-distancia="45"
+                                    data-duracao="35">São Paulo → Jundiaí (45km, 35min)</option>
+                                <option value="2" data-origem="Jundiaí" data-destino="Várzea Paulista"
+                                    data-distancia="30" data-duracao="25">Jundiaí → Várzea Paulista (30km, 25min)
+                                </option>
+                                <option value="3" data-origem="Várzea Paulista" data-destino="Campinas"
+                                    data-distancia="40" data-duracao="30">Várzea Paulista → Campinas (40km, 30min)
+                                </option>
+                                <option value="4" data-origem="Santos" data-destino="Praia Grande" data-distancia="20"
+                                    data-duracao="20">Santos → Praia Grande (20km, 20min)</option>
+                                <option value="5" data-origem="Praia Grande" data-destino="São Vicente"
+                                    data-distancia="15" data-duracao="18">Praia Grande → São Vicente (15km, 18min)
+                                </option>
                             </select>
                         </div>
                         <div style="display: flex; align-items: flex-end;">
-                            <button type="button" class="btn-adicionar-rota" onclick="adicionarRota()">➕ Adicionar Rota</button>
+                            <button type="button" class="btn-adicionar-rota" onclick="adicionarRota()">➕ Adicionar
+                                Rota</button>
                         </div>
                     </div>
                 </div>
@@ -366,7 +554,8 @@
                 </div>
 
                 <div class="btn-container">
-                    <button type="button" class="btn btn-cancelar" onclick="window.location.href='itinerarios.html'">✖️ Cancelar</button>
+                    <button type="button" class="btn btn-cancelar" onclick="window.location.href='itinerarios.html'">✖️
+                        Cancelar</button>
                     <button type="submit" class="btn btn-salvar">✔️ Cadastrar Itinerário</button>
                 </div>
             </form>
@@ -380,7 +569,7 @@
         function adicionarRota() {
             const select = document.getElementById('rotaSelect');
             const option = select.options[select.selectedIndex];
-            
+
             if (!option.value) {
                 alert('Por favor, selecione uma rota!');
                 return;
@@ -409,7 +598,7 @@
 
         function renderizarRotas() {
             const container = document.getElementById('rotasList');
-            
+
             if (rotasAdicionadas.length === 0) {
                 container.innerHTML = '<p style="color: #999; text-align: center; padding: 20px;">Nenhuma rota adicionada ainda. Selecione rotas acima.</p>';
                 return;
@@ -439,7 +628,7 @@
             document.getElementById('duracaoTotal').textContent = duracaoTotal;
         }
 
-        document.getElementById('formCadastro').addEventListener('submit', function(e) {
+        document.getElementById('formCadastro').addEventListener('submit', function (e) {
             e.preventDefault();
 
             if (rotasAdicionadas.length === 0) {
@@ -464,4 +653,5 @@
         renderizarRotas();
     </script>
 </body>
+
 </html>

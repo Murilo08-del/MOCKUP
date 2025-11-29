@@ -75,7 +75,7 @@
             top: 20px;
             left: 20px;
             z-index: 1001;
-            background: #667eea;
+            background: black;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -122,9 +122,10 @@
             box-sizing: border-box;
         }
 
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -148,12 +149,12 @@
         }
 
         h1 {
-            color: #667eea;
+            color: black;
             font-size: 2em;
         }
 
         .btn-novo {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             color: white;
             padding: 12px 30px;
             border: none;
@@ -186,7 +187,7 @@
             font-size: 1em;
             transition: border-color 0.3s ease;
         }
-
+        
         .search-bar input:focus {
             outline: none;
             border-color: #667eea;
@@ -215,7 +216,7 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
         }
 
         .sensor-card:hover {
@@ -266,7 +267,6 @@
         }
 
         .sensor-info strong {
-            color: #667eea;
             min-width: 80px;
         }
 
@@ -317,10 +317,6 @@
             color: #999;
         }
 
-        .empty-state h2 {
-            color: #667eea;
-            margin-bottom: 15px;
-        }
 
         @media (max-width: 768px) {
             header {

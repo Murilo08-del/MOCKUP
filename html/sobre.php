@@ -87,7 +87,7 @@
             top: 20px;
             left: 20px;
             z-index: 1001;
-            background: #667eea;
+            background: black;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -113,7 +113,7 @@
         }
 
         h1 {
-            color: #667eea;
+            color: black;
             font-size: 2.5em;
             margin-bottom: 20px;
         }
@@ -137,7 +137,7 @@
         .hero-section {
             text-align: center;
             padding: 40px 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: gray;
             color: white;
             border-radius: 15px;
             margin-bottom: 40px;
@@ -181,7 +181,7 @@
         }
 
         .feature-card h3 {
-            color: #667eea;
+            color: black;
             margin-bottom: 10px;
         }
 
@@ -209,7 +209,7 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             margin: 0 auto 15px;
             display: flex;
             align-items: center;
@@ -225,7 +225,6 @@
         }
 
         .team-member .role {
-            color: #667eea;
             font-weight: 600;
             font-size: 0.9em;
             margin-bottom: 10px;
@@ -245,7 +244,7 @@
         }
 
         .tech-badge {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             color: white;
             padding: 10px 20px;
             border-radius: 25px;
@@ -270,7 +269,7 @@
         .stat-box .number {
             font-size: 3em;
             font-weight: bold;
-            color: #667eea;
+            color: black;
             margin-bottom: 5px;
         }
 
