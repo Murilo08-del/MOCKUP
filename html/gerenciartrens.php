@@ -88,6 +88,173 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Trens - Sistema Ferroviário</title>
 
+    
+    <style>
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #a79f9fff 0%, #332e2eff 100%);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-header p {
+            font-size: 0.85em;
+            opacity: 0.8;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            gap: 12px;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-left: 4px solid white;
+        }
+
+        .sidebar-menu a .icon {
+            font-size: 1.3em;
+            width: 25px;
+            text-align: center;
+        }
+
+        /* celular */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: gray;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        body {
+            display: flex;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            transition: margin-left 0.3s ease;
+        }
+
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-top: 70px;
+            }
+        }
+    </style>
+
+  <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>🚆 Sistema Ferroviário</h2>
+            <p>Painel Administrativo</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.php"><span class="icon">📊</span> Dashboard</a></li>
+            <li><a href="gerenciarsensores.php"><span class="icon">🚂</span> Gerenciar Sensores</a></li>
+            <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
+            <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
+            <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
+            <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
+            <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
+            <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">🔡</span> Gerenciar Itinerários</a></li>
+            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
+            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
+            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
+            <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
+        </ul>
+    </aside>
+
+    <!-- celular -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <!-- JAVASCRIPT DA SIDEBAR -->
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Fechar sidebar ao clicar fora (mobile)
+        document.addEventListener('click', function (event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.menu-toggle');
+
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                }
+            }
+        });
+
+        // Marcar link ativo automaticamente
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentPage = window.location.pathname.split('/').pop();
+            const links = document.querySelectorAll('.sidebar-menu a');
+
+            links.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+
     <style>
         * {
             margin: 0;
