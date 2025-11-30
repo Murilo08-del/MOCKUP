@@ -63,7 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                        proxima_manutencao=?, km_rodados=?, status=?, observacoes=? 
                                        WHERE id=?");
             $stmt->bind_param(
-                "sssssiddddssdsi",
+                // +1 final (i) para o parâmetro do id (WHERE id=?) — antes faltava, quebrando a execução
+                "sssssiddddssdssi",
                 $nome,
                 $codigo,
                 $tipo,
