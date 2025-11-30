@@ -88,7 +88,6 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Trens - Sistema Ferroviário</title>
 
-    
     <style>
         .sidebar {
             width: 250px;
@@ -151,7 +150,6 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
             text-align: center;
         }
 
-        /* celular */
         .menu-toggle {
             display: none;
             position: fixed;
@@ -167,7 +165,17 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
             font-size: 1.2em;
         }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
+            min-height: 100vh;
+            padding: 20px;
             display: flex;
         }
 
@@ -177,98 +185,6 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
             transition: margin-left 0.3s ease;
         }
 
-
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding-top: 70px;
-            }
-        }
-    </style>
-
-  <aside class="sidebar">
-        <div class="sidebar-header">
-            <h2>🚆 Sistema Ferroviário</h2>
-            <p>Painel Administrativo</p>
-        </div>
-        <ul class="sidebar-menu">
-            <li><a href="dashboard.php"><span class="icon">📊</span> Dashboard</a></li>
-            <li><a href="gerenciarsensores.php"><span class="icon">🚂</span> Gerenciar Sensores</a></li>
-            <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
-            <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
-            <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
-            <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
-            <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
-            <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
-            <li><a href="gerenciaritinerários.php"><span class="icon">🔡</span> Gerenciar Itinerários</a></li>
-            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
-            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
-            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
-            <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
-        </ul>
-    </aside>
-
-    <!-- celular -->
-    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-
-    <!-- JAVASCRIPT DA SIDEBAR -->
-    <script>
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
-
-        // Fechar sidebar ao clicar fora (mobile)
-        document.addEventListener('click', function (event) {
-            const sidebar = document.getElementById('sidebar');
-            const toggle = document.querySelector('.menu-toggle');
-
-            if (window.innerWidth <= 768) {
-                if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
-                    sidebar.classList.remove('active');
-                }
-            }
-        });
-
-        // Marcar link ativo automaticamente
-        document.addEventListener('DOMContentLoaded', function () {
-            const currentPage = window.location.pathname.split('/').pop();
-            const links = document.querySelectorAll('.sidebar-menu a');
-
-            links.forEach(link => {
-                if (link.getAttribute('href') === currentPage) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
-
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -276,7 +192,7 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
 
         header {
             background: rgba(255, 255, 255, 0.95);
-            padding: 25px 30px;
+            padding: 20px;
             border-radius: 15px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -288,7 +204,7 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
         }
 
         h1 {
-            color: #333;
+            color: black;
             font-size: 2em;
             display: flex;
             align-items: center;
@@ -296,11 +212,11 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
         }
 
         .btn-novo {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: gray;
             color: white;
             padding: 12px 30px;
             border: none;
-            border-radius: 25px;
+            border-radius: 10px;
             font-size: 1em;
             font-weight: 600;
             cursor: pointer;
@@ -312,8 +228,8 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
         }
 
         .btn-novo:hover {
+            background: black;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
         .btn-voltar {
@@ -330,7 +246,6 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
             background: #5a6268;
         }
 
-        /* Estatísticas */
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -363,7 +278,7 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
         }
 
         .stat-card.total .number {
-            color: #667eea;
+            color: #d6651aff;
         }
 
         .stat-card.operating .number {
@@ -378,7 +293,6 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
             color: #e53e3e;
         }
 
-        /* Filtros */
         .search-filter {
             background: white;
             padding: 20px;
@@ -406,7 +320,7 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
         .search-filter input:focus,
         .search-filter select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #d6651aff;
         }
 
         .filter-buttons {
@@ -416,7 +330,7 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
 
         .btn-filtrar {
             flex: 1;
-            background: #667eea;
+            background: gray;
             color: white;
             padding: 12px;
             border: none;
@@ -427,7 +341,7 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
         }
 
         .btn-filtrar:hover {
-            background: #5568d3;
+            background: black;
         }
 
         .btn-limpar {
@@ -446,7 +360,6 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
             background: #d0d0d0;
         }
 
-        /* Mensagens */
         .mensagem {
             padding: 15px 20px;
             border-radius: 10px;
@@ -479,7 +392,6 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
             border-left: 4px solid #dc3545;
         }
 
-        /* Grid de Trens */
         .trens-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -500,7 +412,7 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
         }
 
         .trem-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
             color: white;
             padding: 20px;
         }
@@ -582,7 +494,7 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
         .stat-item .value {
             font-size: 1.5em;
             font-weight: bold;
-            color: #667eea;
+            color: #d6651aff;
         }
 
         .stat-item .label {
@@ -615,12 +527,12 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
         }
 
         .btn-editar {
-            background: #667eea;
+            background: gray;
             color: white;
         }
 
         .btn-editar:hover {
-            background: #5568d3;
+            background: black;
             transform: translateY(-2px);
         }
 
@@ -658,6 +570,23 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
         }
 
         @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-top: 70px;
+            }
+
             header {
                 flex-direction: column;
                 align-items: stretch;
@@ -683,191 +612,208 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <div>
-                <h1>🚂 Gerenciar Trens</h1>
-                <p style="color: #666; margin-top: 5px;">Controle completo da frota de trens</p>
-            </div>
-            <div style="display: flex; gap: 10px;">
-                <a href="dashboard.php" class="btn-voltar">← Voltar</a>
-                <a href="cadastrartrem.php" class="btn-novo">➕ Novo Trem</a>
-            </div>
-        </header>
-
-        <!-- Estatísticas -->
-        <div class="stats-bar">
-            <div class="stat-card total">
-                <div class="number"><?php echo $stats_total; ?></div>
-                <div class="label">Total de Trens</div>
-            </div>
-            <div class="stat-card operating">
-                <div class="number"><?php echo $stats_operando; ?></div>
-                <div class="label">Em Operação</div>
-            </div>
-            <div class="stat-card maintenance">
-                <div class="number"><?php echo $stats_manutencao; ?></div>
-                <div class="label">Em Manutenção</div>
-            </div>
-            <div class="stat-card inactive">
-                <div class="number"><?php echo $stats_inativos; ?></div>
-                <div class="label">Inativos</div>
-            </div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>🚆 Sistema Ferroviário</h2>
+            <p>Painel Administrativo</p>
         </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.php"><span class="icon">📊</span> Dashboard</a></li>
+            <li><a href="gerenciarsensores.php"><span class="icon">🚂</span> Gerenciar Sensores</a></li>
+            <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
+            <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
+            <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
+            <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
+            <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
+            <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
+            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
+            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
+            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
+            <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
+        </ul>
+    </aside>
 
-        <?php if (!empty($mensagem)): ?>
-            <div class="mensagem <?php echo $tipo_mensagem; ?>">
-                <?php echo htmlspecialchars($mensagem); ?>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <div class="main-content">
+        <div class="container">
+            <header>
+                <div>
+                    <h1>🚂 Gerenciar Trens</h1>
+                    <p style="color: #666; margin-top: 5px;">Controle completo da frota de trens</p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <a href="dashboard.php" class="btn-voltar">← Voltar</a>
+                    <a href="cadastrartrem.php" class="btn-novo">➕ Novo Trem</a>
+                </div>
+            </header>
+
+            <div class="stats-bar">
+                <div class="stat-card total">
+                    <div class="number"><?php echo $stats_total; ?></div>
+                    <div class="label">Total de Trens</div>
+                </div>
+                <div class="stat-card operating">
+                    <div class="number"><?php echo $stats_operando; ?></div>
+                    <div class="label">Em Operação</div>
+                </div>
+                <div class="stat-card maintenance">
+                    <div class="number"><?php echo $stats_manutencao; ?></div>
+                    <div class="label">Em Manutenção</div>
+                </div>
+                <div class="stat-card inactive">
+                    <div class="number"><?php echo $stats_inativos; ?></div>
+                    <div class="label">Inativos</div>
+                </div>
             </div>
-        <?php endif; ?>
 
-        <!-- Filtros -->
-        <form method="GET" class="search-filter">
-            <div class="filter-row">
-                <input type="text" name="busca" placeholder="🔍 Buscar por nome, código, tipo ou modelo..."
-                    value="<?php echo htmlspecialchars($busca); ?>">
-                <select name="tipo">
-                    <option value="">Todos os Tipos</option>
-                    <option value="expresso" <?php echo $filtro_tipo === 'expresso' ? 'selected' : ''; ?>>Expresso
-                    </option>
-                    <option value="regional" <?php echo $filtro_tipo === 'regional' ? 'selected' : ''; ?>>Regional
-                    </option>
-                    <option value="metropolitano" <?php echo $filtro_tipo === 'metropolitano' ? 'selected' : ''; ?>>
-                        Metropolitano</option>
-                    <option value="luxo" <?php echo $filtro_tipo === 'luxo' ? 'selected' : ''; ?>>Luxo</option>
-                    <option value="carga" <?php echo $filtro_tipo === 'carga' ? 'selected' : ''; ?>>Carga</option>
-                </select>
-                <select name="status">
-                    <option value="">Todos os Status</option>
-                    <option value="operando" <?php echo $filtro_status === 'operando' ? 'selected' : ''; ?>>Operando
-                    </option>
-                    <option value="manutencao" <?php echo $filtro_status === 'manutencao' ? 'selected' : ''; ?>>Em
-                        Manutenção</option>
-                    <option value="inativo" <?php echo $filtro_status === 'inativo' ? 'selected' : ''; ?>>Inativo</option>
-                    <option value="em_viagem" <?php echo $filtro_status === 'em_viagem' ? 'selected' : ''; ?>>Em Viagem
-                    </option>
-                </select>
-            </div>
-            <div class="filter-buttons">
-                <button type="submit" class="btn-filtrar">🔍 Filtrar</button>
-                <a href="gerenciartrens.php" class="btn-limpar">🔄 Limpar Filtros</a>
-            </div>
-        </form>
-
-        <!-- Grid de Trens -->
-        <div class="trens-grid">
-            <?php if ($resultado && $resultado->num_rows > 0): ?>
-                <?php while ($trem = $resultado->fetch_assoc()): ?>
-                    <div class="trem-card">
-                        <div class="trem-header">
-                            <h3><?php echo htmlspecialchars($trem['nome']); ?></h3>
-                            <p class="codigo">Código: <?php echo htmlspecialchars($trem['codigo']); ?></p>
-                        </div>
-                        <div class="trem-body">
-                            <span class="trem-status status-<?php echo $trem['status']; ?>">
-                                ● <?php echo ucfirst(str_replace('_', ' ', $trem['status'])); ?>
-                            </span>
-
-                            <div class="trem-info">
-                                <p><strong>🚂 Tipo:</strong> <?php echo ucfirst($trem['tipo']); ?></p>
-                                <p><strong>🏭 Modelo:</strong> <?php echo htmlspecialchars($trem['modelo']); ?></p>
-                                <?php if ($trem['fabricante']): ?>
-                                    <p><strong>🏢 Fabricante:</strong> <?php echo htmlspecialchars($trem['fabricante']); ?></p>
-                                <?php endif; ?>
-                                <?php if ($trem['ano_fabricacao']): ?>
-                                    <p><strong>📅 Ano:</strong> <?php echo $trem['ano_fabricacao']; ?></p>
-                                <?php endif; ?>
-                            </div>
-
-                            <div class="trem-stats">
-                                <div class="stat-item">
-                                    <div class="value"><?php echo number_format($trem['capacidade_passageiros']); ?></div>
-                                    <div class="label">Passageiros</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="value"><?php echo number_format($trem['velocidade_maxima']); ?></div>
-                                    <div class="label">km/h máx</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="value"><?php echo number_format($trem['km_rodados'], 0, ',', '.'); ?></div>
-                                    <div class="label">km rodados</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="value">
-                                        <?php
-                                        if ($trem['ultima_manutencao']) {
-                                            echo date('d/m/Y', strtotime($trem['ultima_manutencao']));
-                                        } else {
-                                            echo '-';
-                                        }
-                                        ?>
-                                    </div>
-                                    <div class="label">Últ. Manutenção</div>
-                                </div>
-                            </div>
-
-                            <div class="trem-actions">
-                                <a href="cadastrartrem.php?editar=<?php echo $trem['id']; ?>" class="btn btn-editar">
-                                    ✏️ Editar
-                                </a>
-                                <a href="?excluir=<?php echo $trem['id']; ?>" class="btn btn-excluir"
-                                    onclick="return confirm('⚠️ Tem certeza que deseja excluir o trem <?php echo htmlspecialchars($trem['nome']); ?>?\n\nEsta ação não pode ser desfeita!')">
-                                    🗑️ Excluir
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <div class="empty-state">
-                    <div class="icon">🚂</div>
-                    <h3>Nenhum trem encontrado</h3>
-                    <p>
-                        <?php if (!empty($busca) || !empty($filtro_status) || !empty($filtro_tipo)): ?>
-                            Nenhum resultado para os filtros aplicados.
-                            <a href="gerenciartrens.php" style="color: #667eea;">Limpar filtros</a>
-                        <?php else: ?>
-                            Comece cadastrando o primeiro trem da frota.
-                            <a href="cadastrartrem.php" style="color: #667eea;">Cadastrar agora</a>
-                        <?php endif; ?>
-                    </p>
+            <?php if (!empty($mensagem)): ?>
+                <div class="mensagem <?php echo $tipo_mensagem; ?>">
+                    <?php echo htmlspecialchars($mensagem); ?>
                 </div>
             <?php endif; ?>
+
+            <form method="GET" class="search-filter">
+                <div class="filter-row">
+                    <input type="text" name="busca" placeholder="🔍 Buscar por nome, código, tipo ou modelo..."
+                        value="<?php echo htmlspecialchars($busca); ?>">
+                    <select name="tipo">
+                        <option value="">Todos os Tipos</option>
+                        <option value="expresso" <?php echo $filtro_tipo === 'expresso' ? 'selected' : ''; ?>>Expresso
+                        </option>
+                        <option value="regional" <?php echo $filtro_tipo === 'regional' ? 'selected' : ''; ?>>Regional
+                        </option>
+                        <option value="metropolitano" <?php echo $filtro_tipo === 'metropolitano' ? 'selected' : ''; ?>>
+                            Metropolitano</option>
+                        <option value="luxo" <?php echo $filtro_tipo === 'luxo' ? 'selected' : ''; ?>>Luxo</option>
+                        <option value="carga" <?php echo $filtro_tipo === 'carga' ? 'selected' : ''; ?>>Carga</option>
+                    </select>
+                    <select name="status">
+                        <option value="">Todos os Status</option>
+                        <option value="operando" <?php echo $filtro_status === 'operando' ? 'selected' : ''; ?>>Operando
+                        </option>
+                        <option value="manutencao" <?php echo $filtro_status === 'manutencao' ? 'selected' : ''; ?>>Em
+                            Manutenção</option>
+                        <option value="inativo" <?php echo $filtro_status === 'inativo' ? 'selected' : ''; ?>>Inativo
+                        </option>
+                        <option value="em_viagem" <?php echo $filtro_status === 'em_viagem' ? 'selected' : ''; ?>>Em
+                            Viagem</option>
+                    </select>
+                </div>
+                <div class="filter-buttons">
+                    <button type="submit" class="btn-filtrar">🔎 Filtrar</button>
+                    <a href="gerenciartrens.php" class="btn-limpar">🔄 Limpar Filtros</a>
+                </div>
+            </form>
+
+            <div class="trens-grid">
+                <?php if ($resultado && $resultado->num_rows > 0): ?>
+                    <?php while ($trem = $resultado->fetch_assoc()): ?>
+                        <div class="trem-card">
+                            <div class="trem-header">
+                                <h3><?php echo htmlspecialchars($trem['nome']); ?></h3>
+                                <p class="codigo">Código: <?php echo htmlspecialchars($trem['codigo']); ?></p>
+                            </div>
+                            <div class="trem-body">
+                                <span class="trem-status status-<?php echo $trem['status']; ?>">
+                                    ● <?php echo ucfirst(str_replace('_', ' ', $trem['status'])); ?>
+                                </span>
+
+                                <div class="trem-info">
+                                    <p><strong>🚂 Tipo:</strong> <?php echo ucfirst($trem['tipo']); ?></p>
+                                    <p><strong>🏭 Modelo:</strong> <?php echo htmlspecialchars($trem['modelo']); ?></p>
+                                    <?php if ($trem['fabricante']): ?>
+                                        <p><strong>🏢 Fabricante:</strong> <?php echo htmlspecialchars($trem['fabricante']); ?></p>
+                                    <?php endif; ?>
+                                    <?php if ($trem['ano_fabricacao']): ?>
+                                        <p><strong>📅 Ano:</strong> <?php echo $trem['ano_fabricacao']; ?></p>
+                                    <?php endif; ?>
+                                </div>
+
+                                <div class="trem-stats">
+                                    <div class="stat-item">
+                                        <div class="value"><?php echo number_format($trem['capacidade_passageiros']); ?></div>
+                                        <div class="label">Passageiros</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="value"><?php echo number_format($trem['velocidade_maxima']); ?></div>
+                                        <div class="label">km/h máx</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="value"><?php echo number_format($trem['km_rodados'], 0, ',', '.'); ?></div>
+                                        <div class="label">km rodados</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="value">
+                                            <?php
+                                            if ($trem['ultima_manutencao']) {
+                                                echo date('d/m/Y', strtotime($trem['ultima_manutencao']));
+                                            } else {
+                                                echo '-';
+                                            }
+                                            ?>
+                                        </div>
+                                        <div class="label">Últ. Manutenção</div>
+                                    </div>
+                                </div>
+
+                                <div class="trem-actions">
+                                    <a href="cadastrartrem.php?editar=<?php echo $trem['id']; ?>" class="btn btn-editar">
+                                        ✏️ Editar
+                                    </a>
+                                    <a href="?excluir=<?php echo $trem['id']; ?>" class="btn btn-excluir"
+                                        onclick="return confirm('⚠️ Tem certeza que deseja excluir o trem <?php echo htmlspecialchars($trem['nome']); ?>?\n\nEsta ação não pode ser desfeita!')">
+                                        🗑️ Excluir
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <div class="empty-state">
+                        <div class="icon">🚂</div>
+                        <h3>Nenhum trem encontrado</h3>
+                        <p>
+                            <?php if (!empty($busca) || !empty($filtro_status) || !empty($filtro_tipo)): ?>
+                                Nenhum resultado para os filtros aplicados.
+                                <a href="gerenciartrens.php" style="color: #d6651aff;">Limpar filtros</a>
+                            <?php else: ?>
+                                Comece cadastrando o primeiro trem da frota.
+                                <a href="cadastrartrem.php" style="color: #d6651aff;">Cadastrar agora</a>
+                            <?php endif; ?>
+                        </p>
+                    </div>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 
     <script>
-        // Auto-submit ao mudar filtros (opcional)
-        document.querySelectorAll('.search-filter select').forEach(select => {
-            select.addEventListener('change', function () {
-                // Comentado para permitir múltiplos filtros antes de buscar
-                // this.form.submit();
-            });
-        });
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
 
-        // Confirmação mais amigável para exclusão
-        document.querySelectorAll('.btn-excluir').forEach(btn => {
-            btn.addEventListener('click', function (e) {
-                const tremNome = this.closest('.trem-card').querySelector('h3').textContent;
-                if (!confirm(`⚠️ ATENÇÃO!\n\nDeseja realmente excluir o trem "${tremNome}"?\n\nEsta ação NÃO pode ser desfeita!`)) {
-                    e.preventDefault();
+        document.addEventListener('click', function (event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.menu-toggle');
+
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
+                    sidebar.classList.remove('active');
                 }
-            });
+            }
         });
 
-        // Animação de entrada dos cards
         document.addEventListener('DOMContentLoaded', function () {
-            const cards = document.querySelectorAll('.trem-card');
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    card.style.transition = 'all 0.3s ease';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 50);
-                }, index * 50);
+            const currentPage = window.location.pathname.split('/').pop();
+            const links = document.querySelectorAll('.sidebar-menu a');
+
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
             });
         });
     </script>

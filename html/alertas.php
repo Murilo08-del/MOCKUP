@@ -15,11 +15,11 @@ if (isset($_POST['resolver'])) {
     $alerta_id = intval($_POST['alerta_id']);
     $usuario_id = $_SESSION['id'];
     $observacao = trim($_POST['observacao'] ?? '');
-    
+
     $stmt = $conexao->prepare("UPDATE alertas SET status='resolvido', resolvido_por=?, 
                                data_resolucao=NOW(), observacao_resolucao=? WHERE id=?");
     $stmt->bind_param("isi", $usuario_id, $observacao, $alerta_id);
-    
+
     if ($stmt->execute()) {
         $mensagem = "Alerta marcado como resolvido!";
         $tipo_mensagem = "success";
@@ -33,10 +33,10 @@ if (isset($_POST['resolver'])) {
 // ==================== EXCLUIR ALERTA ====================
 if (isset($_GET['excluir'])) {
     $id = intval($_GET['excluir']);
-    
+
     $stmt = $conexao->prepare("DELETE FROM alertas WHERE id = ?");
     $stmt->bind_param("i", $id);
-    
+
     if ($stmt->execute()) {
         $mensagem = "Alerta excluído com sucesso!";
         $tipo_mensagem = "success";
@@ -86,11 +86,12 @@ $count_resolvidos = $conexao->query("SELECT COUNT(*) as total FROM alertas WHERE
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Alertas - Sistema Ferroviário</title>
-    
+
     <style>
         * {
             margin: 0;
@@ -450,7 +451,7 @@ $count_resolvidos = $conexao->query("SELECT COUNT(*) as total FROM alertas WHERE
 </head>
 
 <body>
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2>🚆 Sistema Ferroviário</h2>
             <p>Painel Administrativo</p>
@@ -461,9 +462,10 @@ $count_resolvidos = $conexao->query("SELECT COUNT(*) as total FROM alertas WHERE
             <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
             <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
             <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
-            <li><a href="gerenciartrens.php"><span class="icon">🚂</span> Gerenciar Trens</a></li>
-            <li><a href="alertas.php" class="active"><span class="icon">🚨</span> Alertas</a></li>
-            <li><a href="gerenciaritinerários.php"><span class="icon">🔡</span> Gerenciar Itinerários</a></li>
+            <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
+            <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
+            <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
             <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
             <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
             <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
@@ -505,7 +507,8 @@ $count_resolvidos = $conexao->query("SELECT COUNT(*) as total FROM alertas WHERE
 
         <!-- Filtros -->
         <form method="GET" class="filters">
-            <input type="text" name="busca" placeholder="🔍 Buscar alertas..." value="<?php echo htmlspecialchars($busca); ?>">
+            <input type="text" name="busca" placeholder="🔍 Buscar alertas..."
+                value="<?php echo htmlspecialchars($busca); ?>">
             <select name="tipo" onchange="this.form.submit()">
                 <option value="">Todas as Prioridades</option>
                 <option value="critico" <?php echo $filtro_tipo === 'critico' ? 'selected' : ''; ?>>Crítico</option>
@@ -514,7 +517,8 @@ $count_resolvidos = $conexao->query("SELECT COUNT(*) as total FROM alertas WHERE
             </select>
             <select name="status" onchange="this.form.submit()">
                 <option value="pendente" <?php echo $filtro_status === 'pendente' ? 'selected' : ''; ?>>Pendentes</option>
-                <option value="resolvido" <?php echo $filtro_status === 'resolvido' ? 'selected' : ''; ?>>Resolvidos</option>
+                <option value="resolvido" <?php echo $filtro_status === 'resolvido' ? 'selected' : ''; ?>>Resolvidos
+                </option>
                 <option value="">Todos</option>
             </select>
         </form>
@@ -524,8 +528,9 @@ $count_resolvidos = $conexao->query("SELECT COUNT(*) as total FROM alertas WHERE
             <?php if ($resultado && $resultado->num_rows > 0): ?>
                 <?php while ($alerta = $resultado->fetch_assoc()): ?>
                     <div class="alerta-card" style="<?php echo $alerta['status'] === 'resolvido' ? 'opacity: 0.7;' : ''; ?>">
-                        <div class="alerta-icon <?php echo $alerta['status'] === 'resolvido' ? 'resolved' : $alerta['tipo']; ?>">
-                            <?php 
+                        <div
+                            class="alerta-icon <?php echo $alerta['status'] === 'resolvido' ? 'resolved' : $alerta['tipo']; ?>">
+                            <?php
                             if ($alerta['status'] === 'resolvido') {
                                 echo '✅';
                             } elseif ($alerta['tipo'] === 'critico') {
@@ -540,7 +545,8 @@ $count_resolvidos = $conexao->query("SELECT COUNT(*) as total FROM alertas WHERE
                         <div class="alerta-content">
                             <div class="alerta-header">
                                 <div class="alerta-title"><?php echo htmlspecialchars($alerta['titulo']); ?></div>
-                                <span class="alerta-badge badge-<?php echo $alerta['status'] === 'resolvido' ? 'resolvido' : $alerta['tipo']; ?>">
+                                <span
+                                    class="alerta-badge badge-<?php echo $alerta['status'] === 'resolvido' ? 'resolvido' : $alerta['tipo']; ?>">
                                     <?php echo strtoupper($alerta['status'] === 'resolvido' ? 'RESOLVIDO' : $alerta['tipo']); ?>
                                 </span>
                             </div>
@@ -558,17 +564,19 @@ $count_resolvidos = $conexao->query("SELECT COUNT(*) as total FROM alertas WHERE
                                 <?php endif; ?>
                             </div>
                             <?php if ($alerta['status'] === 'resolvido' && $alerta['observacao_resolucao']): ?>
-                                <p style="margin-top: 10px; padding: 10px; background: #f0f0f0; border-radius: 5px; font-size: 0.9em;">
+                                <p
+                                    style="margin-top: 10px; padding: 10px; background: #f0f0f0; border-radius: 5px; font-size: 0.9em;">
                                     <strong>Observação:</strong> <?php echo htmlspecialchars($alerta['observacao_resolucao']); ?>
                                 </p>
                             <?php endif; ?>
                         </div>
                         <div class="alerta-actions">
                             <?php if ($alerta['status'] !== 'resolvido'): ?>
-                                <button class="btn btn-resolver" onclick="abrirModal(<?php echo $alerta['id']; ?>)">✔️ Resolver</button>
+                                <button class="btn btn-resolver" onclick="abrirModal(<?php echo $alerta['id']; ?>)">✔️
+                                    Resolver</button>
                             <?php endif; ?>
-                            <a href="?excluir=<?php echo $alerta['id']; ?>" class="btn btn-excluir" 
-                               onclick="return confirm('Tem certeza que deseja excluir este alerta?')">🗑️ Excluir</a>
+                            <a href="?excluir=<?php echo $alerta['id']; ?>" class="btn btn-excluir"
+                                onclick="return confirm('Tem certeza que deseja excluir este alerta?')">🗑️ Excluir</a>
                         </div>
                     </div>
                 <?php endwhile; ?>
@@ -604,7 +612,7 @@ $count_resolvidos = $conexao->query("SELECT COUNT(*) as total FROM alertas WHERE
             document.getElementById('modalResolver').style.display = 'none';
         }
 
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             const modal = document.getElementById('modalResolver');
             if (event.target == modal) {
                 fecharModal();
@@ -612,4 +620,5 @@ $count_resolvidos = $conexao->query("SELECT COUNT(*) as total FROM alertas WHERE
         }
     </script>
 </body>
+
 </html>

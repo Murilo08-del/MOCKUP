@@ -94,7 +94,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $stmt->close();
         } else {
             // INSERIR NOVO TREM
-            // Verificar se código já existe
             $stmt = $conexao->prepare("SELECT id FROM trens WHERE codigo = ?");
             $stmt->bind_param("s", $codigo);
             $stmt->execute();
@@ -110,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                           proxima_manutencao, km_rodados, status, observacoes) 
                                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmt->bind_param(
-                    "sssssiddddssds",
+                    "sssssiddddssdss",
                     $nome,
                     $codigo,
                     $tipo,
@@ -151,7 +150,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $editando ? 'Editar' : 'Cadastrar'; ?> Trem - Sistema Ferroviário</title>
-
 
     <style>
         .sidebar {
@@ -215,7 +213,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             text-align: center;
         }
 
-        /* celular */
         .menu-toggle {
             display: none;
             position: fixed;
@@ -231,7 +228,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             font-size: 1.2em;
         }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
+            min-height: 100vh;
+            padding: 20px;
             display: flex;
         }
 
@@ -241,104 +248,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             transition: margin-left 0.3s ease;
         }
 
-
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding-top: 70px;
-            }
-        }
-    </style>
-
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <h2>🚆 Sistema Ferroviário</h2>
-            <p>Painel Administrativo</p>
-        </div>
-        <ul class="sidebar-menu">
-            <li><a href="dashboard.php"><span class="icon">📊</span> Dashboard</a></li>
-            <li><a href="gerenciarsensores.php"><span class="icon">🚂</span> Gerenciar Sensores</a></li>
-            <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
-            <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
-            <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
-            <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
-            <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
-            <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
-            <li><a href="gerenciaritinerários.php"><span class="icon">🔡</span> Gerenciar Itinerários</a></li>
-            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
-            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
-            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
-            <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
-        </ul>
-    </aside>
-
-    <!-- celular -->
-    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-
-    <!-- JAVASCRIPT DA SIDEBAR -->
-    <script>
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
-
-        // Fechar sidebar ao clicar fora (mobile)
-        document.addEventListener('click', function (event) {
-            const sidebar = document.getElementById('sidebar');
-            const toggle = document.querySelector('.menu-toggle');
-
-            if (window.innerWidth <= 768) {
-                if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
-                    sidebar.classList.remove('active');
-                }
-            }
-        });
-
-        // Marcar link ativo automaticamente
-        document.addEventListener('DOMContentLoaded', function () {
-            const currentPage = window.location.pathname.split('/').pop();
-            const links = document.querySelectorAll('.sidebar-menu a');
-
-            links.forEach(link => {
-                if (link.getAttribute('href') === currentPage) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
-
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         .container {
             max-width: 900px;
             width: 100%;
+            margin: 0 auto;
         }
 
         .form-card {
@@ -349,7 +262,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         h1 {
-            color: #333;
+            color: black;
             font-size: 2.2em;
             margin-bottom: 10px;
             text-align: center;
@@ -372,7 +285,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         .form-section h2 {
-            color: #667eea;
+            color: black;
             font-size: 1.3em;
             margin-bottom: 20px;
             display: flex;
@@ -382,7 +295,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         .info-box {
             background: #f0f4ff;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #d6651aff;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 25px;
@@ -445,8 +358,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         select:focus,
         textarea:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #d6651aff;
+            box-shadow: 0 0 0 3px rgba(214, 101, 26, 0.1);
         }
 
         textarea {
@@ -487,13 +400,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         .btn-salvar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: gray;
             color: white;
         }
 
         .btn-salvar:hover {
+            background: black;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
         .btn-cancelar {
@@ -524,6 +437,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-top: 70px;
+            }
+
             .form-card {
                 padding: 25px;
             }
@@ -545,180 +475,224 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
-    <div class="container">
-        <div class="form-card">
-            <h1>🚂 <?php echo $editando ? 'Editar' : 'Cadastrar Novo'; ?> Trem</h1>
-            <p class="subtitle">
-                <?php echo $editando ? 'Atualize as informações do trem' : 'Adicione um novo trem à frota do sistema'; ?>
-            </p>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>🚆 Sistema Ferroviário</h2>
+            <p>Painel Administrativo</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.php"><span class="icon">📊</span> Dashboard</a></li>
+            <li><a href="gerenciarsensores.php"><span class="icon">🚂</span> Gerenciar Sensores</a></li>
+            <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
+            <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
+            <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
+            <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
+            <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
+            <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
+            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
+            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
+            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
+            <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
+        </ul>
+    </aside>
 
-            <?php if (!$editando): ?>
-                <div class="info-box">
-                    <p>💡 <strong>Dica:</strong> Preencha todos os campos obrigatórios (*) para garantir o registro completo
-                        do trem no sistema.</p>
-                </div>
-            <?php endif; ?>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
-            <?php if (!empty($mensagem)): ?>
-                <div class="mensagem <?php echo $tipo_mensagem; ?>">
-                    <?php echo htmlspecialchars($mensagem); ?>
-                </div>
-            <?php endif; ?>
+    <div class="main-content">
+        <div class="container">
+            <div class="form-card">
+                <h1>🚂 <?php echo $editando ? 'Editar' : 'Cadastrar Novo'; ?> Trem</h1>
+                <p class="subtitle">
+                    <?php echo $editando ? 'Atualize as informações do trem' : 'Adicione um novo trem à frota do sistema'; ?>
+                </p>
 
-            <form method="POST" id="formTrem">
-                <?php if ($editando): ?>
-                    <input type="hidden" name="id_edicao" value="<?php echo $trem['id']; ?>">
+                <?php if (!$editando): ?>
+                        <div class="info-box">
+                            <p>💡 <strong>Dica:</strong> Preencha todos os campos obrigatórios (*) para garantir o registro completo do trem no sistema.</p>
+                        </div>
                 <?php endif; ?>
 
-                <!-- Seção: Informações Básicas -->
-                <div class="form-section">
-                    <h2>📋 Informações Básicas</h2>
-
-                    <div class="form-group">
-                        <label for="nome">Nome do Trem <span class="required">*</span></label>
-                        <input type="text" id="nome" name="nome" placeholder="Ex: Expresso Central"
-                            value="<?php echo htmlspecialchars($trem['nome'] ?? ''); ?>" required>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="codigo">Código do Trem <span class="required">*</span></label>
-                            <input type="text" id="codigo" name="codigo" placeholder="Ex: TRM-001"
-                                value="<?php echo htmlspecialchars($trem['codigo'] ?? ''); ?>" required>
+                <?php if (!empty($mensagem)): ?>
+                        <div class="mensagem <?php echo $tipo_mensagem; ?>">
+                            <?php echo htmlspecialchars($mensagem); ?>
                         </div>
+                <?php endif; ?>
+
+                <form method="POST" id="formTrem">
+                    <?php if ($editando): ?>
+                            <input type="hidden" name="id_edicao" value="<?php echo $trem['id']; ?>">
+                    <?php endif; ?>
+
+                    <div class="form-section">
+                        <h2>📋 Informações Básicas</h2>
 
                         <div class="form-group">
-                            <label for="tipo">Tipo de Trem <span class="required">*</span></label>
-                            <select id="tipo" name="tipo" required>
-                                <option value="">Selecione...</option>
-                                <option value="expresso" <?php echo ($trem['tipo'] ?? '') === 'expresso' ? 'selected' : ''; ?>>Expresso</option>
-                                <option value="regional" <?php echo ($trem['tipo'] ?? '') === 'regional' ? 'selected' : ''; ?>>Regional</option>
-                                <option value="metropolitano" <?php echo ($trem['tipo'] ?? '') === 'metropolitano' ? 'selected' : ''; ?>>Metropolitano</option>
-                                <option value="luxo" <?php echo ($trem['tipo'] ?? '') === 'luxo' ? 'selected' : ''; ?>>
-                                    Luxo</option>
-                                <option value="carga" <?php echo ($trem['tipo'] ?? '') === 'carga' ? 'selected' : ''; ?>>
-                                    Carga</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="modelo">Modelo</label>
-                            <input type="text" id="modelo" name="modelo" placeholder="Ex: EMU-500"
-                                value="<?php echo htmlspecialchars($trem['modelo'] ?? ''); ?>">
+                            <label for="nome">Nome do Trem <span class="required">*</span></label>
+                            <input type="text" id="nome" name="nome" placeholder="Ex: Expresso Central"
+                                value="<?php echo htmlspecialchars($trem['nome'] ?? ''); ?>" required>
                         </div>
 
-                        <div class="form-group">
-                            <label for="fabricante">Fabricante</label>
-                            <input type="text" id="fabricante" name="fabricante" placeholder="Ex: Siemens"
-                                value="<?php echo htmlspecialchars($trem['fabricante'] ?? ''); ?>">
-                        </div>
-                    </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="codigo">Código do Trem <span class="required">*</span></label>
+                                <input type="text" id="codigo" name="codigo" placeholder="Ex: TRM-001"
+                                    value="<?php echo htmlspecialchars($trem['codigo'] ?? ''); ?>" required>
+                            </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="ano_fabricacao">Ano de Fabricação</label>
-                            <input type="number" id="ano_fabricacao" name="ano_fabricacao" placeholder="Ex: 2020"
-                                min="1900" max="2030" value="<?php echo $trem['ano_fabricacao'] ?? ''; ?>">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="status">Status do Trem <span class="required">*</span></label>
-                            <select id="status" name="status" required>
-                                <option value="operando" <?php echo ($trem['status'] ?? 'inativo') === 'operando' ? 'selected' : ''; ?>>Operando</option>
-                                <option value="manutencao" <?php echo ($trem['status'] ?? '') === 'manutencao' ? 'selected' : ''; ?>>Em Manutenção</option>
-                                <option value="inativo" <?php echo ($trem['status'] ?? 'inativo') === 'inativo' ? 'selected' : ''; ?>>Inativo</option>
-                                <option value="em_viagem" <?php echo ($trem['status'] ?? '') === 'em_viagem' ? 'selected' : ''; ?>>Em Viagem</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Seção: Capacidade e Desempenho -->
-                <div class="form-section">
-                    <h2>⚙️ Capacidade e Desempenho</h2>
-
-                    <div class="form-row-3">
-                        <div class="form-group">
-                            <label for="capacidade_passageiros">Capacidade (Passageiros)</label>
-                            <input type="number" id="capacidade_passageiros" name="capacidade_passageiros"
-                                placeholder="450" min="0" value="<?php echo $trem['capacidade_passageiros'] ?? ''; ?>">
+                            <div class="form-group">
+                                <label for="tipo">Tipo de Trem <span class="required">*</span></label>
+                                <select id="tipo" name="tipo" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="expresso" <?php echo ($trem['tipo'] ?? '') === 'expresso' ? 'selected' : ''; ?>>Expresso</option>
+                                    <option value="regional" <?php echo ($trem['tipo'] ?? '') === 'regional' ? 'selected' : ''; ?>>Regional</option>
+                                    <option value="metropolitano" <?php echo ($trem['tipo'] ?? '') === 'metropolitano' ? 'selected' : ''; ?>>Metropolitano</option>
+                                    <option value="luxo" <?php echo ($trem['tipo'] ?? '') === 'luxo' ? 'selected' : ''; ?>>Luxo</option>
+                                    <option value="carga" <?php echo ($trem['tipo'] ?? '') === 'carga' ? 'selected' : ''; ?>>Carga</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="capacidade_carga">Capacidade de Carga (ton)</label>
-                            <input type="number" step="0.01" id="capacidade_carga" name="capacidade_carga"
-                                placeholder="50.00" min="0" value="<?php echo $trem['capacidade_carga'] ?? ''; ?>">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="modelo">Modelo</label>
+                                <input type="text" id="modelo" name="modelo" placeholder="Ex: EMU-500"
+                                    value="<?php echo htmlspecialchars($trem['modelo'] ?? ''); ?>">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fabricante">Fabricante</label>
+                                <input type="text" id="fabricante" name="fabricante" placeholder="Ex: Siemens"
+                                    value="<?php echo htmlspecialchars($trem['fabricante'] ?? ''); ?>">
+                            </div>
                         </div>
 
-                        <div class="form-group input-with-unit">
-                            <label for="velocidade_maxima">Velocidade Máxima</label>
-                            <input type="number" step="0.01" id="velocidade_maxima" name="velocidade_maxima"
-                                placeholder="120" min="0" value="<?php echo $trem['velocidade_maxima'] ?? ''; ?>">
-                            <span class="unit">km/h</span>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ano_fabricacao">Ano de Fabricação</label>
+                                <input type="number" id="ano_fabricacao" name="ano_fabricacao" placeholder="Ex: 2020"
+                                    min="1900" max="2030" value="<?php echo $trem['ano_fabricacao'] ?? ''; ?>">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="status">Status do Trem <span class="required">*</span></label>
+                                <select id="status" name="status" required>
+                                    <option value="operando" <?php echo ($trem['status'] ?? 'inativo') === 'operando' ? 'selected' : ''; ?>>Operando</option>
+                                    <option value="manutencao" <?php echo ($trem['status'] ?? '') === 'manutencao' ? 'selected' : ''; ?>>Em Manutenção</option>
+                                    <option value="inativo" <?php echo ($trem['status'] ?? 'inativo') === 'inativo' ? 'selected' : ''; ?>>Inativo</option>
+                                    <option value="em_viagem" <?php echo ($trem['status'] ?? '') === 'em_viagem' ? 'selected' : ''; ?>>Em Viagem</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group input-with-unit">
-                            <label for="consumo_medio">Consumo Médio</label>
-                            <input type="number" step="0.01" id="consumo_medio" name="consumo_medio" placeholder="8.5"
-                                min="0" value="<?php echo $trem['consumo_medio'] ?? ''; ?>">
-                            <span class="unit">L/km</span>
+                    <div class="form-section">
+                        <h2>⚙️ Capacidade e Desempenho</h2>
+
+                        <div class="form-row-3">
+                            <div class="form-group">
+                                <label for="capacidade_passageiros">Capacidade (Passageiros)</label>
+                                <input type="number" id="capacidade_passageiros" name="capacidade_passageiros"
+                                    placeholder="450" min="0" value="<?php echo $trem['capacidade_passageiros'] ?? ''; ?>">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="capacidade_carga">Capacidade de Carga (ton)</label>
+                                <input type="number" step="0.01" id="capacidade_carga" name="capacidade_carga"
+                                    placeholder="50.00" min="0" value="<?php echo $trem['capacidade_carga'] ?? ''; ?>">
+                            </div>
+
+                            <div class="form-group input-with-unit">
+                                <label for="velocidade_maxima">Velocidade Máxima</label>
+                                <input type="number" step="0.01" id="velocidade_maxima" name="velocidade_maxima"
+                                    placeholder="120" min="0" value="<?php echo $trem['velocidade_maxima'] ?? ''; ?>">
+                                <span class="unit">km/h</span>
+                            </div>
                         </div>
 
-                        <div class="form-group input-with-unit">
-                            <label for="km_rodados">Quilometragem Rodada</label>
-                            <input type="number" step="0.01" id="km_rodados" name="km_rodados" placeholder="125340"
-                                min="0" value="<?php echo $trem['km_rodados'] ?? '0'; ?>">
-                            <span class="unit">km</span>
+                        <div class="form-row">
+                            <div class="form-group input-with-unit">
+                                <label for="consumo_medio">Consumo Médio</label>
+                                <input type="number" step="0.01" id="consumo_medio" name="consumo_medio" placeholder="8.5"
+                                    min="0" value="<?php echo $trem['consumo_medio'] ?? ''; ?>">
+                                <span class="unit">L/km</span>
+                            </div>
+
+                            <div class="form-group input-with-unit">
+                                <label for="km_rodados">Quilometragem Rodada</label>
+                                <input type="number" step="0.01" id="km_rodados" name="km_rodados" placeholder="125340"
+                                    min="0" value="<?php echo $trem['km_rodados'] ?? '0'; ?>">
+                                <span class="unit">km</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Seção: Manutenção -->
-                <div class="form-section">
-                    <h2>🔧 Manutenção</h2>
+                    <div class="form-section">
+                        <h2>🔧 Manutenção</h2>
 
-                    <div class="form-row">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ultima_manutencao">Última Manutenção</label>
+                                <input type="date" id="ultima_manutencao" name="ultima_manutencao"
+                                    value="<?php echo $trem['ultima_manutencao'] ?? ''; ?>">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="proxima_manutencao">Próxima Manutenção</label>
+                                <input type="date" id="proxima_manutencao" name="proxima_manutencao"
+                                    value="<?php echo $trem['proxima_manutencao'] ?? ''; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>📝 Observações</h2>
+
                         <div class="form-group">
-                            <label for="ultima_manutencao">Última Manutenção</label>
-                            <input type="date" id="ultima_manutencao" name="ultima_manutencao"
-                                value="<?php echo $trem['ultima_manutencao'] ?? ''; ?>">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="proxima_manutencao">Próxima Manutenção</label>
-                            <input type="date" id="proxima_manutencao" name="proxima_manutencao"
-                                value="<?php echo $trem['proxima_manutencao'] ?? ''; ?>">
+                            <label for="observacoes">Observações Adicionais</label>
+                            <textarea id="observacoes" name="observacoes"
+                                placeholder="Informações adicionais sobre o trem..."><?php echo htmlspecialchars($trem['observacoes'] ?? ''); ?></textarea>
                         </div>
                     </div>
-                </div>
 
-                <!-- Seção: Observações -->
-                <div class="form-section">
-                    <h2>📝 Observações</h2>
-
-                    <div class="form-group">
-                        <label for="observacoes">Observações Adicionais</label>
-                        <textarea id="observacoes" name="observacoes"
-                            placeholder="Informações adicionais sobre o trem..."><?php echo htmlspecialchars($trem['observacoes'] ?? ''); ?></textarea>
+                    <div class="btn-container">
+                        <a href="gerenciartrens.php" class="btn btn-cancelar">✖️ Cancelar</a>
+                        <button type="submit" class="btn btn-salvar">
+                            ✔️ <?php echo $editando ? 'Atualizar' : 'Cadastrar'; ?> Trem
+                        </button>
                     </div>
-                </div>
-
-                <div class="btn-container">
-                    <a href="gerenciartrens.php" class="btn btn-cancelar">✖️ Cancelar</a>
-                    <button type="submit" class="btn btn-salvar">
-                        ✔️ <?php echo $editando ? 'Atualizar' : 'Cadastrar'; ?> Trem
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 
     <script>
-        // Auto-gerar código do trem
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        document.addEventListener('click', function (event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.menu-toggle');
+
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentPage = window.location.pathname.split('/').pop();
+            const links = document.querySelectorAll('.sidebar-menu a');
+
+            links.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
         document.getElementById('nome').addEventListener('blur', function (e) {
             const codigoInput = document.getElementById('codigo');
             if (!codigoInput.value) {
@@ -727,7 +701,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
         });
 
-        // Validação do formulário
         document.getElementById('formTrem').addEventListener('submit', function (e) {
             const nome = document.getElementById('nome').value.trim();
             const codigo = document.getElementById('codigo').value.trim();
@@ -739,7 +712,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 return false;
             }
 
-            // Validar datas de manutenção
             const ultimaManutencao = document.getElementById('ultima_manutencao').value;
             const proximaManutencao = document.getElementById('proxima_manutencao').value;
 
@@ -752,7 +724,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
         });
 
-        // Atualizar placeholder baseado no tipo
         document.getElementById('tipo').addEventListener('change', function (e) {
             const tipo = e.target.value;
             const capacidadeInput = document.getElementById('capacidade_passageiros');
