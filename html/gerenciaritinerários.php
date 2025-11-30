@@ -10,54 +10,44 @@ if (!isset($_SESSION['conectado']) || $_SESSION['conectado'] !== true) {
 $mensagem = "";
 $tipo_mensagem = "";
 
-// ==================== EXCLUIR TREM ====================
+// ==================== EXCLUIR ITINERÁRIO ====================
 if (isset($_GET['excluir'])) {
     $id = intval($_GET['excluir']);
 
-    // Verificar dependências
-    $check_sensores = $conexao->query("SELECT COUNT(*) as total FROM sensores WHERE trem_id = $id");
-    $check_itinerarios = $conexao->query("SELECT COUNT(*) as total FROM itinerarios WHERE trem_id = $id");
+    $stmt = $conexao->prepare("DELETE FROM itinerarios WHERE id = ?");
+    $stmt->bind_param("i", $id);
 
-    $sensores = $check_sensores->fetch_assoc()['total'];
-    $itinerarios = $check_itinerarios->fetch_assoc()['total'];
-
-    if ($sensores > 0 || $itinerarios > 0) {
-        $mensagem = "Não é possível excluir este trem. Há $sensores sensores e $itinerarios itinerários vinculados.";
-        $tipo_mensagem = "error";
+    if ($stmt->execute()) {
+        $mensagem = "Itinerário excluído com sucesso!";
+        $tipo_mensagem = "success";
     } else {
-        $stmt = $conexao->prepare("DELETE FROM trens WHERE id = ?");
-        $stmt->bind_param("i", $id);
-
-        if ($stmt->execute()) {
-            $mensagem = "Trem excluído com sucesso!";
-            $tipo_mensagem = "success";
-        } else {
-            $mensagem = "Erro ao excluir trem: " . $conexao->error;
-            $tipo_mensagem = "error";
-        }
-        $stmt->close();
+        $mensagem = "Erro ao excluir itinerário: " . $conexao->error;
+        $tipo_mensagem = "error";
     }
+    $stmt->close();
 }
 
-// ==================== BUSCAR TRENS ====================
+// ==================== BUSCAR ITINERÁRIOS ====================
 $filtro_status = isset($_GET['status']) ? $_GET['status'] : '';
 $busca = isset($_GET['busca']) ? $_GET['busca'] : '';
 
-$sql = "SELECT * FROM trens WHERE 1=1";
+$sql = "SELECT i.*, t.nome as trem_nome, t.codigo as trem_codigo 
+        FROM itinerarios i 
+        LEFT JOIN trens t ON i.trem_id = t.id 
+        WHERE 1=1";
 
 if (!empty($filtro_status)) {
-    $sql .= " AND status = '" . $conexao->real_escape_string($filtro_status) . "'";
+    $sql .= " AND i.status = '" . $conexao->real_escape_string($filtro_status) . "'";
 }
 
 if (!empty($busca)) {
     $busca_escapada = $conexao->real_escape_string($busca);
-    $sql .= " AND (nome LIKE '%$busca_escapada%' 
-              OR codigo LIKE '%$busca_escapada%' 
-              OR tipo LIKE '%$busca_escapada%' 
-              OR modelo LIKE '%$busca_escapada%')";
+    $sql .= " AND (i.nome LIKE '%$busca_escapada%' 
+              OR i.descricao LIKE '%$busca_escapada%' 
+              OR t.nome LIKE '%$busca_escapada%')";
 }
 
-$sql .= " ORDER BY data_cadastro DESC";
+$sql .= " ORDER BY i.data_criacao DESC";
 $resultado = $conexao->query($sql);
 ?>
 
@@ -67,7 +57,7 @@ $resultado = $conexao->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciar Trens - Sistema Ferroviário</title>
+    <title>Gerenciar Itinerários - Sistema Ferroviário</title>
 
     <style>
         * {
@@ -164,7 +154,7 @@ $resultado = $conexao->query($sql);
         }
 
         .btn-novo {
-            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
+            background: gray;
             color: white;
             padding: 12px 30px;
             border: none;
@@ -211,13 +201,13 @@ $resultado = $conexao->query($sql);
             color: #721c24;
         }
 
-        .trens-grid {
+        .itinerarios-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 20px;
         }
 
-        .trem-card {
+        .itinerario-card {
             background: white;
             border-radius: 15px;
             overflow: hidden;
@@ -225,37 +215,37 @@ $resultado = $conexao->query($sql);
             transition: transform 0.3s ease;
         }
 
-        .trem-card:hover {
+        .itinerario-card:hover {
             transform: translateY(-5px);
         }
 
-        .trem-header {
+        .itinerario-header {
             background: gray;
             color: white;
             padding: 20px;
         }
 
-        .trem-header h3 {
+        .itinerario-header h3 {
             font-size: 1.4em;
             margin-bottom: 5px;
         }
 
-        .trem-body {
+        .itinerario-body {
             padding: 20px;
         }
 
-        .trem-info p {
+        .itinerario-info p {
             margin: 10px 0;
             color: #666;
         }
 
-        .trem-info strong {
+        .itinerario-info strong {
             color: black;
-            min-width: 120px;
+            min-width: 100px;
             display: inline-block;
         }
 
-        .trem-status {
+        .itinerario-status {
             display: inline-block;
             padding: 6px 15px;
             border-radius: 20px;
@@ -264,14 +254,9 @@ $resultado = $conexao->query($sql);
             margin-bottom: 15px;
         }
 
-        .status-operando {
+        .status-ativo {
             background: #d4edda;
             color: #155724;
-        }
-
-        .status-manutencao {
-            background: #fff3cd;
-            color: #856404;
         }
 
         .status-inativo {
@@ -279,12 +264,12 @@ $resultado = $conexao->query($sql);
             color: #721c24;
         }
 
-        .status-em_viagem {
-            background: #d1ecf1;
-            color: #0c5460;
+        .status-planejado {
+            background: #fff3cd;
+            color: #856404;
         }
 
-        .trem-actions {
+        .itinerario-actions {
             display: flex;
             gap: 10px;
             padding-top: 15px;
@@ -320,7 +305,7 @@ $resultado = $conexao->query($sql);
                 margin-left: 0;
             }
 
-            .trens-grid {
+            .itinerarios-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -339,22 +324,20 @@ $resultado = $conexao->query($sql);
             <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
             <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
             <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
-            <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
+            <li><a href="gerenciartrens.php"><span class="icon">🚂</span> Gerenciar Trens</a></li>
             <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
             <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
-            <li><a href="gerenciaritinerários.php"><span class="icon">🔡</span> Gerenciar Itinerários</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
             <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
+            <li><a href="perfil.php" class="active"><span class="icon">👤</span> Meu Perfil</a></li>
             <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
-            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
-            <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
+            <li><a href="../php/login.php"><span class="icon">🚪</span> Sair</a></li>
         </ul>
     </aside>
-
-
     <main class="main-content">
         <header>
-            <h1>🚂 Gerenciar Trens</h1>
-            <a href="cadastrartrem.php" class="btn-novo">➕ Novo Trem</a>
+            <h1>🗺️ Gerenciar Itinerários</h1>
+            <a href="cadastroitinerário.php" class="btn-novo">➕ Novo Itinerário</a>
         </header>
 
         <?php if (!empty($mensagem)): ?>
@@ -364,58 +347,50 @@ $resultado = $conexao->query($sql);
         <?php endif; ?>
 
         <form method="GET" class="search-filter">
-            <input type="text" name="busca" placeholder="🔍 Buscar trens..."
+            <input type="text" name="busca" placeholder="🔍 Buscar itinerários..."
                 value="<?php echo htmlspecialchars($busca); ?>">
             <select name="status" onchange="this.form.submit()">
                 <option value="">Todos os Status</option>
-                <option value="operando" <?php echo $filtro_status === 'operando' ? 'selected' : ''; ?>>Operando</option>
-                <option value="manutencao" <?php echo $filtro_status === 'manutencao' ? 'selected' : ''; ?>>Em Manutenção
-                </option>
+                <option value="ativo" <?php echo $filtro_status === 'ativo' ? 'selected' : ''; ?>>Ativo</option>
                 <option value="inativo" <?php echo $filtro_status === 'inativo' ? 'selected' : ''; ?>>Inativo</option>
-                <option value="em_viagem" <?php echo $filtro_status === 'em_viagem' ? 'selected' : ''; ?>>Em Viagem
+                <option value="planejado" <?php echo $filtro_status === 'planejado' ? 'selected' : ''; ?>>Planejado
                 </option>
             </select>
         </form>
 
-        <div class="trens-grid">
+        <div class="itinerarios-grid">
             <?php if ($resultado && $resultado->num_rows > 0): ?>
-                <?php while ($trem = $resultado->fetch_assoc()): ?>
-                    <div class="trem-card">
-                        <div class="trem-header">
-                            <h3><?php echo htmlspecialchars($trem['nome']); ?></h3>
-                            <p>Código: <?php echo htmlspecialchars($trem['codigo']); ?></p>
+                <?php while ($itinerario = $resultado->fetch_assoc()): ?>
+                    <div class="itinerario-card">
+                        <div class="itinerario-header">
+                            <h3><?php echo htmlspecialchars($itinerario['nome']); ?></h3>
+                            <p>Trem: <?php echo htmlspecialchars($itinerario['trem_codigo']); ?></p>
                         </div>
-                        <div class="trem-body">
-                            <span class="trem-status status-<?php echo $trem['status']; ?>">
-                                ● <?php echo ucfirst(str_replace('_', ' ', $trem['status'])); ?>
+                        <div class="itinerario-body">
+                            <span class="itinerario-status status-<?php echo $itinerario['status']; ?>">
+                                ● <?php echo ucfirst($itinerario['status']); ?>
                             </span>
 
-                            <div class="trem-info">
-                                <p><strong>Tipo:</strong> <?php echo ucfirst($trem['tipo']); ?></p>
-                                <p><strong>Modelo:</strong> <?php echo htmlspecialchars($trem['modelo']); ?></p>
-                                <p><strong>Capacidade:</strong> <?php echo number_format($trem['capacidade_passageiros']); ?>
-                                    passageiros</p>
-                                <p><strong>Vel. Máxima:</strong> <?php echo number_format($trem['velocidade_maxima']); ?> km/h
-                                </p>
-                                <?php if ($trem['ultima_manutencao']): ?>
-                                    <p><strong>Última Manutenção:</strong>
-                                        <?php echo date('d/m/Y', strtotime($trem['ultima_manutencao'])); ?></p>
+                            <div class="itinerario-info">
+                                <p><strong>📍 Distância:</strong> <?php echo $itinerario['distancia_total']; ?> km</p>
+                                <p><strong>⏱️ Duração:</strong> <?php echo $itinerario['duracao_total']; ?> min</p>
+                                <p><strong>🛤️ Rotas:</strong> <?php echo $itinerario['numero_rotas']; ?></p>
+                                <?php if ($itinerario['descricao']): ?>
+                                    <p><strong>📝 Descrição:</strong> <?php echo htmlspecialchars($itinerario['descricao']); ?></p>
                                 <?php endif; ?>
-                                <p><strong>KM Rodados:</strong> <?php echo number_format($trem['km_rodados'], 0, ',', '.'); ?>
-                                    km</p>
                             </div>
 
-                            <div class="trem-actions">
-                                <a href="cadastrartrem.php?editar=<?php echo $trem['id']; ?>" class="btn btn-editar">✏️
-                                    Editar</a>
-                                <a href="?excluir=<?php echo $trem['id']; ?>" class="btn btn-excluir"
-                                    onclick="return confirm('Tem certeza que deseja excluir este trem?')">🗑️ Excluir</a>
+                            <div class="itinerario-actions">
+                                <a href="cadastroitinerário.php?editar=<?php echo $itinerario['id']; ?>"
+                                    class="btn btn-editar">✏️ Editar</a>
+                                <a href="?excluir=<?php echo $itinerario['id']; ?>" class="btn btn-excluir"
+                                    onclick="return confirm('Tem certeza que deseja excluir este itinerário?')">🗑️ Excluir</a>
                             </div>
                         </div>
                     </div>
                 <?php endwhile; ?>
             <?php else: ?>
-                <p style="grid-column: 1 / -1; text-align: center; color: white;">Nenhum trem encontrado.</p>
+                <p style="grid-column: 1 / -1; text-align: center; color: white;">Nenhum itinerário encontrado.</p>
             <?php endif; ?>
         </div>
     </main>

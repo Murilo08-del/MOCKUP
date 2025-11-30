@@ -127,14 +127,14 @@
             <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
             <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
             <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
-            <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
+            <li><a href="gerenciartrens.php"><span class="icon">🚂</span> Gerenciar Trens</a></li>
             <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
             <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
-            <li><a href="gerenciaritinerários.php"><span class="icon">🔡</span> Gerenciar Itinerários</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
             <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
+            <li><a href="perfil.php" class="active"><span class="icon">👤</span> Meu Perfil</a></li>
             <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
-            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
-            <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
+            <li><a href="../php/login.php"><span class="icon">🚪</span> Sair</a></li>
         </ul>
     </aside>
 
