@@ -15,7 +15,7 @@ $tipo_mensagem = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['atualizar_perfil'])) {
     $nome = trim($_POST["nome"] ?? "");
     $email = trim($_POST["email"] ?? "");
-    // Removido: telefone e cargo — não serão mais atualizados pelo perfil
+    // Os campos telefone e cargo não são alterados por este formulário de perfil
 
     if (empty($nome) || empty($email)) {
         $mensagem = "Nome e email são obrigatórios.";
@@ -397,7 +397,7 @@ $stmt->close();
                     <?php echo strtoupper(substr($usuario['nome'], 0, 1)); ?>
                 </div>
                 <h2><?php echo htmlspecialchars($usuario['nome']); ?></h2>
-                <!-- campo 'cargo' removido do perfil -->
+                <!-- campo 'cargo' não exibido nesta página -->
 
                 <div class="profile-stats">
                     <div class="stat-box">
@@ -428,10 +428,10 @@ $stmt->close();
                                     value="<?php echo htmlspecialchars($usuario['email']); ?>" required>
                             </div>
 
-                            <!-- campo 'telefone' removido do formulário de perfil -->
+                            <!-- campo 'telefone' não exibido neste formulário -->
                         </div>
 
-                        <!-- campo 'cargo' removido do formulário de perfil -->
+                        <!-- campo 'cargo' não exibido neste formulário -->
 
                         <button type="submit" name="atualizar_perfil" class="btn btn-primary">💾 Salvar
                             Alterações</button>
