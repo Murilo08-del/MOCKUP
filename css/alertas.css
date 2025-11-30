@@ -84,7 +84,7 @@ body {
     background-color: #555;
 }
 
-/* Sidebar */
+/* Barra lateral */
 .sidebar {
     height: 100%;
     width: 0;
@@ -126,7 +126,7 @@ body {
     color: #ff0000;
 }
 
-/* Main Content */
+/* Conteúdo principal */
 main {
     background-color: white;
     min-height: 80vh;

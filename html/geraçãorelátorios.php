@@ -68,7 +68,7 @@
             text-align: center;
         }
 
-        /* MOBILE TOGGLE */
+        /* Menu (mobile) */
         .menu-toggle {
             display: none;
             position: fixed;
@@ -84,7 +84,7 @@
             font-size: 1.2em;
         }
 
-        /* AJUSTAR CONTEÚDO PRINCIPAL */
+        /* Ajustar conteúdo principal */
         body {
             display: flex;
         }
@@ -95,7 +95,7 @@
             transition: margin-left 0.3s ease;
         }
 
-        /* RESPONSIVE */
+        /* Responsivo */
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -140,7 +140,7 @@
 
 
 
-    <!-- MOBILE MENU TOGGLE -->
+    <!-- Menu (mobile) -->
     <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
     <!-- JAVASCRIPT DA SIDEBAR -->

@@ -84,7 +84,7 @@
             text-align: center;
         }
 
-        /* MOBILE TOGGLE */
+        /* Menu (mobile) */
         .menu-toggle {
             display: none;
             position: fixed;
@@ -100,7 +100,7 @@
             font-size: 1.2em;
         }
 
-        /* MAIN CONTENT */
+        /* Conteúdo principal */
         .main-content {
             margin-left: 250px;
             flex: 1;
@@ -274,7 +274,7 @@
             color: white;
         }
 
-        /* RESPONSIVE */
+        /* Responsivo */
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -332,10 +332,10 @@
         </ul>
     </aside>
 
-    <!-- MOBILE MENU TOGGLE -->
+    <!-- Menu (mobile) -->
     <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
-    <!-- MAIN CONTENT -->
+    <!-- Conteúdo principal -->
     <main class="main-content">
         <header>
             <h1>🛤️ Rotas - Mapa Interativo</h1>

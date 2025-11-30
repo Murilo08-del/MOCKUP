@@ -80,7 +80,7 @@
             text-align: center;
         }
 
-        /* MOBILE TOGGLE */
+        /* Menu (mobile) */
         .menu-toggle {
             display: none;
             position: fixed;
@@ -96,7 +96,7 @@
             font-size: 1.2em;
         }
 
-        /* MAIN CONTENT */
+        /* Conteúdo principal */
         .main-content {
             margin-left: 250px;
             flex: 1;
@@ -278,7 +278,7 @@
             font-size: 0.9em;
         }
 
-        /* RESPONSIVE */
+        /* Responsivo */
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -339,9 +339,9 @@
     <!-- celular -->
     <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
-    <!-- MOBILE MENU TOGGLE -->
+    <!-- Menu (mobile) -->
 
-    <!-- MAIN CONTENT -->
+    <!-- Conteúdo principal -->
     <main class="main-content">
         <div class="hero-section">
             <h1>🚆 Sistema Ferroviário Inteligente</h1>

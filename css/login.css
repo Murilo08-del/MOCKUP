@@ -1,9 +1,3 @@
-/* =====================================================
-   SISTEMA FERROVIÁRIO - CSS LOGIN E CRIAR CONTA
-   Design Moderno e Responsivo
-   ===================================================== */
-
-/* ===== RESET E CONFIGURAÇÕES GLOBAIS ===== */
 * {
     margin: 0;
     padding: 0;
@@ -55,7 +49,7 @@ header {
     transform: translateX(-5px);
 }
 
-/* ===== MAIN CONTENT ===== */
+/* ===== CONTEÚDO PRINCIPAL ===== */
 main {
     flex: 1;
     display: flex;
