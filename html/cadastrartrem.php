@@ -475,7 +475,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar">
         <div class="sidebar-header">
             <h2>🚆 Sistema Ferroviário</h2>
             <p>Painel Administrativo</p>
@@ -489,13 +489,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
             <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
             <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
-            <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">🔡</span> Gerenciar Itinerários</a></li>
             <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
             <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
             <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
             <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
         </ul>
     </aside>
+
 
     <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
@@ -508,20 +509,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </p>
 
                 <?php if (!$editando): ?>
-                        <div class="info-box">
-                            <p>💡 <strong>Dica:</strong> Preencha todos os campos obrigatórios (*) para garantir o registro completo do trem no sistema.</p>
-                        </div>
+                    <div class="info-box">
+                        <p>💡 <strong>Dica:</strong> Preencha todos os campos obrigatórios (*) para garantir o registro
+                            completo do trem no sistema.</p>
+                    </div>
                 <?php endif; ?>
 
                 <?php if (!empty($mensagem)): ?>
-                        <div class="mensagem <?php echo $tipo_mensagem; ?>">
-                            <?php echo htmlspecialchars($mensagem); ?>
-                        </div>
+                    <div class="mensagem <?php echo $tipo_mensagem; ?>">
+                        <?php echo htmlspecialchars($mensagem); ?>
+                    </div>
                 <?php endif; ?>
 
                 <form method="POST" id="formTrem">
                     <?php if ($editando): ?>
-                            <input type="hidden" name="id_edicao" value="<?php echo $trem['id']; ?>">
+                        <input type="hidden" name="id_edicao" value="<?php echo $trem['id']; ?>">
                     <?php endif; ?>
 
                     <div class="form-section">
@@ -593,7 +595,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <div class="form-group">
                                 <label for="capacidade_passageiros">Capacidade (Passageiros)</label>
                                 <input type="number" id="capacidade_passageiros" name="capacidade_passageiros"
-                                    placeholder="450" min="0" value="<?php echo $trem['capacidade_passageiros'] ?? ''; ?>">
+                                    placeholder="450" min="0"
+                                    value="<?php echo $trem['capacidade_passageiros'] ?? ''; ?>">
                             </div>
 
                             <div class="form-group">
@@ -613,8 +616,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <div class="form-row">
                             <div class="form-group input-with-unit">
                                 <label for="consumo_medio">Consumo Médio</label>
-                                <input type="number" step="0.01" id="consumo_medio" name="consumo_medio" placeholder="8.5"
-                                    min="0" value="<?php echo $trem['consumo_medio'] ?? ''; ?>">
+                                <input type="number" step="0.01" id="consumo_medio" name="consumo_medio"
+                                    placeholder="8.5" min="0" value="<?php echo $trem['consumo_medio'] ?? ''; ?>">
                                 <span class="unit">L/km</span>
                             </div>
 

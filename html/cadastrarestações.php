@@ -248,7 +248,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     </style>
 
-
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2>🚆 Sistema Ferroviário</h2>

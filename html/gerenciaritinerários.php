@@ -350,6 +350,7 @@ $resultado = $conexao->query($sql);
         </ul>
     </aside>
 
+
     <main class="main-content">
         <header>
             <h1>🚂 Gerenciar Trens</h1>

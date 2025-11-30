@@ -1,13 +1,72 @@
+<?php
+require "../php/conexao.php";
+session_start();
+
+if (!isset($_SESSION['conectado']) || $_SESSION['conectado'] !== true) {
+    header("Location: ../php/login.php");
+    exit;
+}
+
+// ==================== BUSCAR ESTATÍSTICAS REAIS DO BANCO ====================
+
+// Contar trens ativos
+$trens_ativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE status IN ('operando', 'em_viagem')")->fetch_assoc()['total'];
+
+// Contar estações
+$total_estacoes = $conexao->query("SELECT COUNT(*) as total FROM estacoes WHERE status='ativa'")->fetch_assoc()['total'];
+
+// Contar rotas ativas
+$rotas_ativas = $conexao->query("SELECT COUNT(*) as total FROM rotas WHERE status='ativa'")->fetch_assoc()['total'];
+
+// Contar alertas pendentes
+$alertas_pendentes = $conexao->query("SELECT COUNT(*) as total FROM alertas WHERE status='pendente'")->fetch_assoc()['total'];
+
+// Contar manutenções agendadas
+$manutencoes_agendadas = $conexao->query("SELECT COUNT(*) as total FROM manutencoes WHERE status='agendada'")->fetch_assoc()['total'];
+
+// Contar sensores ativos
+$sensores_ativos = $conexao->query("SELECT COUNT(*) as total FROM sensores WHERE status='online'")->fetch_assoc()['total'];
+$total_sensores = $conexao->query("SELECT COUNT(*) as total FROM sensores")->fetch_assoc()['total'];
+$percentual_sensores = $total_sensores > 0 ? round(($sensores_ativos / $total_sensores) * 100) : 0;
+
+// Buscar últimos alertas
+$alertas_recentes = $conexao->query("SELECT a.*, s.nome as sensor_nome 
+                                     FROM alertas a 
+                                     LEFT JOIN sensores s ON a.sensor_id = s.id 
+                                     WHERE a.status='pendente' 
+                                     ORDER BY a.data_hora DESC 
+                                     LIMIT 5");
+
+// Buscar leituras mais recentes dos sensores
+$sensores_tempo_real = $conexao->query("SELECT tipo, ultima_leitura, unidade_medida, status 
+                                        FROM sensores 
+                                        WHERE ultima_leitura IS NOT NULL 
+                                        ORDER BY data_ultima_leitura DESC 
+                                        LIMIT 4");
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Sistema Ferroviário</title>
 
-    <!-- ==================== SIDEBAR UNIVERSAL ==================== -->
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+        }
+
         .sidebar {
             width: 250px;
             background: linear-gradient(135deg, #a79f9fff 0%, #332e2eff 100%);
@@ -82,36 +141,6 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 1.2em;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-        }
-    </style>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
         }
 
         .main-content {
@@ -233,12 +262,12 @@
             align-items: center;
         }
 
-        .alert-item.critical {
+        .alert-item.critico {
             background: #fff5f5;
             border-color: #e53e3e;
         }
 
-        .alert-item.warning {
+        .alert-item.aviso {
             background: #fffaf0;
             border-color: #dd6b20;
         }
@@ -286,6 +315,18 @@
         }
 
         @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
             .main-content {
                 margin-left: 0;
                 padding-top: 70px;
@@ -307,31 +348,32 @@
 </head>
 
 <body>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2>🚆 Sistema Ferroviário</h2>
             <p>Painel Administrativo</p>
         </div>
         <ul class="sidebar-menu">
-            <li><a href="dashboard.php"><span class="icon">📊</span> Dashboard</a></li>
-            <li><a href="gerenciarsensores.php"><span class="icon">📡</span> Gerenciar Sensores</a></li>
-            <li><a href="cadastrarsensores.php"><span class="icon">➕</span> Cadastrar Sensores</a></li>
+            <li><a href="dashboard.php" class="active"><span class="icon">📊</span> Dashboard</a></li>
+            <li><a href="gerenciarsensores.php"><span class="icon">🚂</span> Gerenciar Sensores</a></li>
+            <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
             <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
-            <li><a href="cadastrarestações.php"><span class="icon">🏛️</span> Cadastrar Estações</a></li>
+            <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
             <li><a href="gerenciartrens.php"><span class="icon">🚂</span> Gerenciar Trens</a></li>
-            <li><a href="cadastrartrem.php"><span class="icon">🚆</span> Cadastrar Trem</a></li>
+            <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
             <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
-            <li><a href="gerenciaritinerários.php"><span class="icon">🗓️</span> Gerenciar Itinerários</a></li>
-            <li><a href="geraçãorelátorios.php"><span class="icon">📋</span> Relatórios</a></li>
-            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
-            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
-            <li><a href="../php/login.php"><span class="icon">🚪</span> Sair</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">🔡</span> Gerenciar Itinerários</a></li>
+            <li><a href="cadastroitinerário.php"><span class="icon">🔧</span> Cadastrar Itinerários</a></li>
+            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Geração de Relatórios</a></li>
+            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre o Sistema</a></li>
+            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas com Mapa Interativo</a></li>
+            <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
         </ul>
     </aside>
 
-    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-
-    <div class="main-content">
+    <main class="main-content">
         <div class="container">
             <header>
                 <h1>🚆 Dashboard - Sistema Ferroviário</h1>
@@ -341,96 +383,112 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>🚂 Trens Ativos</h3>
-                    <div class="stat-value" id="trenosAtivos">12</div>
-                    <span class="stat-change positive">↑ 2 hoje</span>
+                    <div class="stat-value"><?php echo $trens_ativos; ?></div>
+                    <span class="stat-change positive">Em operação</span>
                 </div>
 
                 <div class="stat-card">
-                    <h3>🚉 Estações</h3>
-                    <div class="stat-value" id="totalEstacoes">8</div>
-                    <span class="stat-change positive">100% operacional</span>
+                    <h3>🏛 Estações</h3>
+                    <div class="stat-value"><?php echo $total_estacoes; ?></div>
+                    <span class="stat-change positive">Operacionais</span>
                 </div>
 
                 <div class="stat-card">
                     <h3>🛤️ Rotas Ativas</h3>
-                    <div class="stat-value" id="rotasAtivas">15</div>
-                    <span class="stat-change positive">↑ 1 esta semana</span>
+                    <div class="stat-value"><?php echo $rotas_ativas; ?></div>
+                    <span class="stat-change positive">Disponíveis</span>
                 </div>
 
                 <div class="stat-card">
                     <h3>⚠️ Alertas Pendentes</h3>
-                    <div class="stat-value" id="alertasPendentes">3</div>
-                    <span class="stat-change negative">↑ 1 nova</span>
+                    <div class="stat-value"><?php echo $alertas_pendentes; ?></div>
+                    <span class="stat-change <?php echo $alertas_pendentes > 0 ? 'negative' : 'positive'; ?>">
+                        <?php echo $alertas_pendentes > 0 ? 'Requer atenção' : 'Tudo ok'; ?>
+                    </span>
                 </div>
 
                 <div class="stat-card">
                     <h3>🔧 Manutenções Agendadas</h3>
-                    <div class="stat-value" id="manutencoesAgendadas">5</div>
-                    <span class="stat-change positive">Em dia</span>
+                    <div class="stat-value"><?php echo $manutencoes_agendadas; ?></div>
+                    <span class="stat-change positive">Programadas</span>
                 </div>
 
                 <div class="stat-card">
-                    <h3>📡 Sensores Ativos</h3>
-                    <div class="stat-value" id="sensoresAtivos">24</div>
-                    <span class="stat-change positive">96% online</span>
+                    <h3>🔡 Sensores Ativos</h3>
+                    <div class="stat-value"><?php echo $sensores_ativos; ?></div>
+                    <span class="stat-change positive"><?php echo $percentual_sensores; ?>% online</span>
                 </div>
             </div>
 
             <div class="chart-card">
-                <h2>📡 Monitoramento de Sensores em Tempo Real</h2>
+                <h2>🔡 Monitoramento de Sensores em Tempo Real</h2>
                 <div class="sensor-grid">
-                    <div class="sensor-card">
-                        <h4>Temperatura</h4>
-                        <div class="sensor-value" id="temperatura">23.5°C</div>
-                        <div class="sensor-status">● Online</div>
-                    </div>
-                    <div class="sensor-card">
-                        <h4>Umidade</h4>
-                        <div class="sensor-value" id="umidade">65%</div>
-                        <div class="sensor-status">● Online</div>
-                    </div>
-                    <div class="sensor-card">
-                        <h4>Luminosidade</h4>
-                        <div class="sensor-value" id="luminosidade">1250</div>
-                        <div class="sensor-status">● Online</div>
-                    </div>
-                    <div class="sensor-card">
-                        <h4>Presença</h4>
-                        <div class="sensor-value" id="presenca">Detectada</div>
-                        <div class="sensor-status">● Online</div>
-                    </div>
+                    <?php if ($sensores_tempo_real && $sensores_tempo_real->num_rows > 0): ?>
+                            <?php while ($sensor = $sensores_tempo_real->fetch_assoc()): ?>
+                                    <div class="sensor-card">
+                                        <h4><?php echo ucfirst($sensor['tipo']); ?></h4>
+                                        <div class="sensor-value">
+                                            <?php echo number_format($sensor['ultima_leitura'], 1); ?>        <?php echo $sensor['unidade_medida']; ?>
+                                        </div>
+                                        <div class="sensor-status">● <?php echo ucfirst($sensor['status']); ?></div>
+                                    </div>
+                            <?php endwhile; ?>
+                    <?php else: ?>
+                            <div class="sensor-card">
+                                <h4>Temperatura</h4>
+                                <div class="sensor-value" id="temperatura">--</div>
+                                <div class="sensor-status">● Aguardando dados</div>
+                            </div>
+                            <div class="sensor-card">
+                                <h4>Umidade</h4>
+                                <div class="sensor-value" id="umidade">--</div>
+                                <div class="sensor-status">● Aguardando dados</div>
+                            </div>
+                            <div class="sensor-card">
+                                <h4>Luminosidade</h4>
+                                <div class="sensor-value" id="luminosidade">--</div>
+                                <div class="sensor-status">● Aguardando dados</div>
+                            </div>
+                            <div class="sensor-card">
+                                <h4>Presença</h4>
+                                <div class="sensor-value" id="presenca">--</div>
+                                <div class="sensor-status">● Aguardando dados</div>
+                            </div>
+                    <?php endif; ?>
                 </div>
             </div>
 
             <div class="alerts-section">
                 <h2>🚨 Alertas Recentes</h2>
 
-                <div class="alert-item critical">
-                    <div>
-                        <strong>Temperatura crítica - Trem #007</strong>
-                        <p>Motor atingiu 95°C. Requer inspeção imediata.</p>
-                    </div>
-                    <span class="alert-time">há 5 min</span>
-                </div>
-
-                <div class="alert-item warning">
-                    <div>
-                        <strong>Manutenção preventiva - Estação Central</strong>
-                        <p>Próxima revisão agendada para 28/11/2024.</p>
-                    </div>
-                    <span class="alert-time">há 2 horas</span>
-                </div>
-
-                <div class="alert-item info">
-                    <div>
-                        <strong>Nova rota cadastrada - Linha Azul</strong>
-                        <p>Rota São Paulo → Campinas ativada com sucesso.</p>
-                    </div>
-                    <span class="alert-time">há 5 horas</span>
-                </div>
+                <?php if ($alertas_recentes && $alertas_recentes->num_rows > 0): ?>
+                        <?php while ($alerta = $alertas_recentes->fetch_assoc()): ?>
+                                <div class="alert-item <?php echo $alerta['tipo']; ?>">
+                                    <div>
+                                        <strong><?php echo htmlspecialchars($alerta['titulo']); ?></strong>
+                                        <p><?php echo htmlspecialchars($alerta['descricao']); ?></p>
+                                    </div>
+                                    <span class="alert-time">
+                                        <?php
+                                        $diff = time() - strtotime($alerta['data_hora']);
+                                        if ($diff < 60)
+                                            echo "há " . $diff . " segundos";
+                                        elseif ($diff < 3600)
+                                            echo "há " . floor($diff / 60) . " minutos";
+                                        else
+                                            echo "há " . floor($diff / 3600) . " horas";
+                                        ?>
+                                    </span>
+                                </div>
+                        <?php endwhile; ?>
+                <?php else: ?>
+                        <div style="text-align: center; padding: 40px; color: #999;">
+                            <p>✅ Nenhum alerta pendente no momento</p>
+                        </div>
+                <?php endif; ?>
             </div>
         </div>
-    </div>
+    </main>
 
     <script>
         function toggleSidebar() {
@@ -453,27 +511,20 @@
             const links = document.querySelectorAll('.sidebar-menu a');
 
             links.forEach(link => {
-                link.classList.remove('active');
                 if (link.getAttribute('href') === currentPage) {
                     link.classList.add('active');
                 }
             });
         });
 
-        // Simulação de atualização em tempo real
-        function atualizarSensores() {
-            document.getElementById('temperatura').textContent = (20 + Math.random() * 10).toFixed(1) + '°C';
-            document.getElementById('umidade').textContent = (50 + Math.random() * 30).toFixed(0) + '%';
-            document.getElementById('luminosidade').textContent = Math.floor(1000 + Math.random() * 1000);
-            document.getElementById('presenca').textContent = Math.random() > 0.5 ? 'Detectada' : 'Ausente';
-        }
-
-        setInterval(atualizarSensores, 3000);
-
+        // Animação dos números ao carregar
         function animarNumeros() {
             const stats = document.querySelectorAll('.stat-value');
             stats.forEach(stat => {
-                const finalValue = parseInt(stat.textContent);
+                const text = stat.textContent.trim();
+                if (text === '' || isNaN(parseInt(text))) return;
+                
+                const finalValue = parseInt(text);
                 let currentValue = 0;
                 const increment = finalValue / 50;
 
@@ -490,7 +541,11 @@
         }
 
         window.addEventListener('load', animarNumeros);
+
+        // Auto-atualizar a cada 30 segundos
+        setTimeout(function() {
+            location.reload();
+        }, 30000);
     </script>
 </body>
-
 </html>

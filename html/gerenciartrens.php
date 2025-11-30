@@ -527,7 +527,7 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
         }
 
         .btn-editar {
-            background: gray;
+            background:#667eea;
             color: white;
         }
 

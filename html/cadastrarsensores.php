@@ -222,7 +222,7 @@ $estacoes = $conexao->query("SELECT id, codigo, nome FROM estacoes ORDER BY codi
     </style>
 
 
-     <aside class="sidebar">
+        <aside class="sidebar">
         <div class="sidebar-header">
             <h2>🚆 Sistema Ferroviário</h2>
             <p>Painel Administrativo</p>
@@ -243,6 +243,7 @@ $estacoes = $conexao->query("SELECT id, codigo, nome FROM estacoes ORDER BY codi
             <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
         </ul>
     </aside>
+
 
     <!-- celular -->
     <button class="menu-toggle" onclick="toggleSidebar()">☰</button>

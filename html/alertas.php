@@ -451,7 +451,8 @@ $count_resolvidos = $conexao->query("SELECT COUNT(*) as total FROM alertas WHERE
 </head>
 
 <body>
-    <aside class="sidebar" id="sidebar">
+    
+    <aside class="sidebar">
         <div class="sidebar-header">
             <h2>🚆 Sistema Ferroviário</h2>
             <p>Painel Administrativo</p>
@@ -465,13 +466,14 @@ $count_resolvidos = $conexao->query("SELECT COUNT(*) as total FROM alertas WHERE
             <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
             <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
             <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
-            <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">🔡</span> Gerenciar Itinerários</a></li>
             <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
             <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
             <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
             <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
         </ul>
     </aside>
+
 
     <main class="main-content">
         <header>
