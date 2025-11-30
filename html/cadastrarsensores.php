@@ -1,11 +1,117 @@
+<?php
+require "../php/conexao.php";
+session_start();
+
+if (!isset($_SESSION['conectado']) || $_SESSION['conectado'] !== true) {
+    header("Location: ../php/login.php");
+    exit;
+}
+
+$mensagem = "";
+$tipo_mensagem = "";
+$editando = false;
+$sensor = null;
+
+// ==================== MODO EDIÇÃO ====================
+if (isset($_GET['editar'])) {
+    $editando = true;
+    $id = intval($_GET['editar']);
+    
+    $stmt = $conexao->prepare("SELECT * FROM sensores WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $sensor = $resultado->fetch_assoc();
+    $stmt->close();
+    
+    if (!$sensor) {
+        header("Location: gerenciarsensores.php");
+        exit;
+    }
+}
+
+// ==================== PROCESSAR FORMULÁRIO ====================
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nome = trim($_POST["nome"] ?? "");
+    $codigo = trim($_POST["codigo"] ?? "");
+    $tipo = trim($_POST["tipo"] ?? "");
+    $modelo = trim($_POST["modelo"] ?? "");
+    $localizacao = trim($_POST["localizacao"] ?? "");
+    $topico_mqtt = trim($_POST["topico_mqtt"] ?? "");
+    $unidade_medida = trim($_POST["unidade_medida"] ?? "");
+    $valor_minimo = !empty($_POST["valor_minimo"]) ? floatval($_POST["valor_minimo"]) : null;
+    $valor_maximo = !empty($_POST["valor_maximo"]) ? floatval($_POST["valor_maximo"]) : null;
+    $status = $_POST["status"] ?? "offline";
+    $trem_id = !empty($_POST["trem_id"]) ? intval($_POST["trem_id"]) : null;
+    $estacao_id = !empty($_POST["estacao_id"]) ? intval($_POST["estacao_id"]) : null;
+    $descricao = trim($_POST["descricao"] ?? "");
+    
+    // Validações
+    if (empty($nome) || empty($codigo) || empty($tipo) || empty($localizacao) || empty($topico_mqtt)) {
+        $mensagem = "Preencha todos os campos obrigatórios.";
+        $tipo_mensagem = "error";
+    } else {
+        if (isset($_POST['id_edicao'])) {
+            // ATUALIZAR
+            $id_edicao = intval($_POST['id_edicao']);
+            
+            $stmt = $conexao->prepare("UPDATE sensores SET nome=?, codigo=?, tipo=?, modelo=?, localizacao=?, 
+                                       topico_mqtt=?, unidade_medida=?, valor_minimo=?, valor_maximo=?, 
+                                       status=?, trem_id=?, estacao_id=?, descricao=? WHERE id=?");
+            $stmt->bind_param("sssssssddsiisi", $nome, $codigo, $tipo, $modelo, $localizacao, $topico_mqtt, 
+                             $unidade_medida, $valor_minimo, $valor_maximo, $status, $trem_id, $estacao_id, 
+                             $descricao, $id_edicao);
+            
+            if ($stmt->execute()) {
+                header("Location: gerenciarsensores.php");
+                exit;
+            } else {
+                $mensagem = "Erro ao atualizar sensor: " . $conexao->error;
+                $tipo_mensagem = "error";
+            }
+        } else {
+            // INSERIR NOVO
+            // Verificar se código já existe
+            $stmt = $conexao->prepare("SELECT id FROM sensores WHERE codigo = ?");
+            $stmt->bind_param("s", $codigo);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            
+            if ($resultado->num_rows > 0) {
+                $mensagem = "Já existe um sensor com este código.";
+                $tipo_mensagem = "error";
+            } else {
+                $stmt = $conexao->prepare("INSERT INTO sensores (nome, codigo, tipo, modelo, localizacao, topico_mqtt, 
+                                          unidade_medida, valor_minimo, valor_maximo, status, trem_id, estacao_id, descricao) 
+                                          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssssssddsiis", $nome, $codigo, $tipo, $modelo, $localizacao, $topico_mqtt, 
+                                 $unidade_medida, $valor_minimo, $valor_maximo, $status, $trem_id, $estacao_id, $descricao);
+                
+                if ($stmt->execute()) {
+                    header("Location: gerenciarsensores.php");
+                    exit;
+                } else {
+                    $mensagem = "Erro ao cadastrar sensor: " . $conexao->error;
+                    $tipo_mensagem = "error";
+                }
+            }
+        }
+    }
+}
+
+// Buscar trens e estações para os selects
+$trens = $conexao->query("SELECT id, codigo, nome FROM trens ORDER BY codigo");
+$estacoes = $conexao->query("SELECT id, codigo, nome FROM estacoes ORDER BY codigo");
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Sensor - Sistema Ferroviário</title>
-    <!-- ==================== SIDEBAR - COPIAR EM TODAS AS PÁGINAS ==================== -->
+    <title><?php echo $editando ? 'Editar' : 'Cadastrar'; ?> Sensor - Sistema Ferroviário</title>
+
+    
     <style>
         .sidebar {
             width: 250px;
@@ -68,14 +174,14 @@
             text-align: center;
         }
 
-        /* MOBILE TOGGLE */
+        /* celular */
         .menu-toggle {
             display: none;
             position: fixed;
             top: 20px;
             left: 20px;
             z-index: 1001;
-            background: black;
+            background: gray;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -84,7 +190,6 @@
             font-size: 1.2em;
         }
 
-        /* AJUSTAR CONTEÚDO PRINCIPAL */
         body {
             display: flex;
         }
@@ -95,7 +200,7 @@
             transition: margin-left 0.3s ease;
         }
 
-        /* RESPONSIVE */
+
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -116,8 +221,8 @@
         }
     </style>
 
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
+
+     <aside class="sidebar">
         <div class="sidebar-header">
             <h2>🚆 Sistema Ferroviário</h2>
             <p>Painel Administrativo</p>
@@ -128,18 +233,18 @@
             <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
             <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
             <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
+            <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
+            <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
             <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
-            <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
-            <li><a href="cadastroitinerário.php"><span class="icon">🔧</span> Cadastrar Itinerários</a></li>
-            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Geração de Relatórios</a></li>
-            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre o Sistema</a></li>
-            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas com Mapa Interativo</a></li>
-            <li><a href="../login.php"><span class="icon">👤</span> Sair</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">🔡</span> Gerenciar Itinerários</a></li>
+            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
+            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
+            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
+            <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
         </ul>
     </aside>
 
-
-    <!-- MOBILE MENU TOGGLE -->
+    <!-- celular -->
     <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
     <!-- JAVASCRIPT DA SIDEBAR -->
@@ -172,7 +277,7 @@
             });
         });
     </script>
-    <!-- ==================== FIM DA SIDEBAR ==================== -->
+
     <style>
         * {
             margin: 0;
@@ -191,7 +296,7 @@
         }
 
         .container {
-            max-width: 700px;
+            max-width: 800px;
             width: 100%;
         }
 
@@ -215,8 +320,41 @@
             margin-bottom: 30px;
         }
 
-        .form-group {
+        .info-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
             margin-bottom: 25px;
+        }
+
+        .info-box p {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .mensagem {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .mensagem.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .mensagem.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
         }
 
         label {
@@ -225,6 +363,10 @@
             font-weight: 600;
             margin-bottom: 8px;
             font-size: 0.95em;
+        }
+
+        label .required {
+            color: red;
         }
 
         input,
@@ -295,20 +437,6 @@
             transform: translateY(-2px);
         }
 
-        .info-box {
-            background: #f0f4ff;
-            border-left: 4px solid #667eea;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
-
-        .info-box p {
-            color: #555;
-            font-size: 0.95em;
-            line-height: 1.6;
-        }
-
         @media (max-width: 768px) {
             .form-card {
                 padding: 25px;
@@ -332,142 +460,197 @@
 <body>
     <div class="container">
         <div class="form-card">
-            <h1>📡 Cadastrar Novo Sensor</h1>
-            <p class="subtitle">Adicione um novo sensor ao sistema de monitoramento</p>
+            <h1>🔡 <?php echo $editando ? 'Editar' : 'Cadastrar Novo'; ?> Sensor</h1>
+            <p class="subtitle"><?php echo $editando ? 'Atualize as informações do sensor' : 'Adicione um novo sensor ao sistema de monitoramento'; ?></p>
 
+            <?php if (!$editando): ?>
             <div class="info-box">
-                <p>💡 <strong>Dica:</strong> Certifique-se de que o sensor está fisicamente instalado e conectado antes
-                    de cadastrá-lo no sistema.</p>
+                <p>💡 <strong>Dica:</strong> Certifique-se de que o sensor está fisicamente instalado e conectado antes de cadastrá-lo no sistema.</p>
             </div>
+            <?php endif; ?>
 
-            <form id="formCadastro">
+            <?php if (!empty($mensagem)): ?>
+                <div class="mensagem <?php echo $tipo_mensagem; ?>">
+                    <?php echo htmlspecialchars($mensagem); ?>
+                </div>
+            <?php endif; ?>
+
+            <form method="POST">
+                <?php if ($editando): ?>
+                    <input type="hidden" name="id_edicao" value="<?php echo $sensor['id']; ?>">
+                <?php endif; ?>
+
                 <div class="form-group">
-                    <label for="nome">Nome do Sensor *</label>
-                    <input type="text" id="nome" name="nome" placeholder="Ex: Sensor de Temperatura #007" required>
+                    <label for="nome">Nome do Sensor <span class="required">*</span></label>
+                    <input type="text" id="nome" name="nome" placeholder="Ex: Sensor de Temperatura #007" 
+                           value="<?php echo $sensor['nome'] ?? ''; ?>" required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="tipo">Tipo de Sensor *</label>
+                        <label for="codigo">Código <span class="required">*</span></label>
+                        <input type="text" id="codigo" name="codigo" placeholder="Ex: SENS-001" 
+                               value="<?php echo $sensor['codigo'] ?? ''; ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipo">Tipo de Sensor <span class="required">*</span></label>
                         <select id="tipo" name="tipo" required>
                             <option value="">Selecione...</option>
-                            <option value="dht11">DHT11 (Temp/Umid)</option>
-                            <option value="dht22">DHT22 (Temp/Umid)</option>
-                            <option value="ldr">LDR (Luminosidade)</option>
-                            <option value="hcsr04">HC-SR04 (Ultrassônico)</option>
-                            <option value="bmp180">BMP180 (Pressão)</option>
-                            <option value="gps">GPS (Localização)</option>
-                            <option value="mpu6050">MPU6050 (Acelerômetro)</option>
-                            <option value="outro">Outro</option>
+                            <option value="temperatura" <?php echo ($sensor['tipo'] ?? '') === 'temperatura' ? 'selected' : ''; ?>>Temperatura</option>
+                            <option value="umidade" <?php echo ($sensor['tipo'] ?? '') === 'umidade' ? 'selected' : ''; ?>>Umidade</option>
+                            <option value="luminosidade" <?php echo ($sensor['tipo'] ?? '') === 'luminosidade' ? 'selected' : ''; ?>>Luminosidade</option>
+                            <option value="presenca" <?php echo ($sensor['tipo'] ?? '') === 'presenca' ? 'selected' : ''; ?>>Presença</option>
+                            <option value="velocidade" <?php echo ($sensor['tipo'] ?? '') === 'velocidade' ? 'selected' : ''; ?>>Velocidade</option>
+                            <option value="pressao" <?php echo ($sensor['tipo'] ?? '') === 'pressao' ? 'selected' : ''; ?>>Pressão</option>
+                            <option value="acelerometro" <?php echo ($sensor['tipo'] ?? '') === 'acelerometro' ? 'selected' : ''; ?>>Acelerômetro</option>
+                            <option value="gps" <?php echo ($sensor['tipo'] ?? '') === 'gps' ? 'selected' : ''; ?>>GPS</option>
                         </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="modelo">Modelo</label>
+                        <input type="text" id="modelo" name="modelo" placeholder="Ex: DHT11, LDR, HC-SR04" 
+                               value="<?php echo $sensor['modelo'] ?? ''; ?>">
                     </div>
 
                     <div class="form-group">
-                        <label for="status">Status Inicial *</label>
+                        <label for="status">Status Inicial <span class="required">*</span></label>
                         <select id="status" name="status" required>
-                            <option value="online">Online</option>
-                            <option value="offline">Offline</option>
-                            <option value="manutencao">Em Manutenção</option>
+                            <option value="online" <?php echo ($sensor['status'] ?? 'offline') === 'online' ? 'selected' : ''; ?>>Online</option>
+                            <option value="offline" <?php echo ($sensor['status'] ?? 'offline') === 'offline' ? 'selected' : ''; ?>>Offline</option>
+                            <option value="manutencao" <?php echo ($sensor['status'] ?? '') === 'manutencao' ? 'selected' : ''; ?>>Em Manutenção</option>
+                            <option value="erro" <?php echo ($sensor['status'] ?? '') === 'erro' ? 'selected' : ''; ?>>Erro</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="localizacao">Localização *</label>
-                    <input type="text" id="localizacao" name="localizacao" placeholder="Ex: Trem #007 - Motor Principal"
-                        required>
+                    <label for="localizacao">Localização <span class="required">*</span></label>
+                    <input type="text" id="localizacao" name="localizacao" placeholder="Ex: Trem #007 - Motor Principal" 
+                           value="<?php echo $sensor['localizacao'] ?? ''; ?>" required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="topico">Tópico MQTT *</label>
-                        <input type="text" id="topico" name="topico" placeholder="Ex: sensores/temp/007" required>
+                        <label for="trem_id">Trem</label>
+                        <select id="trem_id" name="trem_id">
+                            <option value="">Nenhum</option>
+                            <?php while ($trem = $trens->fetch_assoc()): ?>
+                                <option value="<?php echo $trem['id']; ?>" 
+                                    <?php echo ($sensor['trem_id'] ?? '') == $trem['id'] ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($trem['codigo'] . ' - ' . $trem['nome']); ?>
+                                </option>
+                            <?php endwhile; ?>
+                        </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="unidade">Unidade de Medida</label>
-                        <input type="text" id="unidade" name="unidade" placeholder="Ex: °C, %, lux, cm">
+                        <label for="estacao_id">Estação</label>
+                        <select id="estacao_id" name="estacao_id">
+                            <option value="">Nenhuma</option>
+                            <?php while ($estacao = $estacoes->fetch_assoc()): ?>
+                                <option value="<?php echo $estacao['id']; ?>" 
+                                    <?php echo ($sensor['estacao_id'] ?? '') == $estacao['id'] ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($estacao['codigo'] . ' - ' . $estacao['nome']); ?>
+                                </option>
+                            <?php endwhile; ?>
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="valorMinimo">Valor Mínimo (Alerta)</label>
-                        <input type="number" id="valorMinimo" name="valorMinimo" placeholder="Ex: 0" step="0.1">
+                        <label for="topico_mqtt">Tópico MQTT <span class="required">*</span></label>
+                        <input type="text" id="topico_mqtt" name="topico_mqtt" placeholder="Ex: sensores/temp/007" 
+                               value="<?php echo $sensor['topico_mqtt'] ?? ''; ?>" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="valorMaximo">Valor Máximo (Alerta)</label>
-                        <input type="number" id="valorMaximo" name="valorMaximo" placeholder="Ex: 100" step="0.1">
+                        <label for="unidade_medida">Unidade de Medida</label>
+                        <input type="text" id="unidade_medida" name="unidade_medida" placeholder="Ex: °C, %, lux, cm" 
+                               value="<?php echo $sensor['unidade_medida'] ?? ''; ?>">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="valor_minimo">Valor Mínimo (Alerta)</label>
+                        <input type="number" id="valor_minimo" name="valor_minimo" placeholder="Ex: 0" step="0.01" 
+                               value="<?php echo $sensor['valor_minimo'] ?? ''; ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="valor_maximo">Valor Máximo (Alerta)</label>
+                        <input type="number" id="valor_maximo" name="valor_maximo" placeholder="Ex: 100" step="0.01" 
+                               value="<?php echo $sensor['valor_maximo'] ?? ''; ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="descricao">Descrição/Observações</label>
-                    <textarea id="descricao" name="descricao"
-                        placeholder="Informações adicionais sobre o sensor..."></textarea>
+                    <textarea id="descricao" name="descricao" placeholder="Informações adicionais sobre o sensor..."><?php echo $sensor['descricao'] ?? ''; ?></textarea>
                 </div>
 
                 <div class="btn-container">
-                    <button type="button" class="btn btn-cancelar" onclick="window.location.href='sensores.html'">✖️
-                        Cancelar</button>
-                    <button type="submit" class="btn btn-salvar">✔️ Cadastrar Sensor</button>
+                    <button type="button" class="btn btn-cancelar" onclick="window.location.href='gerenciarsensores.php'">✖️ Cancelar</button>
+                    <button type="submit" class="btn btn-salvar">✔️ <?php echo $editando ? 'Atualizar' : 'Cadastrar'; ?> Sensor</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        document.getElementById('formCadastro').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Coletar dados do formulário
-            const dadosSensor = {
-                nome: document.getElementById('nome').value,
-                tipo: document.getElementById('tipo').value,
-                status: document.getElementById('status').value,
-                localizacao: document.getElementById('localizacao').value,
-                topico: document.getElementById('topico').value,
-                unidade: document.getElementById('unidade').value,
-                valorMinimo: document.getElementById('valorMinimo').value,
-                valorMaximo: document.getElementById('valorMaximo').value,
-                descricao: document.getElementById('descricao').value
-            };
-
-            // Aqui você faria a requisição POST para o backend
-            console.log('Dados do sensor:', dadosSensor);
-
-            // Simulação de salvamento
-            alert('✅ Sensor cadastrado com sucesso!');
-
-            // Redirecionar para a lista de sensores
-            window.location.href = 'gerenciarsensores.php';
-        });
-
         // Auto-completar tópico MQTT baseado no tipo
         document.getElementById('tipo').addEventListener('change', function (e) {
             const tipo = e.target.value;
-            const topicoInput = document.getElementById('topico');
-            const unidadeInput = document.getElementById('unidade');
-
-            if (tipo === 'dht11' || tipo === 'dht22') {
-                topicoInput.value = 'sensores/temp/';
-                unidadeInput.value = '°C';
-            } else if (tipo === 'ldr') {
-                topicoInput.value = 'sensores/luz/';
-                unidadeInput.value = 'lux';
-            } else if (tipo === 'hcsr04') {
-                topicoInput.value = 'sensores/presenca/';
-                unidadeInput.value = 'cm';
-            } else if (tipo === 'bmp180') {
-                topicoInput.value = 'sensores/pressao/';
-                unidadeInput.value = 'hPa';
-            } else if (tipo === 'gps') {
-                topicoInput.value = 'sensores/gps/';
-                unidadeInput.value = 'km/h';
+            const topicoInput = document.getElementById('topico_mqtt');
+            const unidadeInput = document.getElementById('unidade_medida');
+            
+            // Só preencher se estiver vazio
+            if (!topicoInput.value && tipo) {
+                let topico = 'sensores/';
+                let unidade = '';
+                
+                switch(tipo) {
+                    case 'temperatura':
+                        topico += 'temp/';
+                        unidade = '°C';
+                        break;
+                    case 'umidade':
+                        topico += 'umid/';
+                        unidade = '%';
+                        break;
+                    case 'luminosidade':
+                        topico += 'luz/';
+                        unidade = 'lux';
+                        break;
+                    case 'presenca':
+                        topico += 'presenca/';
+                        unidade = 'cm';
+                        break;
+                    case 'velocidade':
+                        topico += 'velocidade/';
+                        unidade = 'km/h';
+                        break;
+                    case 'pressao':
+                        topico += 'pressao/';
+                        unidade = 'hPa';
+                        break;
+                    case 'gps':
+                        topico += 'gps/';
+                        unidade = 'lat/lng';
+                        break;
+                }
+                
+                topicoInput.value = topico;
+                if (!unidadeInput.value) {
+                    unidadeInput.value = unidade;
+                }
             }
         });
     </script>
 </body>
-
 </html>

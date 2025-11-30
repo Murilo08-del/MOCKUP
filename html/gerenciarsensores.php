@@ -1,3 +1,77 @@
+<?php
+require "../php/conexao.php";
+session_start();
+
+// Verificar se o usuário está logado
+if (!isset($_SESSION['conectado']) || $_SESSION['conectado'] !== true) {
+    header("Location: ../php/login.php");
+    exit;
+}
+
+$mensagem = "";
+$tipo_mensagem = "";
+
+// ==================== EXCLUIR SENSOR ====================
+if (isset($_GET['excluir'])) {
+    $id = intval($_GET['excluir']);
+
+    $stmt = $conexao->prepare("DELETE FROM sensores WHERE id = ?");
+    $stmt->bind_param("i", $id);
+
+    if ($stmt->execute()) {
+        $mensagem = "Sensor excluído com sucesso!";
+        $tipo_mensagem = "success";
+    } else {
+        $mensagem = "Erro ao excluir sensor: " . $conexao->error;
+        $tipo_mensagem = "error";
+    }
+    $stmt->close();
+}
+
+// ==================== ATUALIZAR STATUS ====================
+if (isset($_POST['atualizar_status'])) {
+    $id = intval($_POST['sensor_id']);
+    $novo_status = $_POST['novo_status'];
+
+    $stmt = $conexao->prepare("UPDATE sensores SET status = ? WHERE id = ?");
+    $stmt->bind_param("si", $novo_status, $id);
+
+    if ($stmt->execute()) {
+        $mensagem = "Status atualizado com sucesso!";
+        $tipo_mensagem = "success";
+    } else {
+        $mensagem = "Erro ao atualizar status.";
+        $tipo_mensagem = "error";
+    }
+    $stmt->close();
+}
+
+// ==================== BUSCAR SENSORES ====================
+$filtro_status = isset($_GET['status']) ? $_GET['status'] : '';
+$busca = isset($_GET['busca']) ? $_GET['busca'] : '';
+
+$sql = "SELECT s.*, t.nome as trem_nome, e.nome as estacao_nome 
+        FROM sensores s 
+        LEFT JOIN trens t ON s.trem_id = t.id 
+        LEFT JOIN estacoes e ON s.estacao_id = e.id 
+        WHERE 1=1";
+
+if (!empty($filtro_status)) {
+    $sql .= " AND s.status = '" . $conexao->real_escape_string($filtro_status) . "'";
+}
+
+if (!empty($busca)) {
+    $busca_escapada = $conexao->real_escape_string($busca);
+    $sql .= " AND (s.nome LIKE '%$busca_escapada%' 
+              OR s.codigo LIKE '%$busca_escapada%' 
+              OR s.tipo LIKE '%$busca_escapada%' 
+              OR s.localizacao LIKE '%$busca_escapada%')";
+}
+
+$sql .= " ORDER BY s.data_cadastro DESC";
+$resultado = $conexao->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -7,6 +81,20 @@
     <title>Gerenciar Sensores - Sistema Ferroviário</title>
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+        }
+
         .sidebar {
             width: 250px;
             background: linear-gradient(135deg, #a79f9fff 0%, #332e2eff 100%);
@@ -31,11 +119,6 @@
         .sidebar-header h2 {
             font-size: 1.4em;
             margin-bottom: 5px;
-        }
-
-        .sidebar-header p {
-            font-size: 0.85em;
-            opacity: 0.8;
         }
 
         .sidebar-menu {
@@ -68,7 +151,6 @@
             text-align: center;
         }
 
-        /* celular */
         .menu-toggle {
             display: none;
             position: fixed;
@@ -84,50 +166,10 @@
             font-size: 1.2em;
         }
 
-        body {
-            display: flex;
-        }
-
         .main-content {
             margin-left: 250px;
             flex: 1;
             transition: margin-left 0.3s ease;
-        }
-
-
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding-top: 70px;
-            }
-        }
-    </style>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #d6651aff 0%, #5b575fff 100%);
-            min-height: 100vh;
-            padding: 20px;
         }
 
         .container {
@@ -161,7 +203,7 @@
             border-radius: 25px;
             font-size: 1em;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease;
             text-decoration: none;
             display: inline-block;
         }
@@ -177,20 +219,43 @@
             border-radius: 15px;
             margin-bottom: 20px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
         }
 
-        .search-bar input {
-            width: 100%;
+        .search-bar input,
+        .search-bar select {
             padding: 12px 20px;
             border: 2px solid #e0e0e0;
             border-radius: 25px;
             font-size: 1em;
             transition: border-color 0.3s ease;
         }
-        
-        .search-bar input:focus {
+
+        .search-bar input:focus,
+        .search-bar select:focus {
             outline: none;
             border-color: #667eea;
+        }
+
+        .mensagem {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .mensagem.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .mensagem.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
         .sensores-grid {
@@ -248,6 +313,11 @@
             color: #856404;
         }
 
+        .status-erro {
+            background: #f5c6cb;
+            color: #721c24;
+        }
+
         .sensor-card h3 {
             color: #333;
             margin-bottom: 10px;
@@ -268,6 +338,7 @@
 
         .sensor-info strong {
             min-width: 80px;
+            color: black;
         }
 
         .sensor-actions {
@@ -315,10 +386,27 @@
             border-radius: 15px;
             text-align: center;
             color: #999;
+            font-size: 1.2em;
         }
 
-
         @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-top: 70px;
+            }
+
             header {
                 flex-direction: column;
                 align-items: stretch;
@@ -326,6 +414,10 @@
 
             h1 {
                 font-size: 1.5em;
+            }
+
+            .search-bar {
+                grid-template-columns: 1fr;
             }
 
             .sensores-grid {
@@ -336,11 +428,9 @@
 </head>
 
 <body>
-    <!-- Menu toggle (mobile) -->
-    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar">
         <div class="sidebar-header">
             <h2>🚆 Sistema Ferroviário</h2>
             <p>Painel Administrativo</p>
@@ -351,209 +441,122 @@
             <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
             <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
             <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
+            <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
+            <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
             <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
-            <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
-            <li><a href="cadastroitinerário.php"><span class="icon">🔧</span> Cadastrar Itinerários</a></li>
-            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Geração de Relatórios</a></li>
-            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre o Sistema</a></li>
-            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas com Mapa Interativo</a></li>
-            <li><a href="../login.php"><span class="icon">👤</span> Sair</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">🔡</span> Gerenciar Itinerários</a></li>
+            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
+            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
+            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
+            <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
         </ul>
     </aside>
-
 
     <main class="main-content">
         <div class="container">
             <header>
-                <h1>📡 Gerenciar Sensores</h1>
-                <a href="cadastrar-sensor.html" class="btn-novo">➕ Novo Sensor</a>
+                <h1>🔡 Gerenciar Sensores</h1>
+                <a href="cadastrarsensores.php" class="btn-novo">➕ Novo Sensor</a>
             </header>
 
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="🔍 Buscar sensores por nome, tipo ou localização...">
-            </div>
-
-            <div class="sensores-grid" id="sensoresGrid">
-                <!-- Sensor 1 -->
-                <div class="sensor-card">
-                    <span class="sensor-status status-online">● Online</span>
-                    <h3>Sensor de Temperatura #001</h3>
-                    <div class="sensor-info">
-                        <p><strong>Tipo:</strong> DHT11</p>
-                        <p><strong>Local:</strong> Trem #007 - Motor</p>
-                        <p><strong>Valor:</strong> 23.5°C</p>
-                        <p><strong>Última leitura:</strong> há 2 min</p>
-                        <p><strong>Tópico MQTT:</strong> sensores/temp/001</p>
-                    </div>
-                    <div class="sensor-actions">
-                        <button class="btn btn-editar" onclick="editarSensor(1)">✏️ Editar</button>
-                        <button class="btn btn-excluir" onclick="excluirSensor(1)">🗑️ Excluir</button>
-                    </div>
+            <?php if (!empty($mensagem)): ?>
+                <div class="mensagem <?php echo $tipo_mensagem; ?>">
+                    <?php echo htmlspecialchars($mensagem); ?>
                 </div>
+            <?php endif; ?>
 
-                <!-- Sensor 2 -->
-                <div class="sensor-card">
-                    <span class="sensor-status status-online">● Online</span>
-                    <h3>Sensor de Umidade #002</h3>
-                    <div class="sensor-info">
-                        <p><strong>Tipo:</strong> DHT11</p>
-                        <p><strong>Local:</strong> Estação Central</p>
-                        <p><strong>Valor:</strong> 65%</p>
-                        <p><strong>Última leitura:</strong> há 1 min</p>
-                        <p><strong>Tópico MQTT:</strong> sensores/umid/002</p>
-                    </div>
-                    <div class="sensor-actions">
-                        <button class="btn btn-editar" onclick="editarSensor(2)">✏️ Editar</button>
-                        <button class="btn btn-excluir" onclick="excluirSensor(2)">🗑️ Excluir</button>
-                    </div>
-                </div>
+            <form method="GET" class="search-bar">
+                <input type="text" name="busca"
+                    placeholder="🔍 Buscar sensores por nome, código, tipo ou localização..."
+                    value="<?php echo htmlspecialchars($busca); ?>">
+                <select name="status" onchange="this.form.submit()">
+                    <option value="">Todos os Status</option>
+                    <option value="online" <?php echo $filtro_status === 'online' ? 'selected' : ''; ?>>Online</option>
+                    <option value="offline" <?php echo $filtro_status === 'offline' ? 'selected' : ''; ?>>Offline</option>
+                    <option value="manutencao" <?php echo $filtro_status === 'manutencao' ? 'selected' : ''; ?>>Em
+                        Manutenção</option>
+                    <option value="erro" <?php echo $filtro_status === 'erro' ? 'selected' : ''; ?>>Erro</option>
+                </select>
+            </form>
 
-                <!-- Sensor 3 -->
-                <div class="sensor-card">
-                    <span class="sensor-status status-online">● Online</span>
-                    <h3>Sensor de Luminosidade #003</h3>
-                    <div class="sensor-info">
-                        <p><strong>Tipo:</strong> LDR</p>
-                        <p><strong>Local:</strong> Linha Azul - KM 15</p>
-                        <p><strong>Valor:</strong> 1250 lux</p>
-                        <p><strong>Última leitura:</strong> há 30 seg</p>
-                        <p><strong>Tópico MQTT:</strong> sensores/luz/003</p>
-                    </div>
-                    <div class="sensor-actions">
-                        <button class="btn btn-editar" onclick="editarSensor(3)">✏️ Editar</button>
-                        <button class="btn btn-excluir" onclick="excluirSensor(3)">🗑️ Excluir</button>
-                    </div>
-                </div>
+            <div class="sensores-grid">
+                <?php if ($resultado && $resultado->num_rows > 0): ?>
+                    <?php while ($sensor = $resultado->fetch_assoc()): ?>
+                        <div class="sensor-card">
+                            <span class="sensor-status status-<?php echo $sensor['status']; ?>">
+                                ● <?php echo ucfirst($sensor['status']); ?>
+                            </span>
 
-                <!-- Sensor 4 -->
-                <div class="sensor-card">
-                    <span class="sensor-status status-online">● Online</span>
-                    <h3>Sensor de Presença #004</h3>
-                    <div class="sensor-info">
-                        <p><strong>Tipo:</strong> HC-SR04 (Ultrassônico)</p>
-                        <p><strong>Local:</strong> Trem #003 - Cabine</p>
-                        <p><strong>Valor:</strong> Detectada</p>
-                        <p><strong>Última leitura:</strong> há 15 seg</p>
-                        <p><strong>Tópico MQTT:</strong> sensores/presenca/004</p>
-                    </div>
-                    <div class="sensor-actions">
-                        <button class="btn btn-editar" onclick="editarSensor(4)">✏️ Editar</button>
-                        <button class="btn btn-excluir" onclick="excluirSensor(4)">🗑️ Excluir</button>
-                    </div>
-                </div>
+                            <h3><?php echo htmlspecialchars($sensor['nome']); ?></h3>
 
-                <!-- Sensor 5 - Offline -->
-                <div class="sensor-card">
-                    <span class="sensor-status status-offline">● Offline</span>
-                    <h3>Sensor de Velocidade #005</h3>
-                    <div class="sensor-info">
-                        <p><strong>Tipo:</strong> GPS</p>
-                        <p><strong>Local:</strong> Trem #012</p>
-                        <p><strong>Valor:</strong> N/A</p>
-                        <p><strong>Última leitura:</strong> há 2 horas</p>
-                        <p><strong>Tópico MQTT:</strong> sensores/velocidade/005</p>
-                    </div>
-                    <div class="sensor-actions">
-                        <button class="btn btn-editar" onclick="editarSensor(5)">✏️ Editar</button>
-                        <button class="btn btn-excluir" onclick="excluirSensor(5)">🗑️ Excluir</button>
-                    </div>
-                </div>
+                            <div class="sensor-info">
+                                <p><strong>Código:</strong> <?php echo htmlspecialchars($sensor['codigo']); ?></p>
+                                <p><strong>Tipo:</strong> <?php echo ucfirst($sensor['tipo']); ?></p>
+                                <p><strong>Local:</strong> <?php echo htmlspecialchars($sensor['localizacao']); ?></p>
+                                <?php if ($sensor['trem_nome']): ?>
+                                    <p><strong>Trem:</strong> <?php echo htmlspecialchars($sensor['trem_nome']); ?></p>
+                                <?php endif; ?>
+                                <?php if ($sensor['estacao_nome']): ?>
+                                    <p><strong>Estação:</strong> <?php echo htmlspecialchars($sensor['estacao_nome']); ?></p>
+                                <?php endif; ?>
+                                <?php if ($sensor['ultima_leitura']): ?>
+                                    <p><strong>Última Leitura:</strong>
+                                        <?php echo number_format($sensor['ultima_leitura'], 2); ?>
+                                        <?php echo htmlspecialchars($sensor['unidade_medida'] ?? ''); ?>
+                                    </p>
+                                <?php endif; ?>
+                                <p><strong>Tópico MQTT:</strong> <?php echo htmlspecialchars($sensor['topico_mqtt']); ?></p>
+                            </div>
 
-                <!-- Sensor 6 - Manutenção -->
-                <div class="sensor-card">
-                    <span class="sensor-status status-manutencao">● Manutenção</span>
-                    <h3>Sensor de Pressão #006</h3>
-                    <div class="sensor-info">
-                        <p><strong>Tipo:</strong> BMP180</p>
-                        <p><strong>Local:</strong> Estação Norte</p>
-                        <p><strong>Valor:</strong> Em manutenção</p>
-                        <p><strong>Última leitura:</strong> há 1 dia</p>
-                        <p><strong>Tópico MQTT:</strong> sensores/pressao/006</p>
+                            <div class="sensor-actions">
+                                <a href="cadastrarsensores.php?editar=<?php echo $sensor['id']; ?>" class="btn btn-editar">✏️
+                                    Editar</a>
+                                <a href="?excluir=<?php echo $sensor['id']; ?>" class="btn btn-excluir"
+                                    onclick="return confirm('Tem certeza que deseja excluir este sensor?')">
+                                    🗑️ Excluir
+                                </a>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <p>📭 Nenhum sensor encontrado.</p>
+                        <p style="font-size: 0.9em; margin-top: 10px;">
+                            <a href="cadastrarsensores.php" style="color: #667eea;">Clique aqui para cadastrar o primeiro
+                                sensor</a>
+                        </p>
                     </div>
-                    <div class="sensor-actions">
-                        <button class="btn btn-editar" onclick="editarSensor(6)">✏️ Editar</button>
-                        <button class="btn btn-excluir" onclick="excluirSensor(6)">🗑️ Excluir</button>
-                    </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </main>
 
     <script>
-        // Função de busca
-        document.getElementById('searchInput').addEventListener('input', function (e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const cards = document.querySelectorAll('.sensor-card');
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
 
-            cards.forEach(card => {
-                const text = card.textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
+        document.addEventListener('click', function (event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.menu-toggle');
+
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentPage = window.location.pathname.split('/').pop();
+            const links = document.querySelectorAll('.sidebar-menu a');
+
+            links.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
                 }
             });
         });
-
-        function editarSensor(id) {
-            // Redirecionar para página de edição
-            window.location.href = `editar-sensor.html?id=${id}`;
-        }
-
-        function excluirSensor(id) {
-            if (confirm('Tem certeza que deseja excluir este sensor?')) {
-                // Aqui você faria a requisição para o backend
-                alert(`Sensor #${id} excluído com sucesso!`);
-                // Recarregar a página ou remover o card do DOM
-            }
-        }
-
-        // Simulação de atualização em tempo real
-        setInterval(() => {
-            const valores = document.querySelectorAll('.sensor-info p:nth-child(3)');
-            valores.forEach(valor => {
-                if (valor.textContent.includes('°C')) {
-                    const temp = (20 + Math.random() * 10).toFixed(1);
-                    valor.innerHTML = `<strong>Valor:</strong> ${temp}°C`;
-                } else if (valor.textContent.includes('%')) {
-                    const umid = (50 + Math.random() * 30).toFixed(0);
-                    valor.innerHTML = `<strong>Valor:</strong> ${umid}%`;
-                } else if (valor.textContent.includes('lux')) {
-                    const luz = Math.floor(1000 + Math.random() * 1000);
-                    valor.innerHTML = `<strong>Valor:</strong> ${luz} lux`;
-                }
-            });
-        }, 5000);
-
-        // Script do menu (toggle para mobile e fechamento ao clicar fora ou em um link)
-        (function () {
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.querySelector('.main-content');
-
-            function toggleSidebar() {
-                sidebar.classList.toggle('active');
-            }
-
-            menuToggle.addEventListener('click', function (e) {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-
-            // Fechar sidebar ao clicar em link (útil em mobile)
-            const links = document.querySelectorAll('.sidebar-menu a');
-            links.forEach(link => link.addEventListener('click', function () {
-                sidebar.classList.remove('active');
-            }));
-
-            // Fechar quando clicar fora (mobile)
-            document.addEventListener('click', function (event) {
-                const isClickInside = sidebar.contains(event.target) || menuToggle.contains(event.target);
-                if (!isClickInside) {
-                    sidebar.classList.remove('active');
-                }
-            });
-        })();
     </script>
 </body>
 

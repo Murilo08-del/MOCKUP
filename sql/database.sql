@@ -298,12 +298,6 @@ CREATE TABLE IF NOT EXISTS leituras_sensores (
 -- INSERÇÃO DE DADOS INICIAIS
 -- ==================================================
 
--- Usuário administrador padrão (senha: password)
-INSERT INTO usuarios (nome, email, senha, tipo_usuario) VALUES
-('Administrador', 'admin@minitrilhos.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
-('João Silva', 'joao@minitrilhos.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'funcionario'),
-('Maria Santos', 'maria@usuario.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'comum');
-
 -- Estações exemplo
 INSERT INTO estacoes (codigo, nome, cidade, estado, endereco, latitude, longitude, capacidade, num_plataformas, acessibilidade, status) VALUES
 ('EST-001', 'Estação Central', 'São Paulo', 'SP', 'Praça da Sé, Centro', -23.5505, -46.6333, 5000, 12, TRUE, 'ativa'),

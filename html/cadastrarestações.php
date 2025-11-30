@@ -1,12 +1,144 @@
+<?php
+require "../php/conexao.php";
+session_start();
+
+if (!isset($_SESSION['conectado']) || $_SESSION['conectado'] !== true) {
+    header("Location: ../php/login.php");
+    exit;
+}
+
+$mensagem = "";
+$tipo_mensagem = "";
+$editando = false;
+$estacao = null;
+
+// ==================== MODO EDIÇÃO ====================
+if (isset($_GET['editar'])) {
+    $editando = true;
+    $id = intval($_GET['editar']);
+
+    $stmt = $conexao->prepare("SELECT * FROM estacoes WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $estacao = $resultado->fetch_assoc();
+    $stmt->close();
+
+    if (!$estacao) {
+        header("Location: gerenciarestações.php");
+        exit;
+    }
+}
+
+// ==================== PROCESSAR FORMULÁRIO ====================
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nome = trim($_POST["nome"] ?? "");
+    $codigo = trim($_POST["codigo"] ?? "");
+    $cidade = trim($_POST["cidade"] ?? "");
+    $estado = trim($_POST["estado"] ?? "");
+    $endereco = trim($_POST["endereco"] ?? "");
+    $latitude = !empty($_POST["latitude"]) ? floatval($_POST["latitude"]) : null;
+    $longitude = !empty($_POST["longitude"]) ? floatval($_POST["longitude"]) : null;
+    $capacidade = intval($_POST["capacidade"] ?? 0);
+    $num_plataformas = intval($_POST["plataformas"] ?? 0);
+    $acessibilidade = isset($_POST["acessibilidade"]) ? 1 : 0;
+    $telefone = trim($_POST["telefone"] ?? "");
+    $email = trim($_POST["email"] ?? "");
+    $status = $_POST["status"] ?? "ativa";
+    $observacoes = trim($_POST["observacoes"] ?? "");
+
+    // Validações
+    if (empty($nome) || empty($codigo) || empty($cidade) || empty($estado) || empty($endereco)) {
+        $mensagem = "Preencha todos os campos obrigatórios.";
+        $tipo_mensagem = "error";
+    } else {
+        if (isset($_POST['id_edicao'])) {
+            // ATUALIZAR
+            $id_edicao = intval($_POST['id_edicao']);
+
+            $stmt = $conexao->prepare("UPDATE estacoes SET nome=?, codigo=?, cidade=?, estado=?, endereco=?, 
+                                       latitude=?, longitude=?, capacidade=?, num_plataformas=?, acessibilidade=?, 
+                                       telefone=?, email=?, status=?, observacoes=? WHERE id=?");
+            $stmt->bind_param(
+                "sssssddiiissssi",
+                $nome,
+                $codigo,
+                $cidade,
+                $estado,
+                $endereco,
+                $latitude,
+                $longitude,
+                $capacidade,
+                $num_plataformas,
+                $acessibilidade,
+                $telefone,
+                $email,
+                $status,
+                $observacoes,
+                $id_edicao
+            );
+
+            if ($stmt->execute()) {
+                header("Location: gerenciarestações.php");
+                exit;
+            } else {
+                $mensagem = "Erro ao atualizar estação: " . $conexao->error;
+                $tipo_mensagem = "error";
+            }
+        } else {
+            // INSERIR NOVO
+            // Verificar se código já existe
+            $stmt = $conexao->prepare("SELECT id FROM estacoes WHERE codigo = ?");
+            $stmt->bind_param("s", $codigo);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+
+            if ($resultado->num_rows > 0) {
+                $mensagem = "Já existe uma estação com este código.";
+                $tipo_mensagem = "error";
+            } else {
+                $stmt = $conexao->prepare("INSERT INTO estacoes (nome, codigo, cidade, estado, endereco, latitude, 
+                                          longitude, capacidade, num_plataformas, acessibilidade, telefone, email, 
+                                          status, observacoes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param(
+                    "sssssddiiiisss",
+                    $nome,
+                    $codigo,
+                    $cidade,
+                    $estado,
+                    $endereco,
+                    $latitude,
+                    $longitude,
+                    $capacidade,
+                    $num_plataformas,
+                    $acessibilidade,
+                    $telefone,
+                    $email,
+                    $status,
+                    $observacoes
+                );
+
+                if ($stmt->execute()) {
+                    header("Location: gerenciarestações.php");
+                    exit;
+                } else {
+                    $mensagem = "Erro ao cadastrar estação: " . $conexao->error;
+                    $tipo_mensagem = "error";
+                }
+            }
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Estação - Sistema Ferroviário</title>
+    <title><?php echo $editando ? 'Editar' : 'Cadastrar'; ?> Estação - Sistema Ferroviário</title>
 
-    <!-- ==================== SIDEBAR - COPIAR EM TODAS AS PÁGINAS ==================== -->
     <style>
         .sidebar {
             width: 250px;
@@ -69,14 +201,14 @@
             text-align: center;
         }
 
-        /* MOBILE TOGGLE */
+        /* celular */
         .menu-toggle {
             display: none;
             position: fixed;
             top: 20px;
             left: 20px;
             z-index: 1001;
-            background: black;
+            background: gray;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -85,7 +217,6 @@
             font-size: 1.2em;
         }
 
-        /* AJUSTAR CONTEÚDO PRINCIPAL */
         body {
             display: flex;
         }
@@ -96,7 +227,7 @@
             transition: margin-left 0.3s ease;
         }
 
-        /* RESPONSIVE */
+
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -117,8 +248,8 @@
         }
     </style>
 
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
+
+    <aside class="sidebar">
         <div class="sidebar-header">
             <h2>🚆 Sistema Ferroviário</h2>
             <p>Painel Administrativo</p>
@@ -129,18 +260,19 @@
             <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
             <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
             <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
+            <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
+            <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
             <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
-            <li><a href="gerenciaritinerários.php"><span class="icon">📡</span> Gerenciar Itinerários</a></li>
-            <li><a href="cadastroitinerário.php"><span class="icon">🔧</span> Cadastrar Itinerários</a></li>
-            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Geração de Relatórios</a></li>
-            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre o Sistema</a></li>
-            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas com Mapa Interativo</a></li>
-            <li><a href="../login.php"><span class="icon">👤</span> Sair</a></li>
+            <li><a href="gerenciaritinerários.php"><span class="icon">🔡</span> Gerenciar Itinerários</a></li>
+            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
+            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
+            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
+            <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
         </ul>
     </aside>
 
 
-    <!-- MOBILE MENU TOGGLE -->
+    <!-- celular -->
     <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
     <!-- JAVASCRIPT DA SIDEBAR -->
@@ -173,7 +305,6 @@
             });
         });
     </script>
-    <!-- ==================== FIM DA SIDEBAR ==================== -->
 
     <style>
         * {
@@ -231,9 +362,23 @@
             color: black;
             font-size: 1.3em;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        }
+
+        .mensagem {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .mensagem.success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .mensagem.error {
+            background: #f8d7da;
+            color: #721c24;
         }
 
         .form-group {
@@ -246,6 +391,10 @@
             font-weight: 600;
             margin-bottom: 8px;
             font-size: 0.95em;
+        }
+
+        label .required {
+            color: red;
         }
 
         input,
@@ -277,6 +426,16 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
         }
 
         .btn-container {
@@ -324,12 +483,6 @@
             margin-bottom: 25px;
         }
 
-        .info-box p {
-            color: #555;
-            font-size: 0.95em;
-            line-height: 1.6;
-        }
-
         @media (max-width: 768px) {
             .form-card {
                 padding: 25px;
@@ -353,36 +506,52 @@
 <body>
     <div class="container">
         <div class="form-card">
-            <h1>🚉 Cadastrar Nova Estação</h1>
-            <p class="subtitle">Adicione uma nova estação ao sistema ferroviário</p>
+            <h1>🚉 <?php echo $editando ? 'Editar' : 'Cadastrar Nova'; ?> Estação</h1>
+            <p class="subtitle">
+                <?php echo $editando ? 'Atualize as informações da estação' : 'Adicione uma nova estação ao sistema ferroviário'; ?>
+            </p>
 
-            <div class="info-box">
-                <p>💡 <strong>Dica:</strong> Preencha todos os campos obrigatórios (*) para garantir o funcionamento
-                    correto do sistema.</p>
-            </div>
+            <?php if (!$editando): ?>
+                <div class="info-box">
+                    <p>💡 <strong>Dica:</strong> Preencha todos os campos obrigatórios (*) para garantir o funcionamento
+                        correto do sistema.</p>
+                </div>
+            <?php endif; ?>
 
-            <form id="formCadastro">
+            <?php if (!empty($mensagem)): ?>
+                <div class="mensagem <?php echo $tipo_mensagem; ?>">
+                    <?php echo htmlspecialchars($mensagem); ?>
+                </div>
+            <?php endif; ?>
+
+            <form method="POST">
+                <?php if ($editando): ?>
+                    <input type="hidden" name="id_edicao" value="<?php echo $estacao['id']; ?>">
+                <?php endif; ?>
+
                 <!-- Seção: Informações Básicas -->
                 <div class="form-section">
                     <h2>📋 Informações Básicas</h2>
 
                     <div class="form-group">
-                        <label for="nome">Nome da Estação *</label>
-                        <input type="text" id="nome" name="nome" placeholder="Ex: Estação Central" required>
+                        <label for="nome">Nome da Estação <span class="required">*</span></label>
+                        <input type="text" id="nome" name="nome" placeholder="Ex: Estação Central"
+                            value="<?php echo $estacao['nome'] ?? ''; ?>" required>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="codigo">Código da Estação *</label>
-                            <input type="text" id="codigo" name="codigo" placeholder="Ex: EST-001" required>
+                            <label for="codigo">Código da Estação <span class="required">*</span></label>
+                            <input type="text" id="codigo" name="codigo" placeholder="Ex: EST-001"
+                                value="<?php echo $estacao['codigo'] ?? ''; ?>" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="status">Status *</label>
+                            <label for="status">Status <span class="required">*</span></label>
                             <select id="status" name="status" required>
-                                <option value="ativa">Ativa</option>
-                                <option value="inativa">Inativa</option>
-                                <option value="manutencao">Em Manutenção</option>
+                                <option value="ativa" <?php echo ($estacao['status'] ?? 'ativa') === 'ativa' ? 'selected' : ''; ?>>Ativa</option>
+                                <option value="inativa" <?php echo ($estacao['status'] ?? '') === 'inativa' ? 'selected' : ''; ?>>Inativa</option>
+                                <option value="manutencao" <?php echo ($estacao['status'] ?? '') === 'manutencao' ? 'selected' : ''; ?>>Em Manutenção</option>
                             </select>
                         </div>
                     </div>
@@ -394,59 +563,90 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="cidade">Cidade *</label>
-                            <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo" required>
+                            <label for="cidade">Cidade <span class="required">*</span></label>
+                            <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo"
+                                value="<?php echo $estacao['cidade'] ?? ''; ?>" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="estado">Estado *</label>
+                            <label for="estado">Estado <span class="required">*</span></label>
                             <select id="estado" name="estado" required>
                                 <option value="">Selecione...</option>
-                                <option value="AC">Acre</option>
-                                <option value="AL">Alagoas</option>
-                                <option value="AP">Amapá</option>
-                                <option value="AM">Amazonas</option>
-                                <option value="BA">Bahia</option>
-                                <option value="CE">Ceará</option>
-                                <option value="DF">Distrito Federal</option>
-                                <option value="ES">Espírito Santo</option>
-                                <option value="GO">Goiás</option>
-                                <option value="MA">Maranhão</option>
-                                <option value="MT">Mato Grosso</option>
-                                <option value="MS">Mato Grosso do Sul</option>
-                                <option value="MG">Minas Gerais</option>
-                                <option value="PA">Pará</option>
-                                <option value="PB">Paraíba</option>
-                                <option value="PR">Paraná</option>
-                                <option value="PE">Pernambuco</option>
-                                <option value="PI">Piauí</option>
-                                <option value="RJ">Rio de Janeiro</option>
-                                <option value="RN">Rio Grande do Norte</option>
-                                <option value="RS">Rio Grande do Sul</option>
-                                <option value="RO">Rondônia</option>
-                                <option value="RR">Roraima</option>
-                                <option value="SC">Santa Catarina</option>
-                                <option value="SP">São Paulo</option>
-                                <option value="SE">Sergipe</option>
-                                <option value="TO">Tocantins</option>
+                                <option value="AC" <?php echo ($estacao['estado'] ?? '') === 'AC' ? 'selected' : ''; ?>>
+                                    Acre</option>
+                                <option value="AL" <?php echo ($estacao['estado'] ?? '') === 'AL' ? 'selected' : ''; ?>>
+                                    Alagoas</option>
+                                <option value="AP" <?php echo ($estacao['estado'] ?? '') === 'AP' ? 'selected' : ''; ?>>
+                                    Amapá</option>
+                                <option value="AM" <?php echo ($estacao['estado'] ?? '') === 'AM' ? 'selected' : ''; ?>>
+                                    Amazonas</option>
+                                <option value="BA" <?php echo ($estacao['estado'] ?? '') === 'BA' ? 'selected' : ''; ?>>
+                                    Bahia</option>
+                                <option value="CE" <?php echo ($estacao['estado'] ?? '') === 'CE' ? 'selected' : ''; ?>>
+                                    Ceará</option>
+                                <option value="DF" <?php echo ($estacao['estado'] ?? '') === 'DF' ? 'selected' : ''; ?>>
+                                    Distrito Federal</option>
+                                <option value="ES" <?php echo ($estacao['estado'] ?? '') === 'ES' ? 'selected' : ''; ?>>
+                                    Espírito Santo</option>
+                                <option value="GO" <?php echo ($estacao['estado'] ?? '') === 'GO' ? 'selected' : ''; ?>>
+                                    Goiás</option>
+                                <option value="MA" <?php echo ($estacao['estado'] ?? '') === 'MA' ? 'selected' : ''; ?>>
+                                    Maranhão</option>
+                                <option value="MT" <?php echo ($estacao['estado'] ?? '') === 'MT' ? 'selected' : ''; ?>>
+                                    Mato Grosso</option>
+                                <option value="MS" <?php echo ($estacao['estado'] ?? '') === 'MS' ? 'selected' : ''; ?>>
+                                    Mato Grosso do Sul</option>
+                                <option value="MG" <?php echo ($estacao['estado'] ?? '') === 'MG' ? 'selected' : ''; ?>>
+                                    Minas Gerais</option>
+                                <option value="PA" <?php echo ($estacao['estado'] ?? '') === 'PA' ? 'selected' : ''; ?>>
+                                    Pará</option>
+                                <option value="PB" <?php echo ($estacao['estado'] ?? '') === 'PB' ? 'selected' : ''; ?>>
+                                    Paraíba</option>
+                                <option value="PR" <?php echo ($estacao['estado'] ?? '') === 'PR' ? 'selected' : ''; ?>>
+                                    Paraná</option>
+                                <option value="PE" <?php echo ($estacao['estado'] ?? '') === 'PE' ? 'selected' : ''; ?>>
+                                    Pernambuco</option>
+                                <option value="PI" <?php echo ($estacao['estado'] ?? '') === 'PI' ? 'selected' : ''; ?>>
+                                    Piauí</option>
+                                <option value="RJ" <?php echo ($estacao['estado'] ?? '') === 'RJ' ? 'selected' : ''; ?>>
+                                    Rio de Janeiro</option>
+                                <option value="RN" <?php echo ($estacao['estado'] ?? '') === 'RN' ? 'selected' : ''; ?>>
+                                    Rio Grande do Norte</option>
+                                <option value="RS" <?php echo ($estacao['estado'] ?? '') === 'RS' ? 'selected' : ''; ?>>
+                                    Rio Grande do Sul</option>
+                                <option value="RO" <?php echo ($estacao['estado'] ?? '') === 'RO' ? 'selected' : ''; ?>>
+                                    Rondônia</option>
+                                <option value="RR" <?php echo ($estacao['estado'] ?? '') === 'RR' ? 'selected' : ''; ?>>
+                                    Roraima</option>
+                                <option value="SC" <?php echo ($estacao['estado'] ?? '') === 'SC' ? 'selected' : ''; ?>>
+                                    Santa Catarina</option>
+                                <option value="SP" <?php echo ($estacao['estado'] ?? '') === 'SP' ? 'selected' : ''; ?>>
+                                    São Paulo</option>
+                                <option value="SE" <?php echo ($estacao['estado'] ?? '') === 'SE' ? 'selected' : ''; ?>>
+                                    Sergipe</option>
+                                <option value="TO" <?php echo ($estacao['estado'] ?? '') === 'TO' ? 'selected' : ''; ?>>
+                                    Tocantins</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="endereco">Endereço Completo *</label>
-                        <input type="text" id="endereco" name="endereco" placeholder="Ex: Praça da Sé, Centro" required>
+                        <label for="endereco">Endereço Completo <span class="required">*</span></label>
+                        <input type="text" id="endereco" name="endereco" placeholder="Ex: Praça da Sé, Centro"
+                            value="<?php echo $estacao['endereco'] ?? ''; ?>" required>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="latitude">Latitude</label>
-                            <input type="text" id="latitude" name="latitude" placeholder="Ex: -23.5505">
+                            <input type="number" step="0.0000001" id="latitude" name="latitude"
+                                placeholder="Ex: -23.5505" value="<?php echo $estacao['latitude'] ?? ''; ?>">
                         </div>
 
                         <div class="form-group">
                             <label for="longitude">Longitude</label>
-                            <input type="text" id="longitude" name="longitude" placeholder="Ex: -46.6333">
+                            <input type="number" step="0.0000001" id="longitude" name="longitude"
+                                placeholder="Ex: -46.6333" value="<?php echo $estacao['longitude'] ?? ''; ?>">
                         </div>
                     </div>
                 </div>
@@ -458,12 +658,14 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="telefone">Telefone</label>
-                            <input type="tel" id="telefone" name="telefone" placeholder="(11) 3000-0000">
+                            <input type="tel" id="telefone" name="telefone" placeholder="(11) 3000-0000"
+                                value="<?php echo $estacao['telefone'] ?? ''; ?>">
                         </div>
 
                         <div class="form-group">
                             <label for="email">E-mail</label>
-                            <input type="email" id="email" name="email" placeholder="estacao@exemplo.com">
+                            <input type="email" id="email" name="email" placeholder="estacao@exemplo.com"
+                                value="<?php echo $estacao['email'] ?? ''; ?>">
                         </div>
                     </div>
                 </div>
@@ -474,22 +676,21 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="capacidade">Capacidade de Pessoas *</label>
+                            <label for="capacidade">Capacidade de Pessoas <span class="required">*</span></label>
                             <input type="number" id="capacidade" name="capacidade" placeholder="Ex: 5000" min="0"
-                                required>
+                                value="<?php echo $estacao['capacidade'] ?? ''; ?>" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="plataformas">Número de Plataformas *</label>
+                            <label for="plataformas">Número de Plataformas <span class="required">*</span></label>
                             <input type="number" id="plataformas" name="plataformas" placeholder="Ex: 8" min="1"
-                                required>
+                                value="<?php echo $estacao['num_plataformas'] ?? ''; ?>" required>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="acessibilidade">
-                            <input type="checkbox" id="acessibilidade" name="acessibilidade"
-                                style="width: auto; margin-right: 8px;">
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="acessibilidade" name="acessibilidade" <?php echo ($estacao['acessibilidade'] ?? false) ? 'checked' : ''; ?>>
+                        <label for="acessibilidade" style="margin: 0;">
                             Possui acessibilidade para pessoas com deficiência
                         </label>
                     </div>
@@ -502,56 +703,25 @@
                     <div class="form-group">
                         <label for="observacoes">Observações/Notas</label>
                         <textarea id="observacoes" name="observacoes"
-                            placeholder="Informações adicionais sobre a estação..."></textarea>
+                            placeholder="Informações adicionais sobre a estação..."><?php echo $estacao['observacoes'] ?? ''; ?></textarea>
                     </div>
                 </div>
 
                 <div class="btn-container">
-                    <button type="button" class="btn btn-cancelar" onclick="window.location.href='estacoes.html'">✖️
-                        Cancelar</button>
-                    <button type="submit" class="btn btn-salvar">✔️ Cadastrar Estação</button>
+                    <button type="button" class="btn btn-cancelar"
+                        onclick="window.location.href='gerenciarestações.php'">✖️ Cancelar</button>
+                    <button type="submit" class="btn btn-salvar">✔️ <?php echo $editando ? 'Atualizar' : 'Cadastrar'; ?>
+                        Estação</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        document.getElementById('formCadastro').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Coletar dados do formulário
-            const dadosEstacao = {
-                nome: document.getElementById('nome').value,
-                codigo: document.getElementById('codigo').value,
-                status: document.getElementById('status').value,
-                cidade: document.getElementById('cidade').value,
-                estado: document.getElementById('estado').value,
-                endereco: document.getElementById('endereco').value,
-                latitude: document.getElementById('latitude').value,
-                longitude: document.getElementById('longitude').value,
-                telefone: document.getElementById('telefone').value,
-                email: document.getElementById('email').value,
-                capacidade: document.getElementById('capacidade').value,
-                plataformas: document.getElementById('plataformas').value,
-                acessibilidade: document.getElementById('acessibilidade').checked,
-                observacoes: document.getElementById('observacoes').value
-            };
-
-            // Aqui você faria a requisição POST para o backend
-            console.log('Dados da estação:', dadosEstacao);
-
-            // Simulação de salvamento
-            alert('✅ Estação cadastrada com sucesso!');
-
-            // Redirecionar para a lista de estações
-            window.location.href = 'gerenciarestações.php';
-        });
-
         // Auto-gerar código da estação
         document.getElementById('nome').addEventListener('blur', function (e) {
             const codigoInput = document.getElementById('codigo');
             if (!codigoInput.value) {
-                const nome = e.target.value.toUpperCase().substring(0, 3);
                 const numero = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
                 codigoInput.value = `EST-${numero}`;
             }
