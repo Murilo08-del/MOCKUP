@@ -47,6 +47,7 @@ $sensores_tempo_real = $conexao->query("SELECT tipo, ultima_leitura, unidade_med
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -350,28 +351,29 @@ $sensores_tempo_real = $conexao->query("SELECT tipo, ultima_leitura, unidade_med
 <body>
     <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar">
+
         <div class="sidebar-header">
             <h2>🚆 Sistema Ferroviário</h2>
             <p>Painel Administrativo</p>
         </div>
         <ul class="sidebar-menu">
-            <li><a href="dashboard.php" class="active"><span class="icon">📊</span> Dashboard</a></li>
+            <li><a href="dashboard.php"><span class="icon">📊</span> Dashboard</a></li>
             <li><a href="gerenciarsensores.php"><span class="icon">🚂</span> Gerenciar Sensores</a></li>
             <li><a href="cadastrarsensores.php"><span class="icon">🛤️</span> Cadastrar Sensores</a></li>
             <li><a href="gerenciarestações.php"><span class="icon">🚉</span> Gerenciar Estações</a></li>
             <li><a href="cadastrarestações.php"><span class="icon">🗺️</span> Cadastrar Estações</a></li>
-            <li><a href="gerenciartrens.php"><span class="icon">🚂</span> Gerenciar Trens</a></li>
+            <li><a href="gerenciartrens.php" class="active"><span class="icon">🚂</span> Gerenciar Trens</a></li>
             <li><a href="cadastrartrem.php"><span class="icon">➕</span> Cadastrar Trem</a></li>
             <li><a href="alertas.php"><span class="icon">🚨</span> Alertas</a></li>
             <li><a href="gerenciaritinerários.php"><span class="icon">🔡</span> Gerenciar Itinerários</a></li>
-            <li><a href="cadastroitinerário.php"><span class="icon">🔧</span> Cadastrar Itinerários</a></li>
-            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Geração de Relatórios</a></li>
-            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre o Sistema</a></li>
-            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas com Mapa Interativo</a></li>
+            <li><a href="geraçãorelátorios.php"><span class="icon">📄</span> Relatórios</a></li>
+            <li><a href="sobre.php"><span class="icon">ℹ️</span> Sobre</a></li>
+            <li><a href="rotas.php"><span class="icon">🗺️</span> Rotas</a></li>
             <li><a href="../php/login.php"><span class="icon">👤</span> Sair</a></li>
         </ul>
     </aside>
+
 
     <main class="main-content">
         <div class="container">
@@ -424,36 +426,37 @@ $sensores_tempo_real = $conexao->query("SELECT tipo, ultima_leitura, unidade_med
                 <h2>🔡 Monitoramento de Sensores em Tempo Real</h2>
                 <div class="sensor-grid">
                     <?php if ($sensores_tempo_real && $sensores_tempo_real->num_rows > 0): ?>
-                            <?php while ($sensor = $sensores_tempo_real->fetch_assoc()): ?>
-                                    <div class="sensor-card">
-                                        <h4><?php echo ucfirst($sensor['tipo']); ?></h4>
-                                        <div class="sensor-value">
-                                            <?php echo number_format($sensor['ultima_leitura'], 1); ?>        <?php echo $sensor['unidade_medida']; ?>
-                                        </div>
-                                        <div class="sensor-status">● <?php echo ucfirst($sensor['status']); ?></div>
-                                    </div>
-                            <?php endwhile; ?>
+                        <?php while ($sensor = $sensores_tempo_real->fetch_assoc()): ?>
+                            <div class="sensor-card">
+                                <h4><?php echo ucfirst($sensor['tipo']); ?></h4>
+                                <div class="sensor-value">
+                                    <?php echo number_format($sensor['ultima_leitura'], 1); ?>
+                                    <?php echo $sensor['unidade_medida']; ?>
+                                </div>
+                                <div class="sensor-status">● <?php echo ucfirst($sensor['status']); ?></div>
+                            </div>
+                        <?php endwhile; ?>
                     <?php else: ?>
-                            <div class="sensor-card">
-                                <h4>Temperatura</h4>
-                                <div class="sensor-value" id="temperatura">--</div>
-                                <div class="sensor-status">● Aguardando dados</div>
-                            </div>
-                            <div class="sensor-card">
-                                <h4>Umidade</h4>
-                                <div class="sensor-value" id="umidade">--</div>
-                                <div class="sensor-status">● Aguardando dados</div>
-                            </div>
-                            <div class="sensor-card">
-                                <h4>Luminosidade</h4>
-                                <div class="sensor-value" id="luminosidade">--</div>
-                                <div class="sensor-status">● Aguardando dados</div>
-                            </div>
-                            <div class="sensor-card">
-                                <h4>Presença</h4>
-                                <div class="sensor-value" id="presenca">--</div>
-                                <div class="sensor-status">● Aguardando dados</div>
-                            </div>
+                        <div class="sensor-card">
+                            <h4>Temperatura</h4>
+                            <div class="sensor-value" id="temperatura">--</div>
+                            <div class="sensor-status">● Aguardando dados</div>
+                        </div>
+                        <div class="sensor-card">
+                            <h4>Umidade</h4>
+                            <div class="sensor-value" id="umidade">--</div>
+                            <div class="sensor-status">● Aguardando dados</div>
+                        </div>
+                        <div class="sensor-card">
+                            <h4>Luminosidade</h4>
+                            <div class="sensor-value" id="luminosidade">--</div>
+                            <div class="sensor-status">● Aguardando dados</div>
+                        </div>
+                        <div class="sensor-card">
+                            <h4>Presença</h4>
+                            <div class="sensor-value" id="presenca">--</div>
+                            <div class="sensor-status">● Aguardando dados</div>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -462,29 +465,29 @@ $sensores_tempo_real = $conexao->query("SELECT tipo, ultima_leitura, unidade_med
                 <h2>🚨 Alertas Recentes</h2>
 
                 <?php if ($alertas_recentes && $alertas_recentes->num_rows > 0): ?>
-                        <?php while ($alerta = $alertas_recentes->fetch_assoc()): ?>
-                                <div class="alert-item <?php echo $alerta['tipo']; ?>">
-                                    <div>
-                                        <strong><?php echo htmlspecialchars($alerta['titulo']); ?></strong>
-                                        <p><?php echo htmlspecialchars($alerta['descricao']); ?></p>
-                                    </div>
-                                    <span class="alert-time">
-                                        <?php
-                                        $diff = time() - strtotime($alerta['data_hora']);
-                                        if ($diff < 60)
-                                            echo "há " . $diff . " segundos";
-                                        elseif ($diff < 3600)
-                                            echo "há " . floor($diff / 60) . " minutos";
-                                        else
-                                            echo "há " . floor($diff / 3600) . " horas";
-                                        ?>
-                                    </span>
-                                </div>
-                        <?php endwhile; ?>
-                <?php else: ?>
-                        <div style="text-align: center; padding: 40px; color: #999;">
-                            <p>✅ Nenhum alerta pendente no momento</p>
+                    <?php while ($alerta = $alertas_recentes->fetch_assoc()): ?>
+                        <div class="alert-item <?php echo $alerta['tipo']; ?>">
+                            <div>
+                                <strong><?php echo htmlspecialchars($alerta['titulo']); ?></strong>
+                                <p><?php echo htmlspecialchars($alerta['descricao']); ?></p>
+                            </div>
+                            <span class="alert-time">
+                                <?php
+                                $diff = time() - strtotime($alerta['data_hora']);
+                                if ($diff < 60)
+                                    echo "há " . $diff . " segundos";
+                                elseif ($diff < 3600)
+                                    echo "há " . floor($diff / 60) . " minutos";
+                                else
+                                    echo "há " . floor($diff / 3600) . " horas";
+                                ?>
+                            </span>
                         </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <div style="text-align: center; padding: 40px; color: #999;">
+                        <p>✅ Nenhum alerta pendente no momento</p>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
@@ -523,7 +526,7 @@ $sensores_tempo_real = $conexao->query("SELECT tipo, ultima_leitura, unidade_med
             stats.forEach(stat => {
                 const text = stat.textContent.trim();
                 if (text === '' || isNaN(parseInt(text))) return;
-                
+
                 const finalValue = parseInt(text);
                 let currentValue = 0;
                 const increment = finalValue / 50;
@@ -543,9 +546,10 @@ $sensores_tempo_real = $conexao->query("SELECT tipo, ultima_leitura, unidade_med
         window.addEventListener('load', animarNumeros);
 
         // Auto-atualizar a cada 30 segundos
-        setTimeout(function() {
+        setTimeout(function () {
             location.reload();
         }, 30000);
     </script>
 </body>
+
 </html>
