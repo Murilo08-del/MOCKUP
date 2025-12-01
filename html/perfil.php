@@ -397,7 +397,6 @@ $stmt->close();
                     <?php echo strtoupper(substr($usuario['nome'], 0, 1)); ?>
                 </div>
                 <h2><?php echo htmlspecialchars($usuario['nome']); ?></h2>
-                <!-- campo 'cargo' não exibido nesta página -->
 
                 <div class="profile-stats">
                     <div class="stat-box">
@@ -428,10 +427,8 @@ $stmt->close();
                                     value="<?php echo htmlspecialchars($usuario['email']); ?>" required>
                             </div>
 
-                            <!-- campo 'telefone' não exibido neste formulário -->
                         </div>
 
-                        <!-- campo 'cargo' não exibido neste formulário -->
 
                         <button type="submit" name="atualizar_perfil" class="btn btn-primary">💾 Salvar
                             Alterações</button>

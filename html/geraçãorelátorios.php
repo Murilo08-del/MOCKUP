@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geração de Relatórios - Sistema Ferroviário</title>
-    <!-- ==================== SIDEBAR - COPIAR EM TODAS AS PÁGINAS ==================== -->
     <style>
         .sidebar {
             width: 250px;
@@ -173,10 +172,7 @@
             });
         });
     </script>
-    <!-- ==================== FIM DA SIDEBAR ==================== -->
-
-
-
+ 
     <style>
         * {
             margin: 0;
