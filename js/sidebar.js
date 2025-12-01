@@ -23,13 +23,13 @@
             if (link.getAttribute('href') === currentPage) {
                 link.classList.add('active');
             }
-            // fechar sidebar ao clicar no link (mobile)
+            // fechar sidebar ao clicar no link (celular)
             link.addEventListener('click', function () {
                 if (window.innerWidth <= 768) closeSidebar();
             });
         });
 
-        // fechar ao clicar fora (mobile)
+        // fechar ao clicar fora (celular)
         document.addEventListener('click', function (event) {
             const sidebar = document.getElementById('sidebar');
             const isToggle = event.target.closest('.menu-toggle');

@@ -543,7 +543,7 @@ body.dark-mode .password input::placeholder {
     color: #666;
 }
 
-/* ===== TOGGLE DARK MODE ===== */
+/* ===== ALTERNAR MODO ESCURO ===== */
 .dark-mode-toggle {
     position: fixed;
     top: 20px;

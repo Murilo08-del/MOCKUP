@@ -68,7 +68,7 @@
             text-align: center;
         }
 
-        /* Menu (mobile) */
+        /* Menu (celular) */
         .menu-toggle {
             display: none;
             position: fixed;
@@ -141,7 +141,7 @@
 
 
 
-    <!-- Menu (mobile) -->
+    <!-- Menu (celular) -->
     <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
     <!-- JAVASCRIPT DA SIDEBAR -->
@@ -150,7 +150,7 @@
             document.getElementById('sidebar').classList.toggle('active');
         }
 
-        // Fechar sidebar ao clicar fora (mobile)
+        // Fechar sidebar ao clicar fora (celular)
         document.addEventListener('click', function (event) {
             const sidebar = document.getElementById('sidebar');
             const toggle = document.querySelector('.menu-toggle');

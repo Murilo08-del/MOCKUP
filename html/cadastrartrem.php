@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                        proxima_manutencao=?, km_rodados=?, status=?, observacoes=? 
                                        WHERE id=?");
             $stmt->bind_param(
-                // Correção: incluiu o tipo 'i' para o parâmetro id no bind_param (corresponde ao WHERE id=?)
+                // Ajuste: inclui tipo 'i' para o parâmetro id no bind_param
                 "sssssiddddssdssi",
                 $nome,
                 $codigo,

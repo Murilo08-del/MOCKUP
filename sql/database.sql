@@ -1,7 +1,5 @@
--- ==================================================
--- SISTEMA FERROVIÁRIO MINITRILHOS
--- Script de Criação do Banco de Dados MySQL
--- ==================================================
+-- Sistema Ferroviário — script de criação do banco MySQL
+-- Estrutura das tabelas e dados iniciais
 
 CREATE DATABASE IF NOT EXISTS Ferrovia 
 CHARACTER SET utf8mb4 
@@ -9,17 +7,13 @@ COLLATE utf8mb4_unicode_ci;
 
 USE Ferrovia;
 
--- ==================================================
--- TABELA: usuarios
--- Armazena dados de login e informações dos usuários
--- ==================================================
+-- Tabela: usuarios — dados de login e perfil
 CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
     tipo_usuario ENUM('admin', 'funcionario', 'comum') DEFAULT 'comum',
-    telefone VARCHAR(20),
     foto_perfil VARCHAR(255),
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ultimo_acesso TIMESTAMP NULL,
@@ -28,10 +22,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     INDEX idx_tipo (tipo_usuario)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ==================================================
--- TABELA: estacoes
--- Dados das estações ferroviárias
--- ==================================================
+-- Tabela: estacoes — informações das estações
 CREATE TABLE IF NOT EXISTS estacoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     codigo VARCHAR(20) NOT NULL UNIQUE,
@@ -54,10 +45,7 @@ CREATE TABLE IF NOT EXISTS estacoes (
     INDEX idx_cidade (cidade)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ==================================================
--- TABELA: trens
--- Cadastro da frota de trens
--- ==================================================
+-- Tabela: trens — cadastro da frota
 CREATE TABLE IF NOT EXISTS trens (
     id INT AUTO_INCREMENT PRIMARY KEY,
     codigo VARCHAR(20) NOT NULL UNIQUE,
@@ -81,10 +69,7 @@ CREATE TABLE IF NOT EXISTS trens (
     INDEX idx_tipo (tipo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ==================================================
--- TABELA: sensores
--- Dispositivos IoT instalados nos trens e estações
--- ==================================================
+-- Tabela: sensores — dispositivos IoT (trens/estações)
 CREATE TABLE IF NOT EXISTS sensores (
     id INT AUTO_INCREMENT PRIMARY KEY,
     codigo VARCHAR(20) NOT NULL UNIQUE,
@@ -113,10 +98,7 @@ CREATE TABLE IF NOT EXISTS sensores (
     INDEX idx_estacao (estacao_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ==================================================
--- TABELA: rotas
--- Rotas individuais entre estações
--- ==================================================
+-- Tabela: rotas — trechos entre estações
 CREATE TABLE IF NOT EXISTS rotas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     codigo VARCHAR(20) NOT NULL UNIQUE,
@@ -137,10 +119,7 @@ CREATE TABLE IF NOT EXISTS rotas (
     INDEX idx_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ==================================================
--- TABELA: itinerarios
--- Viagens compostas por múltiplas rotas
--- ==================================================
+-- Tabela: itinerarios — viagens (sequência de rotas)
 CREATE TABLE IF NOT EXISTS itinerarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     codigo VARCHAR(20) NOT NULL UNIQUE,
@@ -156,10 +135,7 @@ CREATE TABLE IF NOT EXISTS itinerarios (
     INDEX idx_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ==================================================
--- TABELA: itinerarios_rotas
--- Relacionamento entre itinerários e suas rotas
--- ==================================================
+-- Tabela: itinerarios_rotas — associação itinerários ↔ rotas
 CREATE TABLE IF NOT EXISTS itinerarios_rotas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     itinerario_id INT NOT NULL,
@@ -172,10 +148,7 @@ CREATE TABLE IF NOT EXISTS itinerarios_rotas (
     INDEX idx_rota (rota_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ==================================================
--- TABELA: manutencoes
--- Histórico de manutenções dos trens
--- ==================================================
+-- Tabela: manutencoes — histórico de manutenção
 CREATE TABLE IF NOT EXISTS manutencoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     trem_id INT NOT NULL,
@@ -200,10 +173,7 @@ CREATE TABLE IF NOT EXISTS manutencoes (
     INDEX idx_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ==================================================
--- TABELA: alertas
--- Alertas gerados pelos sensores
--- ==================================================
+-- Tabela: alertas — eventos gerados pelos sensores
 CREATE TABLE IF NOT EXISTS alertas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     sensor_id INT NOT NULL,
@@ -224,10 +194,7 @@ CREATE TABLE IF NOT EXISTS alertas (
     INDEX idx_data (data_hora)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ==================================================
--- TABELA: notificacoes
--- Notificações gerais do sistema
--- ==================================================
+-- Tabela: notificacoes — avisos/alertas para usuários
 CREATE TABLE IF NOT EXISTS notificacoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT,
@@ -244,10 +211,7 @@ CREATE TABLE IF NOT EXISTS notificacoes (
     INDEX idx_data (data_criacao)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ==================================================
--- TABELA: chamados_manutencao
--- Chamados abertos por usuários
--- ==================================================
+-- Tabela: chamados_manutencao — chamados de manutenção
 CREATE TABLE IF NOT EXISTS chamados_manutencao (
     id INT AUTO_INCREMENT PRIMARY KEY,
     protocolo VARCHAR(20) NOT NULL UNIQUE,
@@ -279,10 +243,7 @@ CREATE TABLE IF NOT EXISTS chamados_manutencao (
     INDEX idx_data (data_abertura)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ==================================================
--- TABELA: leituras_sensores
--- Histórico de leituras dos sensores
--- ==================================================
+-- Tabela: leituras_sensores — histórico de leituras
 CREATE TABLE IF NOT EXISTS leituras_sensores (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     sensor_id INT NOT NULL,
@@ -294,9 +255,7 @@ CREATE TABLE IF NOT EXISTS leituras_sensores (
     INDEX idx_data (data_hora)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ==================================================
--- INSERÇÃO DE DADOS INICIAIS
--- ==================================================
+-- Inserção de dados de exemplo
 
 -- Estações exemplo
 INSERT INTO estacoes (codigo, nome, cidade, estado, endereco, latitude, longitude, capacidade, num_plataformas, acessibilidade, status) VALUES
@@ -313,6 +272,4 @@ INSERT INTO trens (codigo, nome, tipo, modelo, capacidade_passageiros, velocidad
 ('TRM-005', 'Metro Norte', 'metropolitano', 'METRO-400', 600, 80.00, 156890.00, '2024-11-10', 'operando'),
 ('TRM-012', 'Luxo Internacional', 'luxo', 'LUXE-200', 200, 150.00, 87450.00, '2024-11-22', 'manutencao');
 
--- ==================================================
--- FIM DO SCRIPT
--- ==================================================
+-- Fim do script

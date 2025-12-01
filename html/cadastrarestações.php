@@ -279,7 +279,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             document.getElementById('sidebar').classList.toggle('active');
         }
 
-        // Fechar sidebar ao clicar fora (mobile)
+        // Fechar sidebar ao clicar fora (celular)
         document.addEventListener('click', function (event) {
             const sidebar = document.getElementById('sidebar');
             const toggle = document.querySelector('.menu-toggle');
