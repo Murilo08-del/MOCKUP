@@ -490,23 +490,30 @@ $resultado = $conexao->query($sql);
 
                             <h3><?php echo htmlspecialchars($sensor['nome']); ?></h3>
 
+
                             <div class="sensor-info">
-                                <p><strong>Código:</strong> <?php echo htmlspecialchars($sensor['codigo']); ?></p>
-                                <p><strong>Tipo:</strong> <?php echo ucfirst($sensor['tipo']); ?></p>
-                                <p><strong>Local:</strong> <?php echo htmlspecialchars($sensor['localizacao']); ?></p>
-                                <?php if ($sensor['trem_nome']): ?>
+                                <p><strong>Código:</strong>
+                                    <?php echo isset($sensor['codigo']) ? htmlspecialchars($sensor['codigo']) : 'N/A'; ?></p>
+                                <p><strong>Tipo:</strong>
+                                    <?php echo isset($sensor['tipo']) ? ucfirst($sensor['tipo']) : 'N/A'; ?></p>
+                                <p><strong>Local:</strong>
+                                    <?php echo isset($sensor['localizacao']) ? htmlspecialchars($sensor['localizacao']) : 'N/A'; ?>
+                                </p>
+                                <?php if (!empty($sensor['trem_nome'])): ?>
                                     <p><strong>Trem:</strong> <?php echo htmlspecialchars($sensor['trem_nome']); ?></p>
                                 <?php endif; ?>
-                                <?php if ($sensor['estacao_nome']): ?>
+                                <?php if (!empty($sensor['estacao_nome'])): ?>
                                     <p><strong>Estação:</strong> <?php echo htmlspecialchars($sensor['estacao_nome']); ?></p>
                                 <?php endif; ?>
-                                <?php if ($sensor['ultima_leitura']): ?>
+                                <?php if (isset($sensor['ultima_leitura']) && $sensor['ultima_leitura'] !== null): ?>
                                     <p><strong>Última Leitura:</strong>
                                         <?php echo number_format($sensor['ultima_leitura'], 2); ?>
-                                        <?php echo htmlspecialchars($sensor['unidade_medida'] ?? ''); ?>
+                                        <?php echo isset($sensor['unidade_medida']) ? htmlspecialchars($sensor['unidade_medida']) : ''; ?>
                                     </p>
                                 <?php endif; ?>
-                                <p><strong>Tópico MQTT:</strong> <?php echo htmlspecialchars($sensor['topico_mqtt']); ?></p>
+                                <p><strong>Tópico MQTT:</strong>
+                                    <?php echo isset($sensor['topico_mqtt']) ? htmlspecialchars($sensor['topico_mqtt']) : 'N/A'; ?>
+                                </p>
                             </div>
 
                             <div class="sensor-actions">

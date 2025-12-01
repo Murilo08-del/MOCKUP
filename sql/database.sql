@@ -1,5 +1,4 @@
--- Sistema Ferroviário — script de criação do banco MySQL
--- Estrutura das tabelas e dados iniciais
+
 
 CREATE DATABASE IF NOT EXISTS Ferrovia 
 CHARACTER SET utf8mb4 
@@ -272,4 +271,116 @@ INSERT INTO trens (codigo, nome, tipo, modelo, capacidade_passageiros, velocidad
 ('TRM-005', 'Metro Norte', 'metropolitano', 'METRO-400', 600, 80.00, 156890.00, '2024-11-10', 'operando'),
 ('TRM-012', 'Luxo Internacional', 'luxo', 'LUXE-200', 200, 150.00, 87450.00, '2024-11-22', 'manutencao');
 
--- Fim do script
+-- Adicionar a coluna data_ultima_leitura na tabela sensores
+ALTER TABLE sensores 
+ADD COLUMN data_ultima_leitura DATETIME DEFAULT NULL AFTER ultima_leitura;
+
+-- Atualizar com a data atual para os registros existentes que têm leitura
+UPDATE sensores 
+SET data_ultima_leitura = NOW() 
+WHERE ultima_leitura IS NOT NULL;
+
+
+-- Atualizar com a data atual para os registros existentes que têm leitura
+UPDATE sensores 
+SET data_ultima_leitura = NOW() 
+WHERE ultima_leitura IS NOT NULL;
+
+-- Atualizar com a data atual para os registros existentes que têm leitura
+UPDATE sensores 
+SET data_ultima_leitura = NOW() 
+WHERE ultima_leitura IS NOT NULL;
+
+não sei oq tá certo ou que tá errado aqui 
+
+-- ==================== TABELA SENSORES ====================
+-- Adicionar todas as colunas necessárias
+ALTER TABLE sensores 
+ADD COLUMN IF NOT EXISTS codigo VARCHAR(50) UNIQUE,
+ADD COLUMN IF NOT EXISTS nome VARCHAR(255),
+ADD COLUMN IF NOT EXISTS tipo VARCHAR(50),
+ADD COLUMN IF NOT EXISTS modelo VARCHAR(100),
+ADD COLUMN IF NOT EXISTS localizacao VARCHAR(255),
+ADD COLUMN IF NOT EXISTS topico_mqtt VARCHAR(255),
+ADD COLUMN IF NOT EXISTS unidade_medida VARCHAR(20),
+ADD COLUMN IF NOT EXISTS valor_minimo DECIMAL(10,2),
+ADD COLUMN IF NOT EXISTS valor_maximo DECIMAL(10,2),
+ADD COLUMN IF NOT EXISTS status VARCHAR(50) DEFAULT 'offline',
+ADD COLUMN IF NOT EXISTS ultima_leitura DECIMAL(10,2),
+ADD COLUMN IF NOT EXISTS data_ultima_leitura DATETIME,
+ADD COLUMN IF NOT EXISTS trem_id INT,
+ADD COLUMN IF NOT EXISTS estacao_id INT,
+ADD COLUMN IF NOT EXISTS descricao TEXT,
+ADD COLUMN IF NOT EXISTS data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP;
+
+-- ==================== TABELA TRENS ====================
+ALTER TABLE trens
+ADD COLUMN IF NOT EXISTS codigo VARCHAR(50) UNIQUE,
+ADD COLUMN IF NOT EXISTS nome VARCHAR(255),
+ADD COLUMN IF NOT EXISTS status VARCHAR(50) DEFAULT 'parado';
+
+-- ==================== TABELA ESTACOES ====================
+ALTER TABLE estacoes
+ADD COLUMN IF NOT EXISTS codigo VARCHAR(50) UNIQUE,
+ADD COLUMN IF NOT EXISTS nome VARCHAR(255),
+ADD COLUMN IF NOT EXISTS status VARCHAR(50) DEFAULT 'ativa';
+
+-- ==================== TABELA ROTAS ====================
+ALTER TABLE rotas
+ADD COLUMN IF NOT EXISTS status VARCHAR(50) DEFAULT 'ativa';
+
+-- ==================== TABELA ALERTAS ====================
+ALTER TABLE alertas
+ADD COLUMN IF NOT EXISTS titulo VARCHAR(255),
+ADD COLUMN IF NOT EXISTS descricao TEXT,
+ADD COLUMN IF NOT EXISTS tipo VARCHAR(50),
+ADD COLUMN IF NOT EXISTS status VARCHAR(50) DEFAULT 'pendente',
+ADD COLUMN IF NOT EXISTS sensor_id INT,
+ADD COLUMN IF NOT EXISTS data_hora DATETIME DEFAULT CURRENT_TIMESTAMP;
+
+-- ==================== TABELA MANUTENCOES ====================
+ALTER TABLE manutencoes
+ADD COLUMN IF NOT EXISTS status VARCHAR(50) DEFAULT 'agendada';
+
+-- ==================== GERAR CÓDIGOS AUTOMÁTICOS ====================
+-- Para trens sem código
+UPDATE trens 
+SET codigo = CONCAT('TRN-', LPAD(id, 3, '0')) 
+WHERE codigo IS NULL OR codigo = '';
+
+-- Para estações sem código
+UPDATE estacoes 
+SET codigo = CONCAT('EST-', LPAD(id, 3, '0')) 
+WHERE codigo IS NULL OR codigo = '';
+
+-- Para sensores sem código
+UPDATE sensores 
+SET codigo = CONCAT('SENS-', LPAD(id, 3, '0')) 
+WHERE codigo IS NULL OR codigo = '';
+
+-- Atualizar data_ultima_leitura onde há leituras
+UPDATE sensores 
+SET data_ultima_leitura = NOW() 
+WHERE ultima_leitura IS NOT NULL AND data_ultima_leitura IS NULL;
+
+
+
+
+
+-- ==================== TABELA ITINERARIOS ====================
+-- Adicionar todas as colunas necessárias
+ALTER TABLE itinerarios
+ADD COLUMN IF NOT EXISTS nome VARCHAR(255),
+ADD COLUMN IF NOT EXISTS descricao TEXT,
+ADD COLUMN IF NOT EXISTS status VARCHAR(50) DEFAULT 'planejado',
+ADD COLUMN IF NOT EXISTS trem_id INT,
+ADD COLUMN IF NOT EXISTS distancia_total DECIMAL(10,2),
+ADD COLUMN IF NOT EXISTS duracao_total INT,
+ADD COLUMN IF NOT EXISTS numero_rotas INT DEFAULT 0,
+ADD COLUMN IF NOT EXISTS data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN IF NOT EXISTS data_atualizacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+-- Adicionar foreign key para trem_id
+ALTER TABLE itinerarios
+ADD CONSTRAINT IF NOT EXISTS fk_itinerario_trem 
+FOREIGN KEY (trem_id) REFERENCES trens(id) ON DELETE CASCADE;

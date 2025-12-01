@@ -363,19 +363,28 @@ $resultado = $conexao->query($sql);
                 <?php while ($itinerario = $resultado->fetch_assoc()): ?>
                     <div class="itinerario-card">
                         <div class="itinerario-header">
-                            <h3><?php echo htmlspecialchars($itinerario['nome']); ?></h3>
-                            <p>Trem: <?php echo htmlspecialchars($itinerario['trem_codigo']); ?></p>
+                            <h3><?php echo isset($itinerario['nome']) ? htmlspecialchars($itinerario['nome']) : 'Sem nome'; ?>
+                            </h3>
+                            <p>Trem:
+                                <?php echo isset($itinerario['trem_codigo']) ? htmlspecialchars($itinerario['trem_codigo']) : 'N/A'; ?>
+                            </p>
                         </div>
                         <div class="itinerario-body">
-                            <span class="itinerario-status status-<?php echo $itinerario['status']; ?>">
-                                ● <?php echo ucfirst($itinerario['status']); ?>
+                            <span
+                                class="itinerario-status status-<?php echo isset($itinerario['status']) ? $itinerario['status'] : 'planejado'; ?>">
+                                ● <?php echo isset($itinerario['status']) ? ucfirst($itinerario['status']) : 'Planejado'; ?>
                             </span>
 
                             <div class="itinerario-info">
-                                <p><strong>📍 Distância:</strong> <?php echo $itinerario['distancia_total']; ?> km</p>
-                                <p><strong>⏱️ Duração:</strong> <?php echo $itinerario['duracao_total']; ?> min</p>
-                                <p><strong>🛤️ Rotas:</strong> <?php echo $itinerario['numero_rotas']; ?></p>
-                                <?php if ($itinerario['descricao']): ?>
+                                <p><strong>📏 Distância:</strong>
+                                    <?php echo isset($itinerario['distancia_total']) ? $itinerario['distancia_total'] : '0'; ?>
+                                    km</p>
+                                <p><strong>⏱️ Duração:</strong>
+                                    <?php echo isset($itinerario['duracao_total']) ? $itinerario['duracao_total'] : '0'; ?> min
+                                </p>
+                                <p><strong>🛤️ Rotas:</strong>
+                                    <?php echo isset($itinerario['numero_rotas']) ? $itinerario['numero_rotas'] : '0'; ?></p>
+                                <?php if (isset($itinerario['descricao']) && !empty($itinerario['descricao'])): ?>
                                     <p><strong>📝 Descrição:</strong> <?php echo htmlspecialchars($itinerario['descricao']); ?></p>
                                 <?php endif; ?>
                             </div>
@@ -390,9 +399,15 @@ $resultado = $conexao->query($sql);
                     </div>
                 <?php endwhile; ?>
             <?php else: ?>
-                <p style="grid-column: 1 / -1; text-align: center; color: white;">Nenhum itinerário encontrado.</p>
+                <div
+                    style="grid-column: 1 / -1; background: white; padding: 40px; border-radius: 15px; text-align: center;">
+                    <p style="color: #999; font-size: 1.2em;">📭 Nenhum itinerário encontrado.</p>
+                    <p style="color: #999; margin-top: 10px;">
+                        <a href="cadastroitinerário.php" style="color: #667eea;">Clique aqui para cadastrar o primeiro
+                            itinerário</a>
+                    </p>
+                </div>
             <?php endif; ?>
-        </div>
     </main>
 </body>
 
