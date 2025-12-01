@@ -4,6 +4,8 @@ COLLATE utf8mb4_unicode_ci;
 
 USE Ferrovia;
 
+-- Observação: rever se os UPDATEs acima são necessários (há repetições).
+
 -- Tabela: usuarios — dados de login e perfil
 CREATE TABLE IF NOT EXISTS usuarios (
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -288,8 +290,6 @@ WHERE ultima_leitura IS NOT NULL;
 UPDATE sensores 
 SET data_ultima_leitura = NOW() 
 WHERE ultima_leitura IS NOT NULL;
-
--- Observação: rever se os UPDATEs acima são necessários (há repetições).
 
 -- ==================== TABELA SENSORES ====================
 -- Adicionar todas as colunas necessárias
