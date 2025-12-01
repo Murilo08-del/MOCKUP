@@ -395,7 +395,6 @@
                     <div class="feature-icon">👥</div>
                     <h3>Multi-usuário</h3>
                     <p>Perfis diferenciados para funcionários e usuários comuns</p>
-                    http://localhost:1010/SA/MOCKUP-5/html/manutencao.html
                 </div>
             </div>
 
@@ -442,25 +441,25 @@
             <div class="team-grid">
                 <div class="team-member">
                     <div class="avatar">👨‍💻</div>
-                    <h3>João Silva</h3>
+                    <h3>Murilo H. da Costa</h3>
                     <p class="role">Desenvolvedor Full Stack</p>
                     <p>Backend e integração IoT</p>
                 </div>
                 <div class="team-member">
                     <div class="avatar">👩‍💻</div>
-                    <h3>Maria Santos</h3>
+                    <h3>Henrique Gava</h3>
                     <p class="role">Desenvolvedora Frontend</p>
                     <p>Interface e UX/UI</p>
                 </div>
                 <div class="team-member">
                     <div class="avatar">👨‍🔧</div>
-                    <h3>Pedro Costa</h3>
+                    <h3>Vitor Barcelos</h3>
                     <p class="role">Especialista IoT</p>
                     <p>Sensores e Hardware</p>
                 </div>
                 <div class="team-member">
                     <div class="avatar">👩‍💼</div>
-                    <h3>Ana Oliveira</h3>
+                    <h3>Luiz Vinicius</h3>
                     <p class="role">Analista de Dados</p>
                     <p>Relatórios e Analytics</p>
                 </div>
@@ -469,14 +468,12 @@
             <h2>🎓 Contexto Acadêmico</h2>
             <p>
                 Este projeto foi desenvolvido como atividade integradora final do curso técnico,
-                reunindo conhecimentos adquiridos ao longo do semestre em disciplinas como:
+                reunindo conhecimentos adquiridos ao longo das aulas como:
             </p>
             <ul style="color: #666; line-height: 2; margin-left: 30px;">
                 <li><strong>Programação Web:</strong> Desenvolvimento frontend e backend</li>
                 <li><strong>Banco de Dados:</strong> Modelagem e implementação de SGBDs</li>
                 <li><strong>Internet das Coisas (IoT):</strong> Integração com sensores ESP32</li>
-                <li><strong>Redes de Computadores:</strong> Protocolo MQTT e comunicação</li>
-                <li><strong>Engenharia de Software:</strong> Metodologias ágeis e versionamento</li>
             </ul>
 
             <h2>📞 Contato e Suporte</h2>
@@ -484,9 +481,9 @@
                 Para dúvidas, sugestões ou reportar problemas, entre em contato através dos canais:
             </p>
             <ul style="color: #666; line-height: 2; margin-left: 30px;">
-                <li>📧 Email: suporte@sistemaferroviario.com.br</li>
-                <li>💬 GitHub: github.com/seu-usuario/projeto-ferroviario</li>
-                <li>📱 Telefone: (11) 3000-0000</li>
+                <li>📧 Email: murilo_h_da-costa@estudante.sesisenai.org.br</li>
+                <li>💬 https://github.com/Murilo08-del/MOCKUP/</li>
+                <li>📱 Telefone: (47) 99644-8680</li>
             </ul>
 
             <h2>📜 Licença</h2>
