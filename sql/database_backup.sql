@@ -1,7 +1,3 @@
--- BACKUP: Copia do arquivo antes de limpeza
--- Arquivo original salvo pelo assistente
--- Conteúdo original do arquivo `database.sql` (backup completo)
-
 CREATE DATABASE IF NOT EXISTS Ferrovia 
 CHARACTER SET utf8mb4 
 COLLATE utf8mb4_unicode_ci;
@@ -293,7 +289,7 @@ UPDATE sensores
 SET data_ultima_leitura = NOW() 
 WHERE ultima_leitura IS NOT NULL;
 
-não sei oq tá certo ou que tá errado aqui 
+-- Observação: rever se os UPDATEs acima são necessários (há repetições).
 
 -- ==================== TABELA SENSORES ====================
 -- Adicionar todas as colunas necessárias
