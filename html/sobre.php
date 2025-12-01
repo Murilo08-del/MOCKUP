@@ -491,13 +491,6 @@
                 Este projeto é distribuído sob a licença MIT. Você é livre para usar, modificar e distribuir
                 o código, desde que mantenha os créditos aos autores originais.
             </p>
-
-            <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 2px solid #f0f0f0;">
-                <p style="color: #999; font-size: 0.9em;">
-                    © 2024 Sistema Ferroviário Inteligente. Desenvolvido por alunos do curso técnico.<br>
-                    Versão 1.0.0 - Última atualização: Novembro 2024
-                </p>
-            </div>
         </div>
     </main>
 

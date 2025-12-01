@@ -494,7 +494,7 @@ $stats_inativos = $conexao->query("SELECT COUNT(*) as total FROM trens WHERE sta
         .stat-item .value {
             font-size: 1.5em;
             font-weight: bold;
-            color: #d6651aff;
+            color: black;
         }
 
         .stat-item .label {
